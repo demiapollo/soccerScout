@@ -1,4 +1,4 @@
-const { PlayerProfile } = require('../models');
+const { PlayerProfile } = require("../models");
 
 const resolvers = {
   Query: {
@@ -11,14 +11,14 @@ const resolvers = {
   },
 
   Mutation: {
-    addPlayerProfile: async (parent, { name, positions, skills, measurements, Team, School, anyOtherComments }) => {
-      return await PlayerProfile.create({ name, positions, skills, measurements, Team, School, anyOtherComments });
+    addPlayerProfile: async (parent, { ProfileInput }) => {
+      return await PlayerProfile.create({ ProfileInput });
     },
-    
-    updatePlayerProfile: async (parent, { profileId, name, positions, skills, measurements, Team, School, anyOtherComments }) => {
+
+    updatePlayerProfile: async (parent, { ProfileInput }) => {
       return await PlayerProfile.findOneAndUpdate(
         { _id: profileId },
-        { name, positions, skills, measurements, Team, School, anyOtherComments },
+        { ProfileInput },
         { new: true }
       );
     },
