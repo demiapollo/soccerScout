@@ -29,12 +29,11 @@ const profileSchema = new Schema({
   School: {
     type: String,
   },
-  anyOtherComments: [
+  anyOtherComments:
     {
       type: String,
       trim: true,
     },
-  ],
 });
 
 const PlayerProfile = model('PlayerProfile', profileSchema);
