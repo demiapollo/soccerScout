@@ -1,41 +1,29 @@
-const { Profile } = require('../models');
+const { PlayerProfile } = require('../models');
 
 const resolvers = {
   Query: {
-    profiles: async () => {
-      return Profile.find();
+    playerProfiles: async () => {
+      return await PlayerProfile.find();
     },
-
-    profile: async (parent, { profileId }) => {
-      return Profile.findOne({ _id: profileId });
+    playerProfile: async (parent, { profileId }) => {
+      return await PlayerProfile.findOne({ _id: profileId });
     },
   },
 
   Mutation: {
-    addProfile: async (parent, { name }) => {
-      return Profile.create({ name });
+    addPlayerProfile: async (parent, { name, positions, skills, measurements, Team, School, anyOtherComments }) => {
+      return await PlayerProfile.create({ name, positions, skills, measurements, Team, School, anyOtherComments });
     },
-    addSkill: async (parent, { profileId, skill }) => {
-      return Profile.findOneAndUpdate(
+    
+    updatePlayerProfile: async (parent, { profileId, name, positions, skills, measurements, Team, School, anyOtherComments }) => {
+      return await PlayerProfile.findOneAndUpdate(
         { _id: profileId },
-        {
-          $addToSet: { skills: skill },
-        },
-        {
-          new: true,
-          runValidators: true,
-        }
-      );
-    },
-    removeProfile: async (parent, { profileId }) => {
-      return Profile.findOneAndDelete({ _id: profileId });
-    },
-    removeSkill: async (parent, { profileId, skill }) => {
-      return Profile.findOneAndUpdate(
-        { _id: profileId },
-        { $pull: { skills: skill } },
+        { name, positions, skills, measurements, Team, School, anyOtherComments },
         { new: true }
       );
+    },
+    removePlayerProfile: async (parent, { profileId }) => {
+      return await PlayerProfile.findOneAndDelete({ _id: profileId });
     },
   },
 };
