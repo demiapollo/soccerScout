@@ -31,9 +31,21 @@ const client = new ApolloClient({
 
 const App = () => {
   return (
-    <div>
-      <h1>React App</h1>
-    </div>
+    <ApolloProvider client={client}>
+      <Router>
+        <div>
+          {/* Header Here */}
+          <div>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
+            </Routes>
+          </div>
+          {/* Footer Here */}
+        </div>
+      </Router>
+    </ApolloProvider>
   );
 };
 export default App;
