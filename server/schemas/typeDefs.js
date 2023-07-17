@@ -28,7 +28,15 @@ const typeDefs = gql`
       School: String,
       anyOtherComments: String,
       ): PlayerProfile
-    updatePlayerProfile(id: ID!, name: String): PlayerProfile
+    updatePlayerProfile(profileId: ID!, 
+      name: String, 
+      position: String, 
+      skills: String, 
+      dominantFoot: String,
+      Team: String,
+      School: String,
+      anyOtherComments: String,
+      ): PlayerProfile
     removePlayerProfile(profileId: ID!): PlayerProfile
   }
 `;
