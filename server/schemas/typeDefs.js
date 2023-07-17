@@ -18,11 +18,6 @@ const typeDefs = gql`
     dominantFoot: String
   }
 
-  type Auth {
-    token: ID!
-    user: User
-  }
-
   input MeasurementsInput {
     height: Int
     weight: Int
