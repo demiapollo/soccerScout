@@ -1,4 +1,4 @@
-const { gql } = require('apollo-server-express');
+const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
   type PlayerProfile {
@@ -16,6 +16,11 @@ const typeDefs = gql`
     height: Int
     weight: Int
     dominantFoot: String
+  }
+
+  type Auth {
+    token: ID!
+    user: User
   }
 
   input MeasurementsInput {
