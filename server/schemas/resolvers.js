@@ -5,24 +5,24 @@ const resolvers = {
     playerProfiles: async () => {
       return await PlayerProfile.find();
     },
-    playerProfile: async (parent, { profileId }) => {
+    playerProfile: async (root, { profileId }) => {
       return await PlayerProfile.findOne({ _id: profileId });
     },
   },
 
   Mutation: {
-    addPlayerProfile: async (parent, { ProfileInput }) => {
-      return await PlayerProfile.create({ ProfileInput });
+    addPlayerProfile: async (root, { name, position, skills, anyOtherComments  }) => {
+      return await PlayerProfile.create({ name, position, skills, anyOtherComments });
     },
 
-    updatePlayerProfile: async (parent, { ProfileInput }) => {
+    updatePlayerProfile: async (root, { name }) => {
       return await PlayerProfile.findOneAndUpdate(
         { _id: profileId },
-        { ProfileInput },
+        // { ProfileInput },
         { new: true }
       );
     },
-    removePlayerProfile: async (parent, { profileId }) => {
+    removePlayerProfile: async (root, { profileId }) => {
       return await PlayerProfile.findOneAndDelete({ _id: profileId });
     },
   },

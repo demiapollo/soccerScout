@@ -4,10 +4,10 @@ const typeDefs = gql`
   type PlayerProfile {
     _id: ID
     name: String!
-    positions: [String]!
+    position: String
     skills: String
     measurements: Measurements
-    Team: String!
+    Team: String
     School: String
     anyOtherComments: String
   }
@@ -18,21 +18,6 @@ const typeDefs = gql`
     dominantFoot: String
   }
 
-  input MeasurementsInput {
-    height: Int
-    weight: Int
-    dominantFoot: String
-  }
-
-  input ProfileInput {
-    name: String!
-    positions: [String!]!
-    skills: String
-    measurements: MeasurementsInput
-    Team: String!
-    School: String
-    anyOtherComments: [String]
-  }
 
   type Query {
     playerProfiles: [PlayerProfile]!
@@ -40,10 +25,27 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    addPlayerProfile(input: ProfileInput!): PlayerProfile!
-    updatePlayerProfile(id: ID!, input: ProfileInput!): PlayerProfile!
+    addPlayerProfile(name: String!, position: String!, skills: String, anyOtherComments: String): PlayerProfile
+    updatePlayerProfile(id: ID!, name: String): PlayerProfile
     removePlayerProfile(profileId: ID!): PlayerProfile
   }
 `;
 
 module.exports = typeDefs;
+
+
+// input ProfileInput {
+//   name: String!
+//   positions: [String!]!
+//   skills: String
+//   measurements: MeasurementsInput
+//   Team: String!
+//   School: String
+//   anyOtherComments: [String]
+// }
+
+// input MeasurementsInput {
+//   height: Int
+//   weight: Int
+//   dominantFoot: String
+// }

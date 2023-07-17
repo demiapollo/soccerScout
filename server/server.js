@@ -15,19 +15,19 @@ const server = new ApolloServer({
 
 const app = express();
 
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
 
 // starting the server
 const startServer = async () => {
   await server.start();
 
+  // Gql requests coming into our express server will be forwarded to our Apollo Server
+  // this creates an endpoint to GraphQL for our server
   server.applyMiddleware({ app });
 
   app.listen(PORT, () => console.log(`Now listening on port ${PORT}`));
 };
-
 
 // if (process.env.NODE_ENV === "production") {
 //   app.use(express.static(path.join(__dirname, "../client/build")));
