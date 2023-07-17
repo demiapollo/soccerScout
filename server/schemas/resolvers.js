@@ -11,8 +11,8 @@ const resolvers = {
   },
 
   Mutation: {
-    addPlayerProfile: async (root, { name, position, skills, anyOtherComments  }) => {
-      return await PlayerProfile.create({ name, position, skills, anyOtherComments });
+    addPlayerProfile: async (root, { name, position, skills, dominantFoot, team, school, anyOtherComments  }) => {
+      return await PlayerProfile.create({ name, position, skills, dominantFoot, team, school,  anyOtherComments });
     },
 
     updatePlayerProfile: async (root, { name }) => {

@@ -6,26 +6,28 @@ const typeDefs = gql`
     name: String!
     position: String
     skills: String
-    measurements: Measurements
+    dominantFoot: String
     Team: String
     School: String
     anyOtherComments: String
   }
 
-  type Measurements {
-    height: Int
-    weight: Int
-    dominantFoot: String
-  }
-
-
+  
   type Query {
     playerProfiles: [PlayerProfile]!
     playerProfile(profileId: ID!): PlayerProfile
   }
 
   type Mutation {
-    addPlayerProfile(name: String!, position: String!, skills: String, anyOtherComments: String): PlayerProfile
+    addPlayerProfile(
+      name: String!, 
+      position: String!, 
+      skills: String, 
+      dominantFoot: String,
+      Team: String,
+      School: String,
+      anyOtherComments: String,
+      ): PlayerProfile
     updatePlayerProfile(id: ID!, name: String): PlayerProfile
     removePlayerProfile(profileId: ID!): PlayerProfile
   }

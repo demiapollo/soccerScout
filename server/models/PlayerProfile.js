@@ -14,10 +14,8 @@ const profileSchema = new Schema({
     type: String,
     trim: true,
   },
-  measurements: {
-    height: { type: Number, min: 100, max: 215 },
-    weight: { type: Number, min: 30, max: 150 },
-    dominantFoot: { type: String, enum: ["left", "right", "both"] },
+  dominantFoot: {
+    type: String,
   },
   Team: {
     type: String,
