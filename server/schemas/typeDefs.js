@@ -7,8 +7,8 @@ const typeDefs = gql`
     position: String
     skills: String
     dominantFoot: String
-    Team: String
-    School: String
+    team: String
+    school: String
     anyOtherComments: String
   }
 
@@ -24,8 +24,8 @@ const typeDefs = gql`
       position: String!, 
       skills: String, 
       dominantFoot: String,
-      Team: String,
-      School: String,
+      team: String,
+      school: String,
       anyOtherComments: String,
       ): PlayerProfile
     updatePlayerProfile(profileId: ID!, 
@@ -33,8 +33,8 @@ const typeDefs = gql`
       position: String, 
       skills: String, 
       dominantFoot: String,
-      Team: String,
-      School: String,
+      team: String,
+      school: String,
       anyOtherComments: String,
       ): PlayerProfile
     removePlayerProfile(profileId: ID!): PlayerProfile

@@ -17,14 +17,16 @@ const resolvers = {
 
     updatePlayerProfile: async (root, { profileId, name, position, skills, dominantFoot, team, school, anyOtherComments  }) => {
       return await PlayerProfile.findOneAndUpdate(
-        { _id: profileId },
-        { name },
-        { position },
-        { skills },
-        { dominantFoot },
-        { team },
-        { school },
-        { anyOtherComments },
+        { _id: profileId},
+        { 
+        name: name,
+        position: position,
+        skills,
+        dominantFoot,
+        team,
+        school,
+        anyOtherComments
+        },
         // { ProfileInput },
         { new: true }
       );

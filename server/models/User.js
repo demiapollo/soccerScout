@@ -12,6 +12,6 @@
 
 // module.exports = User;
 
-// Our users are soccer scouts. 
+// Our users are soccer scouts.
 // They will be able to create a profile for each player they scout.
 // We probably do not need a user model for this app.
