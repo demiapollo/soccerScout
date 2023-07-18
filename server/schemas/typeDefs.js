@@ -12,6 +12,12 @@ const typeDefs = gql`
     anyOtherComments: String
   }
 
+  type Country {
+    _id: ID
+    country: String
+    playerIDs: [PlayerProfile]
+  }
+
   type User {
     _id: ID
     name: String

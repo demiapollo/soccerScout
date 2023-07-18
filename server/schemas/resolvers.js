@@ -1,5 +1,6 @@
 const { PlayerProfile } = require("../models");
 const { User } = require("../models");
+const { Country } = require("../models");
 const { AuthenticationError } = require("apollo-server-express");
 const { signToken } = require("../utils/auth");
 
@@ -19,6 +20,15 @@ const resolvers = {
     // get a single user
     user: async (root, { userId }) => {
       return await User.findOne({ _id: userId });
+    },
+
+    // get all countries
+    countries: async () => {
+      return await Country.find();
+    },
+    // get a single country
+    country: async (root, { countryId }) => {
+      return await Country.findOne({ _id: countryId });
     },
 
     // By adding context to our query, we can retrieve the logged in user without specifically searching for them
