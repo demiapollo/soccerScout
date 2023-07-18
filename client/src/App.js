@@ -40,6 +40,8 @@ const App = () => {
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/playerProfile/:id" element={<PlayerProfile />} />
             </Routes>
           </div>
           {/* Footer Here */}
@@ -49,3 +51,13 @@ const App = () => {
   );
 };
 export default App;
+
+// Home Page ----- // PlayerList Component
+// Sign up Page ----- // SignupForm Component
+// profile page ---- // PlayerList (My Players) // PlayerList (Following Playyers)
+// Create Player Page ----- // CreatePlayerForm Component
+// Search Feature Component ------ // Search Tabs Component // Profile Dropdown Component OR Login/Signup Component
+
+// Tabs Result Page ----- // Tab List Component // PlayerList Component
+
+// Player Profile Page ----- // Player Profile Component // Comment Box Component // Comment List Component // Follow Button Component
