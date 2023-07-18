@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model } = require("mongoose");
 
 const profileSchema = new Schema({
   name: {
@@ -6,37 +6,30 @@ const profileSchema = new Schema({
     required: true,
     trim: true,
   },
-  positions: [
-    {
-      type: String,
-      enum: ['goalie', 'defense', 'midfield', 'forward' ],
-    }
-  ],
-  skills: 
-    {
-      type: String,
-      trim: true,
-    },
-  measurements: {
-    height: {type: Number, min: 100, max: 215},
-    weight: {type: Number, min: 30, max: 150},
-    dominantFoot: {type: String, enum: ['left', 'right', 'both']},
+  position: {
+    type: String,
+    // enum: ['goalie', 'defense', 'midfield', 'forward' ],
+  },
+  skills: {
+    type: String,
+    trim: true,
+  },
+  dominantFoot: {
+    type: String,
   },
   Team: {
     type: String,
-    required: true,
+    // required: true,
   },
   School: {
     type: String,
   },
-  anyOtherComments: [
-    {
-      type: String,
-      trim: true,
-    },
-  ],
+  anyOtherComments: {
+    type: String,
+    // trim: true,
+  },
 });
 
-const PlayerProfile = model('PlayerProfile', profileSchema);
+const PlayerProfile = model("PlayerProfile", profileSchema);
 
 module.exports = PlayerProfile;

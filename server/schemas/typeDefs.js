@@ -1,23 +1,61 @@
-const { gql } = require('apollo-server-express');
+const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
-  type Profile {
+  type PlayerProfile {
     _id: ID
-    name: String
-    skills: [String]!
+    name: String!
+    position: String
+    skills: String
+    dominantFoot: String
+    team: String
+    school: String
+    anyOtherComments: String
   }
 
+  
   type Query {
-    profiles: [Profile]!
-    profile(profileId: ID!): Profile
+    playerProfiles: [PlayerProfile]!
+    playerProfile(profileId: ID!): PlayerProfile
   }
 
   type Mutation {
-    addProfile(name: String!): Profile
-    addSkill(profileId: ID!, skill: String!): Profile
-    removeProfile(profileId: ID!): Profile
-    removeSkill(profileId: ID!, skill: String!): Profile
+    addPlayerProfile(
+      name: String!, 
+      position: String!, 
+      skills: String, 
+      dominantFoot: String,
+      team: String,
+      school: String,
+      anyOtherComments: String,
+      ): PlayerProfile
+    updatePlayerProfile(profileId: ID!, 
+      name: String, 
+      position: String, 
+      skills: String, 
+      dominantFoot: String,
+      team: String,
+      school: String,
+      anyOtherComments: String,
+      ): PlayerProfile
+    removePlayerProfile(profileId: ID!): PlayerProfile
   }
 `;
 
 module.exports = typeDefs;
+
+
+// input ProfileInput {
+//   name: String!
+//   positions: [String!]!
+//   skills: String
+//   measurements: MeasurementsInput
+//   Team: String!
+//   School: String
+//   anyOtherComments: [String]
+// }
+
+// input MeasurementsInput {
+//   height: Int
+//   weight: Int
+//   dominantFoot: String
+// }
