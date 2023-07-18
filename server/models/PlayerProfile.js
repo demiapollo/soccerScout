@@ -1,4 +1,5 @@
 const { Schema, model } = require("mongoose");
+// const Country = require("./Country");
 
 const profileSchema = new Schema({
   name: {
@@ -20,13 +21,21 @@ const profileSchema = new Schema({
     type: String,
   },
   country: {
-    type: String,
-    required: true,
+    type: Schema.Types.ObjectId,
+    required: "Country",
   },
   anyOtherComments: {
     type: String,
   },
-});
+},
+// testing to see if this helps
+// {
+//     toJSON: {
+//       virtuals: true,
+//     },
+//     id: false,
+//   }
+);
 
 const PlayerProfile = model("PlayerProfile", profileSchema);
 
