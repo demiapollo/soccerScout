@@ -10,6 +10,8 @@ import { setContext } from "@apollo/client/link/context";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
+import Login from "./pages/Login";
+
 const httpLink = createHttpLink({
   uri: "/graphql",
 });
@@ -35,7 +37,7 @@ const App = () => {
       <Router>
         <div>
           {/* Header Here */}
-          <h1>Hello World</h1>
+
           <div>
             <Routes>
               {/* <Route path="/" element={<Home />} />
