@@ -73,9 +73,9 @@ const resolvers = {
   },
 
     // add a user mutation
-    addUser: async (root, { name, email, password }) => {
-      const User = await User.create({ name, email, password });
-      const token = signToken(User);
+    addUser: async (root, { username, email, password }) => {
+      const user = await User.create({ username, email, password });
+      const token = signToken(user);
       return { token, user };
     },
     // login mutation
