@@ -20,6 +20,15 @@ const resolvers = {
     user: async (root, { userId }) => {
       return await User.findOne({ _id: userId });
     },
+
+    // By adding context to our query, we can retrieve the logged in user without specifically searching for them
+    me: async (parent, args, context) => {
+      if (context.user) {
+        return Profile.findOne({ _id: context.user._id });
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    },
+
   },
 
   Mutation: {
@@ -27,7 +36,8 @@ const resolvers = {
       return await PlayerProfile.create({ name, position, skills, dominantFoot, team, country,  anyOtherComments });
     },
 
-    updatePlayerProfile: async (root, { profileId, name, position, skills, dominantFoot, team, country, anyOtherComments  }) => {
+    updatePlayerProfile: async (root, { profileId, name, position, skills, dominantFoot, team, country, anyOtherComments  }, context) => {
+      if (context.user) {
       return await PlayerProfile.findOneAndUpdate(
         { _id: profileId},
         { 
@@ -42,10 +52,15 @@ const resolvers = {
      
         { new: true }
       );
-    },
-    removePlayerProfile: async (root, { profileId }) => {
+    }
+    throw new AuthenticationError('You need to be logged in!');
+  },
+    removePlayerProfile: async (root, { profileId }, context) => {
+      if (context.user) {
       return await PlayerProfile.findOneAndDelete({ _id: profileId });
-    },
+    }
+    throw new AuthenticationError('You need to be logged in!');
+  },
 
     // add a user mutation
     addUser: async (root, { name, email, password }) => {
