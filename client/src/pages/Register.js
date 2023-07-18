@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
       width: "300px",
     },
   },
+
   button: {
     margin: theme.spacing(2),
     color: "white",
@@ -25,10 +26,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Login = () => {
+const Register = () => {
   const classes = useStyles();
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+  };
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -40,14 +46,22 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("Name:", name);
     console.log("Email:", email);
     console.log("Password:", password);
   };
 
   return (
     <div>
-      <h2>Login</h2>
+      <h2>Register</h2>
       <form className={classes.root} onSubmit={handleSubmit}>
+        <TextField
+          label="Name"
+          type="text"
+          value={name}
+          onChange={handleNameChange}
+          required
+        />
         <TextField
           label="Email"
           type="email"
@@ -63,16 +77,22 @@ const Login = () => {
           required
         />
         <Button
+          id="registerButton"
           className={classes.button}
-          variant="contained"
+          variant="outlined"
           color="primary"
           type="submit"
         >
-          Submit
+          Register
         </Button>
-        <Link to="/register">
-          <Button className={classes.button} variant="outlined" color="primary">
-            Dont have an account? Register here
+        <Link to="/login">
+          <Button
+            id="loginButton"
+            className={classes.button}
+            variant="outlined"
+            color="primary"
+          >
+            Already have an account? Login
           </Button>
         </Link>
       </form>
@@ -80,4 +100,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
