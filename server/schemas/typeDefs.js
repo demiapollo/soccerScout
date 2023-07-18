@@ -8,10 +8,14 @@ const typeDefs = gql`
     skills: String
     dominantFoot: String
     team: String
-    school: String
+    country: String
     anyOtherComments: String
   }
 
+  type Auth {
+    token: ID!
+    profile: Profile
+  }
   
   type Query {
     playerProfiles: [PlayerProfile]!
@@ -25,7 +29,7 @@ const typeDefs = gql`
       skills: String, 
       dominantFoot: String,
       team: String,
-      school: String,
+      country: String,
       anyOtherComments: String,
       ): PlayerProfile
     updatePlayerProfile(profileId: ID!, 
@@ -34,7 +38,7 @@ const typeDefs = gql`
       skills: String, 
       dominantFoot: String,
       team: String,
-      school: String,
+      country: String,
       anyOtherComments: String,
       ): PlayerProfile
     removePlayerProfile(profileId: ID!): PlayerProfile
@@ -44,18 +48,4 @@ const typeDefs = gql`
 module.exports = typeDefs;
 
 
-// input ProfileInput {
-//   name: String!
-//   positions: [String!]!
-//   skills: String
-//   measurements: MeasurementsInput
-//   Team: String!
-//   School: String
-//   anyOtherComments: [String]
-// }
-
-// input MeasurementsInput {
-//   height: Int
-//   weight: Int
-//   dominantFoot: String
-// }
+// profile is user/scout profile

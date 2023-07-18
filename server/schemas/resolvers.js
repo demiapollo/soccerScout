@@ -11,11 +11,11 @@ const resolvers = {
   },
 
   Mutation: {
-    addPlayerProfile: async (root, { name, position, skills, dominantFoot, team, school, anyOtherComments  }) => {
-      return await PlayerProfile.create({ name, position, skills, dominantFoot, team, school,  anyOtherComments });
+    addPlayerProfile: async (root, { name, position, skills, dominantFoot, team, country, anyOtherComments  }) => {
+      return await PlayerProfile.create({ name, position, skills, dominantFoot, team, country,  anyOtherComments });
     },
 
-    updatePlayerProfile: async (root, { profileId, name, position, skills, dominantFoot, team, school, anyOtherComments  }) => {
+    updatePlayerProfile: async (root, { profileId, name, position, skills, dominantFoot, team, country, anyOtherComments  }) => {
       return await PlayerProfile.findOneAndUpdate(
         { _id: profileId},
         { 
@@ -24,7 +24,7 @@ const resolvers = {
         skills,
         dominantFoot,
         team,
-        school,
+        country,
         anyOtherComments
         },
         // { ProfileInput },

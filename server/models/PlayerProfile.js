@@ -8,7 +8,6 @@ const profileSchema = new Schema({
   },
   position: {
     type: String,
-    // enum: ['goalie', 'defense', 'midfield', 'forward' ],
   },
   skills: {
     type: String,
@@ -17,16 +16,15 @@ const profileSchema = new Schema({
   dominantFoot: {
     type: String,
   },
-  Team: {
+  team: {
     type: String,
-    // required: true,
   },
-  School: {
+  country: {
     type: String,
+    required: true,
   },
   anyOtherComments: {
     type: String,
-    // trim: true,
   },
 });
 
