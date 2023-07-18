@@ -3,7 +3,7 @@ import { AppBar, Toolbar, Typography, TextField, Button, IconButton, Popover, Li
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 
-const NavBar = () => {
+const Navbar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [filterAnchorEl, setFilterAnchorEl] = useState(null);
 
@@ -81,4 +81,4 @@ const NavBar = () => {
   );
 };
 
-export default NavBar;
+export default Navbar;
