@@ -1,3 +1,4 @@
 const PlayerProfile = require('./PlayerProfile');
+const User = require('./UserProfile');
 
-module.exports = { PlayerProfile };
+module.exports = { PlayerProfile, User };

@@ -12,9 +12,16 @@ const typeDefs = gql`
     anyOtherComments: String
   }
 
+  type User {
+    _id: ID
+    name: String
+    email: String
+    password: String
+  }
+
   type Auth {
     token: ID!
-    profile: Profile
+    user: User
   }
   
   type Query {
