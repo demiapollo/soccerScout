@@ -55,6 +55,8 @@ const typeDefs = gql`
       anyOtherComments: String,
       ): PlayerProfile
     removePlayerProfile(profileId: ID!): PlayerProfile
+    addUser(username: String!, email: String!, password: String!): Auth
+    login(email: String!, password: String!): Auth
   }
 `;
 
