@@ -35,13 +35,14 @@ const App = () => {
       <Router>
         <div>
           {/* Header Here */}
+          <h1>Hello World</h1>
           <div>
             <Routes>
-              <Route path="/" element={<Home />} />
+              {/* <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/profile" element={<Profile />} />
-              <Route path="/playerProfile/:id" element={<PlayerProfile />} />
+              <Route path="/playerProfile/:id" element={<PlayerProfile />} /> */}
             </Routes>
           </div>
           {/* Footer Here */}
