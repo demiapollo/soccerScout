@@ -33,6 +33,11 @@ const typeDefs = gql`
   type Query {
     playerProfiles: [PlayerProfile]!
     playerProfile(profileId: ID!): PlayerProfile
+    countries: [Country]!
+    country(countryId: ID!): Country
+    users: [User]!
+    user(userId: ID!): User
+    me: User
   }
 
   type Mutation {
