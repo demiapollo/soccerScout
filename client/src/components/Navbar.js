@@ -1,12 +1,16 @@
+// Navbar.js
+
 import React, { useState } from 'react';
-import { AppBar, Toolbar, Typography, TextField, Button, IconButton, Popover, List, ListItem, ListItemText, Menu, MenuItem, Tabs, Tab } from '@material-ui/core';
+import { AppBar, Toolbar, Typography, TextField, Button, IconButton, Menu, MenuItem } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import SearchTabs from './SearchTabs';
 
 const Navbar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [filterAnchorEl, setFilterAnchorEl] = useState(null);
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);  // currently set to true to display w/o logic in the back-end
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -24,9 +28,6 @@ const Navbar = () => {
     setFilterAnchorEl(null);
   };
 
-  const filterOpen = Boolean(filterAnchorEl);
-  const id = filterOpen ? 'simple-popover' : undefined;
-
   const handleTabChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -38,29 +39,20 @@ const Navbar = () => {
           <Typography variant="h3" style={{ flexGrow: 1 }}>
             Soccer Scout
           </Typography>
-          <IconButton color="inherit" onClick={handleFilterClick}>
-            <MenuIcon />
-          </IconButton>
-          <Popover
-            id={id}
-            open={filterOpen}
-            anchorEl={filterAnchorEl}
-            onClose={handleFilterClose}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'center',
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'center',
-            }}
-          >
-            <Tabs value={value} onChange={handleTabChange} aria-label="simple tabs example">
-              <Tab label="Countries" />
-              <Tab label="Teams" />
-              <Tab label="Leagues" />
-            </Tabs>
-          </Popover>
+          {isLoggedIn && (   // Only show the menu button if the user is logged in
+            <IconButton color="inherit" onClick={handleFilterClick}>
+              <MenuIcon />
+            </IconButton>
+          )}
+          {isLoggedIn && (   // Only show the SearchTabs if the user is logged in
+            <SearchTabs
+              filterOpen={Boolean(filterAnchorEl)}
+              handleFilterClose={handleFilterClose}
+              filterAnchorEl={filterAnchorEl}
+              handleTabChange={handleTabChange}
+              value={value}
+            />
+          )}
           <TextField id="input-with-icon-textfield" />
           <Button color="inherit">Home</Button>
           <Button color="inherit">Dashboard</Button>
