@@ -23,7 +23,6 @@ const Profile = () => {
       // margin: theme.spacing(3),
       // border only on the left and right side
       borderLeft: "1px solid #000000",
-      borderRight: "1px solid #000000",
     },
     icon: {
       height: "100px",
