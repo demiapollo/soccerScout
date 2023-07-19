@@ -24,11 +24,37 @@ const resolvers = {
 
     // get all countries
     countries: async () => {
-      return await Country.find();
+      //return await Country.find();
+      const users = await PlayerProfile.find();
+
+      const countries = users.map((user) => user.country);
+
+      const uniqueCountries = [...new Set(countries)];
+
+      const validCountries = uniqueCountries.filter((country) => !!country);
+
+  
+      return validCountries.map((country, index) => {
+        return {
+          _id: index,
+          country,
+        };
+      })
     },
     // get a single country
     country: async (root, { countryId }) => {
-      return await Country.findOne({ _id: countryId });
+      return await PlayerProfile.findOne({ _id: countryId });
+    },
+
+
+    playerByCountry: async (root, { country }) => {
+      try {
+        const players = await PlayerProfile.find({ country: country });
+        return players;
+      } catch (err) {
+        console.log(err);
+        return [];
+      }
     },
 
     // By adding context to our query, we can retrieve the logged in user without specifically searching for them

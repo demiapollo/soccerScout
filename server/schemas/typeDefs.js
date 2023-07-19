@@ -15,7 +15,7 @@ const typeDefs = gql`
   type Country {
     _id: ID
     country: String
-    playerIDs: [PlayerProfile]
+  
   }
 
   type User {
@@ -30,11 +30,15 @@ const typeDefs = gql`
     user: User
   }
   
+ 
+
+
   type Query {
     playerProfiles: [PlayerProfile]!
     playerProfile(profileId: ID!): PlayerProfile
     countries: [Country]!
     country(countryId: ID!): Country
+    playerByCountry(country: String!): [PlayerProfile]
     users: [User]!
     user(userId: ID!): User
     me: User
