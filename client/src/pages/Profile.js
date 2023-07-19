@@ -28,7 +28,6 @@ const Profile = () => {
     icon: {
       height: "100px",
       width: "100px",
-      paddingTop: theme.spacing(6),
       margin: theme.spacing(6),
     },
   }));
@@ -48,31 +47,23 @@ const Profile = () => {
   return (
     <div>
       <Grid container>
-        <Grid
-          container
-          direction="column"
-          alignContent="center"
-          justifyContent="center"
-          xs={3}
-          className={classes.root}
-        >
+        <Grid container direction="column" alignContent="center" xs={3}>
           <PersonIcon className={classes.icon} />
 
           <Typography variant="h4" align="center">
             User
           </Typography>
         </Grid>
-        <Grid container xs={6} direction="column" className={classes.root}>
-          <UserTab />
-        </Grid>
         <Grid
           container
+          xs={6}
           direction="column"
-          alignContent="center"
-          justifyContent="center"
-          xs={3}
           className={classes.root}
+          style={{ height: "100vh" }}
         >
+          <UserTab />
+        </Grid>
+        <Grid container direction="column" alignContent="center" xs={3}>
           <Typography variant="h4" className={classes.header} align="center">
             {" "}
             BUTTON FOR ADDING PLAYERS{" "}
