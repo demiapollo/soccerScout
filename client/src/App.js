@@ -8,6 +8,11 @@ import {
 import Home from "./pages/Home";
 import { setContext } from "@apollo/client/link/context";
 
+
+
+
+
+
 import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
 
 const httpLink = createHttpLink({
@@ -35,7 +40,9 @@ const App = () => {
       <Router>
         <div>
           {/* Header Here */}
+
           <Home />
+
           <div>
             <Routes>
               {/* <Route path="/" element={<Home />} />
@@ -52,6 +59,8 @@ const App = () => {
   );
 };
 export default App;
+
+
 
 // Home Page ----- // PlayerList Component
 // Sign up Page ----- // SignupForm Component
