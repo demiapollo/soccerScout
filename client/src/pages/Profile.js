@@ -47,9 +47,13 @@ const Profile = () => {
     <div>
       <Grid container>
         <Grid container direction="column" alignContent="center" xs={3}>
-          <PersonIcon className={classes.icon} />
+          <Avatar className={classes.icon} />
 
-          <Typography variant="h4" align="center">
+          <Typography
+            variant="h4"
+            align="center"
+            {...stringAvatar("Kent Dodds")}
+          >
             User
           </Typography>
         </Grid>
