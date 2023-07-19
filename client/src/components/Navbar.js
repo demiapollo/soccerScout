@@ -1,10 +1,13 @@
 // Navbar.js
 
 import React, { useState } from 'react';
-import { AppBar, Toolbar, Typography, TextField, Button, IconButton, Menu, MenuItem } from '@material-ui/core';
+import { AppBar, Toolbar, Typography, TextField, Button, IconButton, Menu } from '@material-ui/core';
+
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import SearchTabs from './SearchTabs';
+import Account from './Account';
+
 
 const Navbar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -59,15 +62,10 @@ const Navbar = () => {
           <IconButton color="inherit" onClick={handleClick}>
             <AccountCircle />
           </IconButton>
-          <Menu
-            anchorEl={anchorEl}
-            keepMounted
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-          >
-            <MenuItem onClick={handleClose}>Profile</MenuItem>
-            <MenuItem onClick={handleClose}>Sign Out</MenuItem>
+          <Menu anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
+            <Account handleClose={handleClose} />
           </Menu>
+
         </Toolbar>
       </AppBar>
     </div>
