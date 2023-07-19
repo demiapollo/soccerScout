@@ -51,18 +51,12 @@ const Profile = () => {
         </Grid>
         <Grid
           container
-          xs={6}
+          xs={9}
           direction="column"
           className={classes.root}
           style={{ height: "100vh" }}
         >
           <UserTab />
-        </Grid>
-        <Grid container direction="column" alignContent="center" xs={3}>
-          <Typography variant="h4" className={classes.header} align="center">
-            {" "}
-            BUTTON FOR ADDING PLAYERS{" "}
-          </Typography>
         </Grid>
       </Grid>
     </div>

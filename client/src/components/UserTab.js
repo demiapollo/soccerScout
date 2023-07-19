@@ -26,20 +26,22 @@ const UserTab = () => {
     <div>
       <div>
         <Tabs value={value} onChange={handleChange}>
-          <Tab label="Settings" {...a11yProps(0)} />
-          <Tab label="Your Players" {...a11yProps(1)} />
+          <Tab label="Your Players" {...a11yProps(0)} />
+          <Tab label="Create Players" {...a11yProps(1)} />
           <Tab label="Following" {...a11yProps(2)} />
+          <Tab label="Settings" {...a11yProps(3)} />
         </Tabs>
       </div>
       <div>
-        <TabPanel value={value} index={0}>
-          <Settings />
-        </TabPanel>
+        <TabPanel value={value} index={0}></TabPanel>
         <TabPanel value={value} index={1}>
           {/* <PlayerList /> */}
         </TabPanel>
         <TabPanel value={value} index={2}>
           {/* <PlayerList /> */}
+        </TabPanel>
+        <TabPanel value={value} index={3}>
+          <Settings />
         </TabPanel>
       </div>
     </div>
