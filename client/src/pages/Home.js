@@ -5,6 +5,11 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { useQuery, gql } from "@apollo/client";
 import { Link } from "react-router-dom";
+import { GET_PLAYER_PROFILES, 
+  GET_PLAYER_PROFILE, 
+  GET_COUNTRIES,
+  GET_PLAYER_BY_COUNTRY 
+ } from "../graphQL/queries";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,20 +48,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const GET_PLAYER_PROFILES = gql`
-  query GetPlayerProfiles {
-    playerProfiles {
-      _id
-      name
-      position
-      skills
-      dominantFoot
-      team
-      country
-      anyOtherComments
-    }
-  }
-`;
+// const GET_PLAYER_PROFILES = gql`
+//   query GetPlayerProfiles {
+//     playerProfiles {
+//       _id
+//       name
+//       position
+//       skills
+//       dominantFoot
+//       team
+//       country
+//       anyOtherComments
+//     }
+//   }
+// `;
 
 const Home = () => {
   const classes = useStyles();
