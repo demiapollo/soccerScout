@@ -11,6 +11,7 @@ import DashboardIcon from "@material-ui/icons/Dashboard";
 import TabPanel from "./TabPanel";
 
 import Settings from "./Settings";
+import PlayerList from "./PlayerList";
 
 const a11yProps = (index) => {
   return {
@@ -37,10 +38,10 @@ const UserTab = () => {
         </Tabs>
       </div>
       <div>
-        <TabPanel value={value} index={0}></TabPanel>
-        <TabPanel value={value} index={1}>
-          {/* <PlayerList /> */}
+        <TabPanel value={value} index={0}>
+          <PlayerList />
         </TabPanel>
+        <TabPanel value={value} index={1}></TabPanel>
         <TabPanel value={value} index={2}>
           {/* <PlayerList /> */}
         </TabPanel>
