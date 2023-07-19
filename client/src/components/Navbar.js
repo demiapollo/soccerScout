@@ -1,12 +1,12 @@
 // Navbar.js
 
 import React, { useState } from 'react';
-import { AppBar, Toolbar, Typography, TextField, Button, IconButton, Menu } from '@material-ui/core';
+import { AppBar, Toolbar, Typography, IconButton, Menu } from '@material-ui/core';
 
 import MenuIcon from '@material-ui/icons/Menu';
-import AccountCircle from '@material-ui/icons/AccountCircle';
 import SearchTabs from './SearchTabs';
-import Account from './Account';
+import SearchBar from './SearchBar';
+import NavButtons from './NavButtons';
 
 
 const Navbar = () => {
@@ -42,12 +42,12 @@ const Navbar = () => {
           <Typography variant="h3" style={{ flexGrow: 1 }}>
             Soccer Scout
           </Typography>
-          {isLoggedIn && (   // Only show the menu button if the user is logged in
+          {isLoggedIn && (
             <IconButton color="inherit" onClick={handleFilterClick}>
               <MenuIcon />
             </IconButton>
           )}
-          {isLoggedIn && (   // Only show the SearchTabs if the user is logged in
+          {isLoggedIn && (
             <SearchTabs
               filterOpen={Boolean(filterAnchorEl)}
               handleFilterClose={handleFilterClose}
@@ -56,16 +56,8 @@ const Navbar = () => {
               value={value}
             />
           )}
-          <TextField id="input-with-icon-textfield" />
-          <Button color="inherit">Home</Button>
-          <Button color="inherit">Dashboard</Button>
-          <IconButton color="inherit" onClick={handleClick}>
-            <AccountCircle />
-          </IconButton>
-          <Menu anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
-            <Account handleClose={handleClose} />
-          </Menu>
-
+          <SearchBar />
+          <NavButtons handleClick={handleClick} anchorEl={anchorEl} handleClose={handleClose} />
         </Toolbar>
       </AppBar>
     </div>
