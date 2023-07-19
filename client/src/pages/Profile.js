@@ -40,20 +40,7 @@ function CustomTabPanel(props) {
   );
 }
 
-function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
-  };
-}
-
 const Profile = () => {
-  const [value, setValue] = React.useState(0);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
   const useStyles = makeStyles((theme) => ({
     root: {
       // margin: theme.spacing(3),
@@ -123,41 +110,3 @@ const Profile = () => {
 };
 
 export default Profile;
-
-{
-  //   <div>
-  //   <Tabs
-  //     value={value}
-  //     onChange={handleChange}
-  //     aria-label="basic tabs example"
-  //   >
-  //     <Tab label="Profile Settings" {...a11yProps(0)} />
-  //     <Tab label="Your Players" {...a11yProps(1)} />
-  //   </Tabs>
-  // </div>
-  /* <Grid className={classes.info}>
-<CustomTabPanel value={value} index={0}>
-  <div style={{ display: "flex", justifyContent: "center" }}>
-    <FormControl className={classes.form}>
-      <InputLabel htmlFor="username">Username</InputLabel>
-      <Input id="username" value="Thisismyusername" disabled />
-    </FormControl>
-    <EditIcon style={{ paddingTop: "60px" }} />
-  </div>
-  <div style={{ display: "flex", justifyContent: "center" }}>
-    <FormControl className={classes.form}>
-      <InputLabel htmlFor="email">Email</InputLabel>
-      <Input id="email" value="asdjflasfj@asdfasdf.com" disabled />
-    </FormControl>
-    <EditIcon style={{ paddingTop: "60px" }} />
-  </div>
-  <Button
-    variant="contained"
-    color="primary"
-    className={classes.button}
-  >
-    Save Changes
-  </Button>
-</CustomTabPanel>
-</Grid> */
-}
