@@ -42,9 +42,9 @@ const resolvers = {
       })
     },
     // get a single country
-    country: async (root, { countryId }) => {
-      return await PlayerProfile.findOne({ _id: countryId });
-    },
+    // country: async (root, { countryId }) => {
+    //   return await PlayerProfile.findOne({ _id: countryId });
+    // },
 
 
     playerByCountry: async (root, { country }) => {
