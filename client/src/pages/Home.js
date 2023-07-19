@@ -4,6 +4,7 @@ import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { useQuery, gql } from "@apollo/client";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -100,13 +101,15 @@ const Home = () => {
           </Typography>
         ) : (
           playerProfiles.map((player) => (
-            <div key={player.id} className={classes.playerCard}>
-              <Typography variant="h5">{player.name}</Typography>
-              <Typography variant="body1">Age: {player.age}</Typography>
-              <Typography variant="body1">Height: {player.height}</Typography>
-              <Typography variant="body1">Weight: {player.weight}</Typography>
-              <Typography variant="body1">Team: {player.team}</Typography>
-            </div>
+            <Link to={`/PlayerProfile/${player.id}`} key={player.id}>
+              <div className={classes.playerCard}>
+                <Typography variant="h5">{player.name}</Typography>
+                <Typography variant="body1">Age: {player.age}</Typography>
+                <Typography variant="body1">Height: {player.height}</Typography>
+                <Typography variant="body1">Weight: {player.weight}</Typography>
+                <Typography variant="body1">Team: {player.team}</Typography>
+              </div>
+            </Link>
           ))
         )}
       </div>
