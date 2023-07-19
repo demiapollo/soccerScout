@@ -12,6 +12,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Login from "./pages/Login";
 import Navbar from "./components/Navbar.js";
+import PlayerList from './components/PlayerList';  // import the new component
+
 
 
 const httpLink = createHttpLink({
@@ -40,7 +42,7 @@ const App = () => {
         <div>
           {/* Header Here */}
           <Navbar /> {/* Include the Navigation component */}
-
+          <PlayerList /> {/* Add the PlayerList component here */}
           <div>
             <Routes>
               {/* <Route path="/" element={<Home />} />
