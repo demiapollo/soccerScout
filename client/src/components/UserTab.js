@@ -36,10 +36,10 @@ const UserTab = () => {
           <Settings />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <h1>Players</h1>
+          {/* <PlayerList /> */}
         </TabPanel>
         <TabPanel value={value} index={2}>
-          <h1>Following</h1>
+          {/* <PlayerList /> */}
         </TabPanel>
       </div>
     </div>
