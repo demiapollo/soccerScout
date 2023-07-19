@@ -19,3 +19,14 @@ export const stringToColor = (string) => {
 
   return color;
 };
+
+export const stringAvatar = (name) => {
+  const here = {
+    style: {
+      backgroundColor: stringToColor(name),
+    },
+    children: `${name.split("")[0]}${name.split("")[1]}`,
+  };
+  console.log(here);
+  return here;
+};
