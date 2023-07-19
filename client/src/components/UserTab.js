@@ -3,6 +3,10 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { Tabs, Tab } from "@material-ui/core";
+import SettingsIcon from "@material-ui/icons/Settings";
+import StarIcon from "@material-ui/icons/Star";
+import AddIcon from "@material-ui/icons/Add";
+import DashboardIcon from "@material-ui/icons/Dashboard";
 
 import TabPanel from "./TabPanel";
 
@@ -26,10 +30,10 @@ const UserTab = () => {
     <div>
       <div>
         <Tabs value={value} onChange={handleChange}>
-          <Tab label="Your Players" {...a11yProps(0)} />
-          <Tab label="Create Players" {...a11yProps(1)} />
-          <Tab label="Following" {...a11yProps(2)} />
-          <Tab label="Settings" {...a11yProps(3)} />
+          <Tab label="Dashboard" icon={<DashboardIcon />} {...a11yProps(0)} />
+          <Tab label="Create" icon={<AddIcon />} {...a11yProps(1)} />
+          <Tab label="Following" icon={<StarIcon />} {...a11yProps(2)} />
+          <Tab label="Settings" icon={<SettingsIcon />} {...a11yProps(3)} />
         </Tabs>
       </div>
       <div>

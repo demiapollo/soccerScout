@@ -8,6 +8,7 @@ import {
   InputLabel,
   Input,
   InputAdornment,
+  Typography,
 } from "@material-ui/core";
 
 import EditIcon from "@material-ui/icons/Edit";
@@ -22,21 +23,30 @@ const Settings = () => {
   const [enableUsername, setEnableUsername] = useState(true);
   const [enableEmail, setEnableEmail] = useState(true);
 
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      height: "100vh",
+    },
+    form: {
+      width: "50%",
+      marginBottom: "75px",
+    },
+    button: {
+      width: "10%",
+      height: "45px",
+      marginTop: "50px",
+    },
+  }));
+
+  const classes = useStyles();
+
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <FormControl
-        style={{
-          width: "65%",
-          marginTop: "300px",
-        }}
-      >
+    <div className={classes.root}>
+      <FormControl className={classes.form}>
         <InputLabel htmlFor="username">Username</InputLabel>
         <Input
           id="username"
@@ -59,13 +69,7 @@ const Settings = () => {
           }
         />
       </FormControl>
-
-      <FormControl
-        style={{
-          width: "65%",
-          marginTop: "60px",
-        }}
-      >
+      <FormControl className={classes.form}>
         <InputLabel htmlFor="email">Email</InputLabel>
         <Input
           id="email"
@@ -85,11 +89,7 @@ const Settings = () => {
           }
         />
       </FormControl>
-      <Button
-        variant="contained"
-        color="primary"
-        style={{ width: "10%", height: "45px", marginTop: "50px" }}
-      >
+      <Button variant="contained" color="primary" className={classes.button}>
         Save
       </Button>
     </div>
