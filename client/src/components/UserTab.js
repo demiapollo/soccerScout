@@ -2,18 +2,11 @@ import React from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
 
-import {
-  Tabs,
-  Tab,
-  Button,
-  FormControl,
-  InputLabel,
-  Input,
-} from "@material-ui/core";
-
-import EditIcon from "@material-ui/icons/Edit";
+import { Tabs, Tab } from "@material-ui/core";
 
 import TabPanel from "./TabPanel";
+
+import Settings from "./Settings";
 
 const a11yProps = (index) => {
   return {
@@ -39,21 +32,7 @@ const UserTab = () => {
       </div>
       <div>
         <TabPanel value={value} index={0}>
-          <div>
-            <FormControl>
-              <InputLabel htmlFor="username">Username</InputLabel>
-              <Input id="username" value="Thisismyusername" disabled />
-            </FormControl>
-            <EditIcon style={{ paddingTop: "60px" }} />
-            <FormControl>
-              <InputLabel htmlFor="username">Username</InputLabel>
-              <Input id="username" value="Thisismyusername" disabled />
-            </FormControl>
-            <EditIcon style={{ paddingTop: "60px" }} />
-          </div>
-          <Button variant="contained" color="primary">
-            Save Changes
-          </Button>
+          <Settings />
         </TabPanel>
       </div>
     </div>
