@@ -46,12 +46,14 @@ const useStyles = makeStyles((theme) => ({
 const GET_PLAYER_PROFILES = gql`
   query GetPlayerProfiles {
     playerProfiles {
-      id
+      _id
       name
-      age
-      height
-      weight
+      position
+      skills
+      dominantFoot
       team
+      country
+      anyOtherComments
     }
   }
 `;
@@ -99,15 +101,21 @@ const Home = () => {
           <Typography variant="body1">
             Error fetching player profiles.
           </Typography>
+          
         ) : (
           playerProfiles.map((player) => (
-            <Link to={`/PlayerProfile/${player.id}`} key={player.id}>
+            <Link to={`/PlayerProfile/${player._id}`} key={player._id}>
               <div className={classes.playerCard}>
                 <Typography variant="h5">{player.name}</Typography>
+                <Typography variant="body1">Position: {player.position}</Typography>
+                <Typography variant="body1">Skills: {player.skills}</Typography>
+                <Typography variant="body1">Dominant Foot:{player.dominantFoot}</Typography>
+                <Typography variant="body1">Country: {player.country}</Typography>
                 <Typography variant="body1">Age: {player.age}</Typography>
                 <Typography variant="body1">Height: {player.height}</Typography>
                 <Typography variant="body1">Weight: {player.weight}</Typography>
                 <Typography variant="body1">Team: {player.team}</Typography>
+                <Typography variant="body1">Comments: {player.anyOtherComments}</Typography>
               </div>
             </Link>
           ))

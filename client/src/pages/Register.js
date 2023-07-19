@@ -3,6 +3,17 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
+import { useMutation, gql } from "@apollo/client";
+
+const REGISTER_USER = gql`
+  mutation RegisterUser($name: String!, $email: String!, $password: String!) {
+    registerUser(name: $name, email: $email, password: $password) {
+      id
+      name
+      email
+    }
+  }
+`;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -14,7 +25,6 @@ const useStyles = makeStyles((theme) => ({
       width: "300px",
     },
   },
-
   button: {
     margin: theme.spacing(2),
     color: "white",
@@ -31,6 +41,7 @@ const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [registerUser] = useMutation(REGISTER_USER);
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -44,11 +55,28 @@ const Register = () => {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Name:", name);
-    console.log("Email:", email);
-    console.log("Password:", password);
+
+    try {
+      const { data } = await registerUser({
+        variables: {
+          name: name,
+          email: email,
+          password: password,
+        },
+      });
+
+      // Handle the response from the server if necessary
+      console.log("User registered:", data.registerUser);
+
+      // Clear the form after successful registration
+      setName("");
+      setEmail("");
+      setPassword("");
+    } catch (error) {
+      console.log("Registration error:", error);
+    }
   };
 
   return (
