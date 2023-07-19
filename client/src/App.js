@@ -5,16 +5,15 @@ import {
   ApolloProvider,
   createHttpLink,
 } from "@apollo/client";
-
+import Home from "./pages/Home";
 import { setContext } from "@apollo/client/link/context";
 
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
-import Login from "./pages/Login";
-import Navbar from "./components/Navbar.js";
 
 
 
+
+
+import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -41,8 +40,9 @@ const App = () => {
       <Router>
         <div>
           {/* Header Here */}
-          <Navbar /> {/* Include the Navigation component */}
-         
+
+          <Home />
+
           <div>
             <Routes>
               {/* <Route path="/" element={<Home />} />

@@ -1,7 +1,9 @@
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
-const secret = process.env.JWT_SECRET;
+// I needed to have a secret to make adduser mutation work
+// const secret = process.env.JWT_SECRET;
+const secret = 'mysecretssshhhhhhh';
 const expiration = "2h";
 
 const authMiddleware = ({ req }) => {

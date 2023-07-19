@@ -8,14 +8,40 @@ const typeDefs = gql`
     skills: String
     dominantFoot: String
     team: String
-    school: String
+    country: String
     anyOtherComments: String
   }
 
+  type Country {
+    _id: ID
+    country: String
   
+  }
+
+  type User {
+    _id: ID
+    username: String
+    email: String
+    password: String
+  }
+
+  type Auth {
+    token: ID!
+    user: User
+  }
+  
+ 
+
+
   type Query {
     playerProfiles: [PlayerProfile]!
     playerProfile(profileId: ID!): PlayerProfile
+    countries: [Country]!
+    country(countryId: ID!): Country
+    playerByCountry(country: String!): [PlayerProfile]
+    users: [User]!
+    user(userId: ID!): User
+    me: User
   }
 
   type Mutation {
@@ -25,7 +51,7 @@ const typeDefs = gql`
       skills: String, 
       dominantFoot: String,
       team: String,
-      school: String,
+      country: String,
       anyOtherComments: String,
       ): PlayerProfile
     updatePlayerProfile(profileId: ID!, 
@@ -34,28 +60,16 @@ const typeDefs = gql`
       skills: String, 
       dominantFoot: String,
       team: String,
-      school: String,
+      country: String,
       anyOtherComments: String,
       ): PlayerProfile
     removePlayerProfile(profileId: ID!): PlayerProfile
+    addUser(username: String!, email: String!, password: String!): Auth
+    login(email: String!, password: String!): Auth
   }
 `;
 
 module.exports = typeDefs;
 
 
-// input ProfileInput {
-//   name: String!
-//   positions: [String!]!
-//   skills: String
-//   measurements: MeasurementsInput
-//   Team: String!
-//   School: String
-//   anyOtherComments: [String]
-// }
-
-// input MeasurementsInput {
-//   height: Int
-//   weight: Int
-//   dominantFoot: String
-// }
+// profile is user/scout profile
