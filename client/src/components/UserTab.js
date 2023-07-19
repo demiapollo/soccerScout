@@ -4,6 +4,8 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import { Tabs, Tab } from "@material-ui/core";
 
+import TabPanel from "./TabPanel";
+
 const a11yProps = (index) => {
   return {
     id: `simple-tab-${index}`,
@@ -31,7 +33,7 @@ const UserTab = () => {
         </Tabs>
       </div>
       <div>
-        <CustomTabPanel value={value} index={0}></CustomTabPanel>
+        <TabPanel value={value} index={0}></TabPanel>
       </div>
     </div>
   );

@@ -8,8 +8,6 @@ import {
   ListItemText,
   Typography,
   Button,
-  Tabs,
-  Tab,
   FormControl,
   TextField,
   InputLabel,
@@ -23,22 +21,6 @@ import EditIcon from "@material-ui/icons/Edit";
 
 import Avatar from "@material-ui/core/Avatar";
 import { Navigate, Link, useParams } from "react-router-dom";
-
-function CustomTabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && <div>{children}</div>}
-    </div>
-  );
-}
 
 const Profile = () => {
   const useStyles = makeStyles((theme) => ({
