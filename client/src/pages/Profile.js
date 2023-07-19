@@ -7,20 +7,15 @@ import {
   ListItem,
   ListItemText,
   Typography,
-  Button,
-  FormControl,
-  TextField,
-  InputLabel,
-  Input,
-  IconButton,
 } from "@material-ui/core";
 import PersonIcon from "@material-ui/icons/Person";
 import FolderIcon from "@material-ui/icons/Folder";
 import DeleteIcon from "@material-ui/icons/Delete";
-import EditIcon from "@material-ui/icons/Edit";
 
 import Avatar from "@material-ui/core/Avatar";
 import { Navigate, Link, useParams } from "react-router-dom";
+
+import UserTab from "../components/UserTab";
 
 const Profile = () => {
   const useStyles = makeStyles((theme) => ({
@@ -67,12 +62,9 @@ const Profile = () => {
             User
           </Typography>
         </Grid>
-        <Grid
-          container
-          xs={6}
-          direction="column"
-          className={classes.root}
-        ></Grid>
+        <Grid container xs={6} direction="column" className={classes.root}>
+          <UserTab />
+        </Grid>
         <Grid
           container
           direction="column"
