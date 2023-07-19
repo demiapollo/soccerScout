@@ -17,6 +17,39 @@ import { Navigate, Link, useParams } from "react-router-dom";
 
 import UserTab from "../components/UserTab";
 
+const stringToColor = (string) => {
+  let hash = 0;
+  let i;
+
+  /* eslint-disable no-bitwise */
+  for (i = 0; i < string.length; i += 1) {
+    hash = string.charCodeAt(i) + ((hash << 5) - hash);
+  }
+
+  let color = "#";
+
+  for (i = 0; i < 3; i += 1) {
+    const value = (hash >> (i * 8)) & 0xff;
+    color += `00${value.toString(16)}`.slice(-2);
+  }
+  /* eslint-enable no-bitwise */
+
+  console.log(color);
+
+  return color;
+};
+
+const stringAvatar = (name) => {
+  const here = {
+    style: {
+      backgroundColor: stringToColor(name),
+    },
+    children: `${name.split("")[0]}${name.split("")[1]}`,
+  };
+  console.log(here);
+  return here;
+};
+
 const Profile = () => {
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -47,13 +80,12 @@ const Profile = () => {
     <div>
       <Grid container>
         <Grid container direction="column" alignContent="center" xs={3}>
-          <Avatar className={classes.icon} />
+          <Avatar
+            className={classes.icon}
+            {...stringAvatar("Chawnkieasdfasf")}
+          />
 
-          <Typography
-            variant="h4"
-            align="center"
-            {...stringAvatar("Kent Dodds")}
-          >
+          <Typography variant="h4" align="center">
             User
           </Typography>
         </Grid>
