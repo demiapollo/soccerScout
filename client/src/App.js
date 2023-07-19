@@ -6,11 +6,19 @@ import {
   createHttpLink,
 } from "@apollo/client";
 
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+
 import { setContext } from "@apollo/client/link/context";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Login from "./pages/Login";
+import Profile from "./pages/Profile";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -37,6 +45,23 @@ const App = () => {
       <Router>
         <div>
           {/* Header Here */}
+          <Box sx={{ flexGrow: 1 }}>
+            <AppBar position="static">
+              <Toolbar>
+                <IconButton
+                  size="large"
+                  edge="start"
+                  color="inherit"
+                  aria-label="menu"
+                  sx={{ mr: 2 }}
+                ></IconButton>
+                <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                  News
+                </Typography>
+                <Button color="inherit">Login</Button>
+              </Toolbar>
+            </AppBar>
+          </Box>
 
           <div>
             <Routes>
@@ -46,6 +71,7 @@ const App = () => {
               <Route path="/profile" element={<Profile />} />
               <Route path="/playerProfile/:id" element={<PlayerProfile />} /> */}
             </Routes>
+            <Profile />
           </div>
           {/* Footer Here */}
         </div>
