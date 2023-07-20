@@ -2,13 +2,15 @@ import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useMutation, gql } from "@apollo/client";
 
-const LOGIN_USER = gql`
-  mutation LoginUser($email: String!, $password: String!) {
-    loginUser(email: $email, password: $password) {
-      token
+const REGISTER_USER = gql`
+  mutation RegisterUser($name: String!, $email: String!, $password: String!) {
+    registerUser(name: $name, email: $email, password: $password) {
+      id
+      name
+      email
     }
   }
 `;
@@ -34,12 +36,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Login = () => {
+const Register = () => {
   const classes = useStyles();
-  const history = useHistory();
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loginUser] = useMutation(LOGIN_USER);
+  const [registerUser] = useMutation(REGISTER_USER);
+
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+  };
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -53,29 +59,37 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const { data } = await loginUser({
+      const { data } = await registerUser({
         variables: {
+          name: name,
           email: email,
           password: password,
         },
       });
 
-      if (data && data.loginUser && data.loginUser.token) {
-        history.push("/dashboard");
-      } else {
-        console.log("Authentication failed");
-      }
+      // Handle the response from the server if necessary
+      console.log("User registered:", data.registerUser);
+
+      // Clear the form after successful registration
+      setName("");
       setEmail("");
       setPassword("");
     } catch (error) {
-      console.log("Login error:", error);
+      console.log("Registration error:", error);
     }
   };
 
   return (
     <div>
-      <h2>Login</h2>
+      <h2>Register</h2>
       <form className={classes.root} onSubmit={handleSubmit}>
+        <TextField
+          label="Name"
+          type="text"
+          value={name}
+          onChange={handleNameChange}
+          required
+        />
         <TextField
           label="Email"
           type="email"
@@ -91,16 +105,22 @@ const Login = () => {
           required
         />
         <Button
+          id="registerButton"
           className={classes.button}
-          variant="contained"
+          variant="outlined"
           color="primary"
           type="submit"
         >
-          Submit
+          Register
         </Button>
-        <Link to="/register">
-          <Button className={classes.button} variant="outlined" color="primary">
-            Don't have an account? Register here
+        <Link to="/login">
+          <Button
+            id="loginButton"
+            className={classes.button}
+            variant="outlined"
+            color="primary"
+          >
+            Already have an account? Login
           </Button>
         </Link>
       </form>
@@ -108,4 +128,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

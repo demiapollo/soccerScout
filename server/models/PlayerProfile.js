@@ -1,14 +1,22 @@
 const { Schema, model } = require("mongoose");
 
 const profileSchema = new Schema({
-  name: {
+  firstName: {
     type: String,
     required: true,
     trim: true,
   },
+  lastName: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  age:{
+    type: Number,
+    required: true,
+  },
   position: {
     type: String,
-    // enum: ['goalie', 'defense', 'midfield', 'forward' ],
   },
   skills: {
     type: String,
@@ -17,18 +25,19 @@ const profileSchema = new Schema({
   dominantFoot: {
     type: String,
   },
-  Team: {
+  team: {
     type: String,
-    // required: true,
   },
-  School: {
+  country: {
     type: String,
+    required: true,
+    enum: ["Argentina", "Brazil", "England", "France", "Germany", "Italy", "Spain", "United States"],
   },
   anyOtherComments: {
     type: String,
-    // trim: true,
   },
-});
+},
+);
 
 const PlayerProfile = model("PlayerProfile", profileSchema);
 
