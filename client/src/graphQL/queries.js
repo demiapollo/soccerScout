@@ -21,7 +21,9 @@ export const QUERY_PLAYER = gql`
   query getSinglePlayer($profileId: ID!) {
     playerProfile(profileId: $profileId) {
       _id
-      name
+      firstName
+      lastName
+      age
       position
       skills
       dominantFoot
@@ -58,17 +60,18 @@ export const QUERY_ME = gql`
   }
 `;
 
-// export const GET_PLAYER_BY_COUNTRY = gql`
-//   query Query($country: String!) {
-//     playerByCountry(country: $country) {
-//       _id
-//       name
-//       position
-//       skills
-//       dominantFoot
-//       team
-//       country
-//       anyOtherComments
-//     }
-//   }
-// `;
+export const QUERY_PLAYERS_BY_COUNTRY = gql`
+  query Query($country: String!) {
+    playerByCountry(country: $country) {
+      _id
+      firstName
+      lastName
+      age
+      position
+      skills
+      dominantFoot
+      team
+      country
+    }
+  }
+`;
