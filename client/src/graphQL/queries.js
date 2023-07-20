@@ -61,7 +61,7 @@ export const QUERY_ME = gql`
 `;
 
 export const QUERY_PLAYERS_BY_COUNTRY = gql`
-  query Query($country: String!) {
+  query getPlayersByCountry($country: String!) {
     playerByCountry(country: $country) {
       _id
       firstName

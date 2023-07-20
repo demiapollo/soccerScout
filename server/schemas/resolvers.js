@@ -1,15 +1,12 @@
 const { PlayerProfile } = require("../models");
 const { User } = require("../models");
-// const { Country } = require("../models");
 const { AuthenticationError } = require("apollo-server-express");
 const { signToken } = require("../utils/auth");
 
 const resolvers = {
   Query: {
     playerProfiles: async () => {
-      console.log("here right now");
       return PlayerProfile.find();
-
       // return playerProfiles.map(profile => {
       //   if (!profile.firstName && !profile.lastName) {
       //     profile.firstName = "Unknown";
@@ -18,8 +15,8 @@ const resolvers = {
       //   return profile;
       // });
     },
-    playerProfile: async (root, { profileId }) => {
-      const profile = PlayerProfile.findOne({ _id: profileId });
+    playerProfile: async (_root, { profileId }) => {
+      const profile = PlayerProfile.findById(profileId);
       if (profile && !profile.firstName && !profile.lastName) {
         profile.firstName = "Unknown";
       }
@@ -31,8 +28,8 @@ const resolvers = {
       return await User.find();
     },
     // get a single user
-    user: async (root, { userId }) => {
-      return await User.findOne({ _id: userId });
+    user: async (_root, { userId }) => {
+      return await User.findById(userId);
     },
 
     // get all countries
@@ -58,7 +55,7 @@ const resolvers = {
     //   return await PlayerProfile.findOne({ _id: countryId });
     // },
 
-    playerByCountry: async (root, { country }) => {
+    playerByCountry: async (_root, { country }) => {
       try {
         const players = await PlayerProfile.find({ country: country });
         return players;
@@ -71,7 +68,7 @@ const resolvers = {
     // By adding context to our query, we can retrieve the logged in user without specifically searching for them
     me: async (_parent, _args, context) => {
       if (context.user) {
-        return Profile.findOne({ _id: context.user._id })
+        return Profile.findById(context.user._id)
           .populate("createdPlayers")
           .poulate({
             path: "favoritePlayers",
