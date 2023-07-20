@@ -5,10 +5,8 @@ import {
   Select,
   MenuItem,
   TextField,
-  InputAdornment,
   InputLabel,
   makeStyles,
-  Typography,
 } from "@material-ui/core";
 
 import { useState } from "react";
