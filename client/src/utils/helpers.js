@@ -15,18 +15,14 @@ export const stringToColor = (string) => {
   }
   /* eslint-enable no-bitwise */
 
-  console.log(color);
-
   return color;
 };
 
 export const stringAvatar = (name) => {
-  const here = {
+  return {
     style: {
       backgroundColor: stringToColor(name),
     },
     children: `${name.split("")[0]}${name.split("")[1]}`,
   };
-  console.log(here);
-  return here;
 };

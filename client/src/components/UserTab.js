@@ -39,11 +39,11 @@ const UserTab = () => {
       </div>
       <div>
         <TabPanel value={value} index={0}>
-          <PlayerList />
+          <PlayerList dashboard players={["Messi", "Ronaldo", "Mbappe"]} />
         </TabPanel>
         <TabPanel value={value} index={1}></TabPanel>
         <TabPanel value={value} index={2}>
-          {/* <PlayerList /> */}
+          <PlayerList following={["Neymar", "De Bruyne", "Lewandowski"]} />
         </TabPanel>
         <TabPanel value={value} index={3}>
           <Settings />
