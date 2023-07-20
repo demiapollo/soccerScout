@@ -1,31 +1,37 @@
 import { gql } from '@apollo/client';
 
 export const GET_PLAYER_PROFILES = gql`
-    query GetPlayerProfiles {
-     playerProfiles {
-         _id
-        name
-        position
-        skills
-        dominantFoot
-        team
-        country
-        anyOtherComments
-    }
+query GetPlayerProfiles {
+  playerProfiles {
+    _id
+    age
+    anyOtherComments
+    country
+    dominantFoot
+    firstName
+    lastName
+    position
+    skills
+    team
   }
+}
 `;
 
 export const GET_PLAYER_PROFILE = gql`
-    playerProfile(profileId: $profileId) {
-        _id
-        name
-        position
-        skills
-        dominantFoot
-        team
-        country
-        anyOtherComments
+query PlayerProfile($profileId: ID!) {
+  playerProfile(profileId: $profileId) {
+    _id
+    age
+    anyOtherComments
+    country
+    dominantFoot
+    firstName
+    lastName
+    position
+    skills
+    team
   }
+}
 `;
 
 export const GET_COUNTRIES = gql`
@@ -38,16 +44,18 @@ export const GET_COUNTRIES = gql`
 `;
 
 export const GET_PLAYER_BY_COUNTRY = gql`
-    query Query($country: String!) {
-    playerByCountry(country: $country) {
-        _id
-        name
-        position
-        skills
-        dominantFoot
-        team
-        country
-        anyOtherComments
-    }
+query PlayerByCountry($country: String!) {
+  playerByCountry(country: $country) {
+    _id
+    age
+    anyOtherComments
+    country
+    dominantFoot
+    firstName
+    lastName
+    position
+    skills
+    team
   }
+}
 `;

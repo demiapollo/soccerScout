@@ -1,6 +1,5 @@
 const { PlayerProfile } = require("../models");
 const { User } = require("../models");
-// const { Country } = require("../models");
 const { AuthenticationError } = require("apollo-server-express");
 const { signToken } = require("../utils/auth");
 
@@ -21,6 +20,7 @@ const resolvers = {
       const profile = PlayerProfile.findOne({ _id: profileId });
       if(profile && !profile.firstName && !profile.lastName ) {
         profile.firstName = "Unknown";
+        profile.lastName = "Unknown";
       }
       return profile;
     },
@@ -36,7 +36,7 @@ const resolvers = {
 
     // get all countries
     countries: async () => {
-      //return await Country.find();
+      
       const users = await PlayerProfile.find();
 
       const countries = users.map((user) => user.country);
@@ -53,12 +53,7 @@ const resolvers = {
         };
       })
     },
-    // get a single country
-    // country: async (root, { countryId }) => {
-    //   return await PlayerProfile.findOne({ _id: countryId });
-    // },
-
-
+    
     playerByCountry: async (root, { country }) => {
       try {
         const players = await PlayerProfile.find({ country: country });
@@ -109,7 +104,7 @@ const resolvers = {
       if (context.user) {
       return await PlayerProfile.findOneAndDelete({ _id: profileId });
     }
-    // throw new AuthenticationError('You need to be logged in!');
+    throw new AuthenticationError('You need to be logged in!');
   },
 
     // add a user mutation
