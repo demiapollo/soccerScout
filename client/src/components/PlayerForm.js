@@ -14,16 +14,47 @@ import {
 import { useState } from "react";
 
 const PlayerForm = () => {
-  const [firstNameInput, setFirstNameInput] = useState("");
-  const [lastNameInput, setLastNameInput] = useState("");
-  const [positionInput, setPositionInput] = useState("");
-  const [dominantFootInput, setDominantFootInput] = useState("");
-  const [teamInput, setTeamInput] = useState("");
-  const [countryInput, setCountryInput] = useState("");
-  const [skillsInput, setSkillsInput] = useState("");
+  const [formState, setFormState] = useState({
+    firstName: "",
+    lastName: "",
+    position: "",
+    dominantFoot: "",
+    team: "",
+    country: "",
+    skills: "",
+  });
 
-  const handleChange = (event, setter) => {
-    setter(event.target.value);
+  //   const [addPlayer, { error, data }] = useMutation(ADD_PLAYER);
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+
+    setFormState({
+      ...formState,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    console.log(formState);
+    // try {
+    //   const { data } = await addPlayer({
+    // variables: { ...formState },
+    //   });
+    //   console.log(data);
+    setFormState({
+      firstName: "",
+      lastName: "",
+      position: "",
+      dominantFoot: "",
+      team: "",
+      country: "",
+      skills: "",
+    });
+    // } catch (err) {
+    //   console.error(err);
+    // }
   };
 
   const useStyles = makeStyles((_theme) => ({
@@ -60,17 +91,17 @@ const PlayerForm = () => {
         <FormControl className={classes.form}>
           <InputLabel htmlFor="firstName">First Name</InputLabel>
           <Input
-            id="firstName"
-            value={firstNameInput}
-            onChange={(event) => handleChange(event, setFirstNameInput)}
+            name="firstName"
+            value={formState.firstName}
+            onChange={(event) => handleChange(event)}
           />
         </FormControl>
         <FormControl className={classes.form}>
           <InputLabel htmlFor="lastName">Last Name</InputLabel>
           <Input
-            id="lastName"
-            value={lastNameInput}
-            onChange={(event) => handleChange(event, setLastNameInput)}
+            name="lastName"
+            value={formState.lastName}
+            onChange={(event) => handleChange(event)}
           />
         </FormControl>
       </div>
@@ -78,9 +109,9 @@ const PlayerForm = () => {
         <FormControl className={classes.form}>
           <InputLabel htmlFor="position">Position</InputLabel>
           <Select
-            id="position"
-            value={positionInput}
-            onChange={(event) => handleChange(event, setPositionInput)}
+            name="position"
+            value={formState.position}
+            onChange={(event) => handleChange(event)}
           >
             <MenuItem value="Goalkeeper">Goalkeeper</MenuItem>
             <MenuItem value="Right Fullback">Right Fullback</MenuItem>
@@ -103,9 +134,9 @@ const PlayerForm = () => {
         <FormControl className={classes.form}>
           <InputLabel htmlFor="dominantFoot">Dominant Foot</InputLabel>
           <Select
-            id="dominantFoot"
-            value={dominantFootInput}
-            onChange={(event) => handleChange(event, setDominantFootInput)}
+            name="dominantFoot"
+            value={formState.dominantFoot}
+            onChange={(event) => handleChange(event)}
           >
             <MenuItem value="Right">Right</MenuItem>
             <MenuItem value="Left">Left</MenuItem>
@@ -117,17 +148,17 @@ const PlayerForm = () => {
         <FormControl className={classes.form}>
           <InputLabel htmlFor="team">Team</InputLabel>
           <Input
-            id="team"
-            value={teamInput}
-            onChange={(event) => handleChange(event, setTeamInput)}
+            name="team"
+            value={formState.team}
+            onChange={(event) => handleChange(event)}
           />
         </FormControl>
         <FormControl className={classes.form}>
           <InputLabel htmlFor="country">Country</InputLabel>
           <Select
-            id="country"
-            value={countryInput}
-            onChange={(event) => handleChange(event, setCountryInput)}
+            name="country"
+            value={formState.country}
+            onChange={(event) => handleChange(event)}
           >
             <MenuItem value="Argentina">Argentina</MenuItem>
             <MenuItem value="Brazil">Brazil</MenuItem>
@@ -143,15 +174,20 @@ const PlayerForm = () => {
       <div style={{ width: "75%", display: "flex", justifyContent: "center" }}>
         <FormControl className={classes.form}>
           <TextField
-            id="skills"
+            name="skills"
             label="Notable Skills"
             multiline
-            value={skillsInput}
-            onChange={(event) => handleChange(event, setSkillsInput)}
+            value={formState.skills}
+            onChange={(event) => handleChange(event)}
           />
         </FormControl>
       </div>
-      <Button variant="contained" color="primary" className={classes.button}>
+      <Button
+        variant="contained"
+        color="primary"
+        className={classes.button}
+        onClick={(event) => handleSubmit(event)}
+      >
         Create
       </Button>
     </div>
