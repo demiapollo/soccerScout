@@ -56,8 +56,9 @@ const typeDefs = gql`
       anyOtherComments: String,
       ): PlayerProfile
     updatePlayerProfile(profileId: ID!, 
-      firstName: String,
+      firstName: String!,
       lastName: String!, 
+      age: Int!,
       position: String, 
       skills: String, 
       dominantFoot: String,
