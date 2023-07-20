@@ -12,6 +12,7 @@ import TabPanel from "./TabPanel";
 
 import Settings from "./Settings";
 import PlayerList from "./PlayerList";
+import PlayerForm from "./PlayerForm";
 
 const a11yProps = (index) => {
   return {
@@ -41,7 +42,9 @@ const UserTab = () => {
         <TabPanel value={value} index={0}>
           <PlayerList dashboard players={["Messi", "Ronaldo", "Mbappe"]} />
         </TabPanel>
-        <TabPanel value={value} index={1}></TabPanel>
+        <TabPanel value={value} index={1}>
+          <PlayerForm />
+        </TabPanel>
         <TabPanel value={value} index={2}>
           <PlayerList following={["Neymar", "De Bruyne", "Lewandowski"]} />
         </TabPanel>
