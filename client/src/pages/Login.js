@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Login = () => {
   const classes = useStyles();
-  const history = useHistory();
+  // const history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginUser] = useMutation(LOGIN_USER);
@@ -61,7 +61,7 @@ const Login = () => {
       });
 
       if (data && data.loginUser && data.loginUser.token) {
-        history.push("/dashboard");
+        // history.push("/dashboard");
       } else {
         console.log("Authentication failed");
       }

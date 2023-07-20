@@ -7,19 +7,20 @@ const { signToken } = require("../utils/auth");
 const resolvers = {
   Query: {
     playerProfiles: async () => {
+      console.log("here right now");
+      return PlayerProfile.find();
 
-      const playerProfiles = await PlayerProfile.find();
-      return playerProfiles.map(profile => {
-        if (!profile.firstName && !profile.lastName) {
-          profile.firstName = "Unknown";
-          profile.lastName = "Unknown";
-        }
-        return profile;
-      }); 
+      // return playerProfiles.map(profile => {
+      //   if (!profile.firstName && !profile.lastName) {
+      //     profile.firstName = "Unknown";
+      //     profile.lastName = "Unknown";
+      //   }
+      //   return profile;
+      // });
     },
     playerProfile: async (root, { profileId }) => {
       const profile = PlayerProfile.findOne({ _id: profileId });
-      if(profile && !profile.firstName && !profile.lastName ) {
+      if (profile && !profile.firstName && !profile.lastName) {
         profile.firstName = "Unknown";
       }
       return profile;
@@ -45,19 +46,17 @@ const resolvers = {
 
       const validCountries = uniqueCountries.filter((country) => !!country);
 
-  
       return validCountries.map((country, index) => {
         return {
           _id: index,
           country,
         };
-      })
+      });
     },
     // get a single country
     // country: async (root, { countryId }) => {
     //   return await PlayerProfile.findOne({ _id: countryId });
     // },
-
 
     playerByCountry: async (root, { country }) => {
       try {
@@ -74,43 +73,80 @@ const resolvers = {
       if (context.user) {
         return Profile.findOne({ _id: context.user._id });
       }
-      throw new AuthenticationError('You need to be logged in!');
+      throw new AuthenticationError("You need to be logged in!");
     },
-
   },
 
   Mutation: {
-    addPlayerProfile: async (root, { firstName, lastName, age, position, skills, dominantFoot, team, country, anyOtherComments  }) => {
-      return await PlayerProfile.create({ firstName, lastName, age, position, skills, dominantFoot, team, country,  anyOtherComments });
-    },
-
-    updatePlayerProfile: async (root, { profileId, firstName, lastName, age, position, skills, dominantFoot, team, country, anyOtherComments  }, context) => {
-      if (context.user) {
-      return await PlayerProfile.findOneAndUpdate(
-        { _id: profileId},
-        { 
-        firstName: firstName,
-        lastName: lastName,
-        age: age,
-        position: position,
+    addPlayerProfile: async (
+      root,
+      {
+        firstName,
+        lastName,
+        age,
+        position,
         skills,
         dominantFoot,
         team,
         country,
-        anyOtherComments
-        },
-     
-        { new: true }
-      );
-    }
-    throw new AuthenticationError('You need to be logged in!');
-  },
+        anyOtherComments,
+      }
+    ) => {
+      return await PlayerProfile.create({
+        firstName,
+        lastName,
+        age,
+        position,
+        skills,
+        dominantFoot,
+        team,
+        country,
+        anyOtherComments,
+      });
+    },
+
+    updatePlayerProfile: async (
+      root,
+      {
+        profileId,
+        firstName,
+        lastName,
+        age,
+        position,
+        skills,
+        dominantFoot,
+        team,
+        country,
+        anyOtherComments,
+      },
+      context
+    ) => {
+      if (context.user) {
+        return await PlayerProfile.findOneAndUpdate(
+          { _id: profileId },
+          {
+            firstName: firstName,
+            lastName: lastName,
+            age: age,
+            position: position,
+            skills,
+            dominantFoot,
+            team,
+            country,
+            anyOtherComments,
+          },
+
+          { new: true }
+        );
+      }
+      throw new AuthenticationError("You need to be logged in!");
+    },
     removePlayerProfile: async (root, { profileId }, context) => {
       if (context.user) {
-      return await PlayerProfile.findOneAndDelete({ _id: profileId });
-    }
-    // throw new AuthenticationError('You need to be logged in!');
-  },
+        return await PlayerProfile.findOneAndDelete({ _id: profileId });
+      }
+      // throw new AuthenticationError('You need to be logged in!');
+    },
 
     // add a user mutation
     addUser: async (root, { username, email, password }) => {

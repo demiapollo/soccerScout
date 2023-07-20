@@ -17,7 +17,6 @@ const typeDefs = gql`
   type Country {
     _id: ID
     country: String
-  
   }
 
   type User {
@@ -31,9 +30,9 @@ const typeDefs = gql`
     token: ID!
     user: User
   }
-  
+
   type Query {
-    playerProfiles: [PlayerProfile]!
+    playerProfiles: [PlayerProfile]
     playerProfile(profileId: ID!): PlayerProfile
     countries: [Country]!
     country(countryId: ID!): Country
@@ -45,27 +44,28 @@ const typeDefs = gql`
 
   type Mutation {
     addPlayerProfile(
-      firstName: String!, 
-      lastName: String!,
-      age: Int!,
-      position: String, 
-      skills: String, 
-      dominantFoot: String,
-      team: String,
-      country: String,
-      anyOtherComments: String,
-      ): PlayerProfile
-    updatePlayerProfile(profileId: ID!, 
-      firstName: String!,
-      lastName: String!, 
-      age: Int!,
-      position: String, 
-      skills: String, 
-      dominantFoot: String,
-      team: String,
-      country: String,
-      anyOtherComments: String,
-      ): PlayerProfile
+      firstName: String!
+      lastName: String!
+      age: Int!
+      position: String
+      skills: String
+      dominantFoot: String
+      team: String
+      country: String
+      anyOtherComments: String
+    ): PlayerProfile
+    updatePlayerProfile(
+      profileId: ID!
+      firstName: String!
+      lastName: String!
+      age: Int!
+      position: String
+      skills: String
+      dominantFoot: String
+      team: String
+      country: String
+      anyOtherComments: String
+    ): PlayerProfile
     removePlayerProfile(profileId: ID!): PlayerProfile
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
@@ -73,6 +73,5 @@ const typeDefs = gql`
 `;
 
 module.exports = typeDefs;
-
 
 // profile is user/scout profile

@@ -6,18 +6,15 @@ import {
   createHttpLink,
 } from "@apollo/client";
 
-import Home from "./pages/Home";
-
 import { setContext } from "@apollo/client/link/context";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-
-
-
-
-
-
-import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
-
+import Home from "./pages/Home";
+import Navbar from "./components/Navbar";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Profile from "./pages/Profile";
+import PlayerProfile from "./pages/PlayerProfile";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -44,15 +41,13 @@ const App = () => {
       <Router>
         <div>
           {/* Header Here */}
-
-
+          <Navbar />
           <div>
             <Routes>
-              {/* <Route path="/" element={<Home />} />
+              <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Signup />} />
+              <Route path="/register" element={<Register />} />
               <Route path="/profile" element={<Profile />} />
-              <Route path="/playerProfile/:id" element={<PlayerProfile />} /> */}
             </Routes>
           </div>
           {/* Footer Here */}
@@ -62,8 +57,6 @@ const App = () => {
   );
 };
 export default App;
-
-
 
 // Home Page ----- // PlayerList Component
 // Sign up Page ----- // SignupForm Component
