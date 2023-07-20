@@ -53,7 +53,6 @@ const App = () => {
               <Route path="/profile" element={<Profile />} />
               <Route path="/playerProfile/:id" element={<PlayerProfile />} /> */}
             </Routes>
-            <Profile />
           </div>
           {/* Footer Here */}
         </div>
