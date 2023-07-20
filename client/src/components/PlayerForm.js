@@ -21,6 +21,7 @@ const PlayerForm = () => {
     dominantFoot: "",
     team: "",
     country: "",
+    age: "",
     skills: "",
   });
 
@@ -171,13 +172,22 @@ const PlayerForm = () => {
           </Select>
         </FormControl>
       </div>
-      <div style={{ width: "75%", display: "flex", justifyContent: "center" }}>
-        <FormControl className={classes.form}>
+      <div className={classes.container}>
+        <FormControl style={{ width: "70%" }}>
           <TextField
             name="skills"
             label="Notable Skills"
             multiline
             value={formState.skills}
+            onChange={(event) => handleChange(event)}
+          />
+        </FormControl>
+        <FormControl style={{ width: "15%" }}>
+          <InputLabel htmlFor="age">Age</InputLabel>
+          <Input
+            name="age"
+            type="number"
+            value={formState.age}
             onChange={(event) => handleChange(event)}
           />
         </FormControl>
