@@ -68,16 +68,18 @@ const resolvers = {
   },
 
   Mutation: {
-    addPlayerProfile: async (root, { name, position, skills, dominantFoot, team, country, anyOtherComments  }) => {
-      return await PlayerProfile.create({ name, position, skills, dominantFoot, team, country,  anyOtherComments });
+    addPlayerProfile: async (root, { firstName, lastName, age, position, skills, dominantFoot, team, country, anyOtherComments  }) => {
+      return await PlayerProfile.create({ firstName, lastName, age, position, skills, dominantFoot, team, country,  anyOtherComments });
     },
 
-    updatePlayerProfile: async (root, { profileId, name, position, skills, dominantFoot, team, country, anyOtherComments  }, context) => {
+    updatePlayerProfile: async (root, { profileId, firstName, lastName, age, position, skills, dominantFoot, team, country, anyOtherComments  }, context) => {
       if (context.user) {
       return await PlayerProfile.findOneAndUpdate(
         { _id: profileId},
         { 
-        name: name,
+        firstName: firstName,
+        lastName: lastName,
+        age: age,
         position: position,
         skills,
         dominantFoot,

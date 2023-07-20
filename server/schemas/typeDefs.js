@@ -3,7 +3,9 @@ const { gql } = require("apollo-server-express");
 const typeDefs = gql`
   type PlayerProfile {
     _id: ID
-    name: String!
+    firstName: String!
+    lastName: String!
+    age: Int!
     position: String
     skills: String
     dominantFoot: String
@@ -30,9 +32,6 @@ const typeDefs = gql`
     user: User
   }
   
- 
-
-
   type Query {
     playerProfiles: [PlayerProfile]!
     playerProfile(profileId: ID!): PlayerProfile
@@ -46,8 +45,10 @@ const typeDefs = gql`
 
   type Mutation {
     addPlayerProfile(
-      name: String!, 
-      position: String!, 
+      firstName: String!, 
+      lastName: String!,
+      age: Int!,
+      position: String, 
       skills: String, 
       dominantFoot: String,
       team: String,
@@ -55,7 +56,8 @@ const typeDefs = gql`
       anyOtherComments: String,
       ): PlayerProfile
     updatePlayerProfile(profileId: ID!, 
-      name: String, 
+      firstName: String,
+      lastName: String!, 
       position: String, 
       skills: String, 
       dominantFoot: String,
