@@ -32,14 +32,31 @@ export const QUERY_PLAYER = gql`
   }
 `;
 
-// export const GET_COUNTRIES = gql`
-//   query Countries {
-//     countries {
-//       _id
-//       country
-//     }
-//   }
-// `;
+export const QUERY_ME = gql`
+  query me {
+    me {
+      _id
+      username
+      email
+      createdPlayers {
+        _id
+        firstName
+        lastName
+        age
+        position
+        skills
+        dominantFoot
+        team
+        country
+      }
+      favoritePlayers {
+        _id
+        firstName
+        lastName
+      }
+    }
+  }
+`;
 
 // export const GET_PLAYER_BY_COUNTRY = gql`
 //   query Query($country: String!) {
