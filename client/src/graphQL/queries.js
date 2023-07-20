@@ -6,6 +6,7 @@ export const QUERY_PLAYERS = gql`
       _id
       firstName
       lastName
+      age
       position
       skills
       dominantFoot

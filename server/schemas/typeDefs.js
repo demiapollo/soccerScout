@@ -14,11 +14,6 @@ const typeDefs = gql`
     anyOtherComments: String
   }
 
-  type Country {
-    _id: ID
-    country: String
-  }
-
   type User {
     _id: ID
     username: String
