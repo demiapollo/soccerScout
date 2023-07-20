@@ -19,6 +19,8 @@ const typeDefs = gql`
     username: String
     email: String
     password: String
+    createdPlayers: [PlayerProfile]
+    favoritePlayers: [PlayerProfile]
   }
 
   type Auth {

@@ -69,9 +69,14 @@ const resolvers = {
     },
 
     // By adding context to our query, we can retrieve the logged in user without specifically searching for them
-    me: async (parent, args, context) => {
+    me: async (_parent, _args, context) => {
       if (context.user) {
-        return Profile.findOne({ _id: context.user._id });
+        return Profile.findOne({ _id: context.user._id })
+          .populate("createdPlayers")
+          .poulate({
+            path: "favoritePlayers",
+            select: " _id firstName lastName",
+          });
       }
       throw new AuthenticationError("You need to be logged in!");
     },
