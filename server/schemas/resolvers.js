@@ -165,6 +165,17 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in!");
     },
+    followPlayer: async (_root, { profileId }, context) => {
+      if (context.user) {
+        const player = await PlayerProfile.findById(profileId);
+        await User.findByIdAndUpdate(
+          { _id: context.user._id },
+          { $addToSet: { favoritePlayers: player._id } }
+        );
+        return player;
+      }
+      throw new AuthenticationError("You need to be logged in!");
+    },
 
     // add a user mutation
     addUser: async (root, { username, email, password }) => {
