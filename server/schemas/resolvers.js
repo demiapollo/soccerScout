@@ -19,6 +19,7 @@ const resolvers = {
       const profile = PlayerProfile.findById(profileId);
       if (profile && !profile.firstName && !profile.lastName) {
         profile.firstName = "Unknown";
+        profile.lastName = "Unknown";
       }
       return profile;
     },
@@ -32,16 +33,19 @@ const resolvers = {
       return await User.findById(userId);
     },
 
+
     // // get all countries
     // countries: async () => {
     //   //return await Country.find();
     //   const users = await PlayerProfile.find();
+
 
     //   const countries = users.map((user) => user.country);
 
     //   const uniqueCountries = [...new Set(countries)];
 
     //   const validCountries = uniqueCountries.filter((country) => !!country);
+
 
     //   return validCountries.map((country, index) => {
     //     return {
@@ -56,6 +60,7 @@ const resolvers = {
     // },
 
     playerByCountry: async (_root, { country }) => {
+
       try {
         const players = await PlayerProfile.find({ country: country });
         return players;
@@ -135,6 +140,7 @@ const resolvers = {
       context
     ) => {
       if (context.user) {
+
         return await PlayerProfile.findByIdAndUpdate(
           { _id: profileId },
           {
@@ -189,6 +195,7 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in!");
     },
+
 
     // add a user mutation
     addUser: async (_root, { username, email, password }) => {

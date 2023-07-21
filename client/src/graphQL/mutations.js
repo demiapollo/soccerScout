@@ -1,3 +1,4 @@
+
 import { gql } from "@apollo/client";
 
 export const ADD_USER = gql`
@@ -66,6 +67,7 @@ export const ADD_PLAYER = gql`
   }
 `;
 
+
 export const FOLLOW_PLAYER = gql`
   mutation followPlayer($profileId: ID!) {
     followPlayer(profileId: $profileId) {
@@ -82,9 +84,11 @@ export const UNFOLLOW_PLAYER = gql`
       _id
       firstName
       lastName
+
     }
   }
 `;
+
 
 export const UPDATE_PLAYER = gql`
   mutation updatePlayerProfile(
@@ -114,9 +118,11 @@ export const UPDATE_PLAYER = gql`
       _id
       firstName
       lastName
+
     }
   }
 `;
+
 
 export const DELETE_PLAYER = gql`
   mutation removePlayerProfile($profileId: ID!) {

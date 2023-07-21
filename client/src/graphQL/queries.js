@@ -1,5 +1,6 @@
 import { gql } from "@apollo/client";
 
+
 export const QUERY_PLAYERS = gql`
   query getPlayerProfiles {
     playerProfiles {
@@ -15,7 +16,9 @@ export const QUERY_PLAYERS = gql`
       anyOtherComments
     }
   }
+}
 `;
+
 
 export const QUERY_PLAYER = gql`
   query getSinglePlayer($profileId: ID!) {
@@ -56,9 +59,11 @@ export const QUERY_ME = gql`
         firstName
         lastName
       }
+
     }
   }
 `;
+
 
 export const QUERY_PLAYERS_BY_COUNTRY = gql`
   query getPlayersByCountry($country: String!) {
@@ -75,3 +80,4 @@ export const QUERY_PLAYERS_BY_COUNTRY = gql`
     }
   }
 `;
+

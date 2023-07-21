@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/client";
+
 import { QUERY_PLAYER } from "../graphQL/queries";
+
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -42,10 +44,12 @@ const useStyles = makeStyles((theme) => ({
 const PlayerProfile = () => {
   const classes = useStyles();
   const { playerId } = useParams();
+
   //   const [comment, setComment] = useState("");
   const { loading, error, data } = useQuery(QUERY_PLAYER, {
     variables: { profileId: playerId },
   });
+
 
   if (error) {
     console.log(error);
