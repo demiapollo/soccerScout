@@ -48,20 +48,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// const GET_PLAYER_PROFILES = gql`
-//   query GetPlayerProfiles {
-//     playerProfiles {
-//       _id
-//       name
-//       position
-//       skills
-//       dominantFoot
-//       team
-//       country
-//       anyOtherComments
-//     }
-//   }
-// `;
 
 const Home = () => {
   const classes = useStyles();
