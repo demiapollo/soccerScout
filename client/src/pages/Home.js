@@ -5,11 +5,12 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { useQuery, gql } from "@apollo/client";
 import { Link } from "react-router-dom";
-import { GET_PLAYER_PROFILES, 
-  GET_PLAYER_PROFILE, 
+import {
+  QUERY_PLAYERS,
+  QUERY_PLAYER,
   GET_COUNTRIES,
-  GET_PLAYER_BY_COUNTRY 
- } from "../graphQL/queries";
+  GET_PLAYER_BY_COUNTRY,
+} from "../graphQL/queries";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -52,9 +53,7 @@ const useStyles = makeStyles((theme) => ({
 const Home = () => {
   const classes = useStyles();
   const [searchQuery, setSearchQuery] = useState("");
-  const { loading, error, data } = useQuery(GET_PLAYER_PROFILES, {
-    onError: (err) => console.log(err),
-  });
+  const { loading, error, data } = useQuery(QUERY_PLAYERS);
   const playerProfiles = data?.playerProfiles || [];
 
   const handleSearchChange = (e) => {
@@ -92,21 +91,28 @@ const Home = () => {
           <Typography variant="body1">
             Error fetching player profiles.
           </Typography>
-          
         ) : (
           playerProfiles.map((player) => (
             <Link to={`/PlayerProfile/${player._id}`} key={player._id}>
               <div className={classes.playerCard}>
                 <Typography variant="h5">{player.name}</Typography>
-                <Typography variant="body1">Position: {player.position}</Typography>
+                <Typography variant="body1">
+                  Position: {player.position}
+                </Typography>
                 <Typography variant="body1">Skills: {player.skills}</Typography>
-                <Typography variant="body1">Dominant Foot:{player.dominantFoot}</Typography>
-                <Typography variant="body1">Country: {player.country}</Typography>
+                <Typography variant="body1">
+                  Dominant Foot:{player.dominantFoot}
+                </Typography>
+                <Typography variant="body1">
+                  Country: {player.country}
+                </Typography>
                 <Typography variant="body1">Age: {player.age}</Typography>
                 <Typography variant="body1">Height: {player.height}</Typography>
                 <Typography variant="body1">Weight: {player.weight}</Typography>
                 <Typography variant="body1">Team: {player.team}</Typography>
-                <Typography variant="body1">Comments: {player.anyOtherComments}</Typography>
+                <Typography variant="body1">
+                  Comments: {player.anyOtherComments}
+                </Typography>
               </div>
             </Link>
           ))

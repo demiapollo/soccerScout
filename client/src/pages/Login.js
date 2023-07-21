@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import { Link, useHistory } from "react-router-dom";
+
+import { Link } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../graphQL/mutations";
-
+import Auth from "../utils/auth";
+import { Typography } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,58 +32,59 @@ const useStyles = makeStyles((theme) => ({
 
 const Login = () => {
   const classes = useStyles();
-  const history = useHistory();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loginUser] = useMutation(LOGIN_USER);
+  const [formState, setFormState] = useState({ email: "", password: "" });
+  const [login, { error, _data }] = useMutation(LOGIN_USER);
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
+  const handleChange = (e) => {
+    const { name, value } = e.target;
 
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
+    setFormState({
+      ...formState,
+      [name]: value,
+    });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const { data } = await loginUser({
+      const { data } = await login({
         variables: {
-          email: email,
-          password: password,
+          ...formState,
         },
       });
 
-      if (data && data.loginUser && data.loginUser.token) {
-        history.push("/dashboard");
-      } else {
-        console.log("Authentication failed");
-      }
-      setEmail("");
-      setPassword("");
+      Auth.login(data.login.token);
     } catch (error) {
-      console.log("Login error:", error);
+      console.error(error);
     }
+
+    setFormState({
+      email: "",
+      password: "",
+    });
   };
 
   return (
     <div>
-      <h2>Login</h2>
+      <Typography variant="h4" style={{ margin: "20px" }} align="center">
+        Login
+      </Typography>
       <form className={classes.root} onSubmit={handleSubmit}>
         <TextField
           label="Email"
           type="email"
-          value={email}
-          onChange={handleEmailChange}
+          name="email"
+          value={formState.email}
+          onChange={handleChange}
           required
         />
         <TextField
           label="Password"
           type="password"
-          value={password}
-          onChange={handlePasswordChange}
+          name="password"
+          value={formState.password}
+          onChange={handleChange}
           required
         />
         <Button
@@ -98,6 +101,7 @@ const Login = () => {
           </Button>
         </Link>
       </form>
+      {error && <div>{error.message}</div>}
     </div>
   );
 };

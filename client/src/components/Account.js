@@ -1,10 +1,13 @@
-import React from 'react';
-import { MenuItem } from '@material-ui/core';
+import React from "react";
+import { MenuItem } from "@material-ui/core";
+import { Link } from "react-router-dom";
 
 const Account = ({ handleClose }) => {
   return (
     <>
-      <MenuItem onClick={handleClose}>Profile</MenuItem>
+      <Link to="/profile">
+        <MenuItem onClick={handleClose}>Profile</MenuItem>
+      </Link>
       <MenuItem onClick={handleClose}>Sign Out</MenuItem>
     </>
   );

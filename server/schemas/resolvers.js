@@ -6,19 +6,18 @@ const { signToken } = require("../utils/auth");
 const resolvers = {
   Query: {
     playerProfiles: async () => {
-
-      const playerProfiles = await PlayerProfile.find();
-      return playerProfiles.map(profile => {
-        if (!profile.firstName && !profile.lastName) {
-          profile.firstName = "Unknown";
-          profile.lastName = "Unknown";
-        }
-        return profile;
-      }); 
+      return PlayerProfile.find();
+      // return playerProfiles.map(profile => {
+      //   if (!profile.firstName && !profile.lastName) {
+      //     profile.firstName = "Unknown";
+      //     profile.lastName = "Unknown";
+      //   }
+      //   return profile;
+      // });
     },
-    playerProfile: async (root, { profileId }) => {
-      const profile = PlayerProfile.findOne({ _id: profileId });
-      if(profile && !profile.firstName && !profile.lastName ) {
+    playerProfile: async (_root, { profileId }) => {
+      const profile = PlayerProfile.findById(profileId);
+      if (profile && !profile.firstName && !profile.lastName) {
         profile.firstName = "Unknown";
         profile.lastName = "Unknown";
       }
@@ -30,31 +29,38 @@ const resolvers = {
       return await User.find();
     },
     // get a single user
-    user: async (root, { userId }) => {
-      return await User.findOne({ _id: userId });
+    user: async (_root, { userId }) => {
+      return await User.findById(userId);
     },
 
-    // get all countries
-    countries: async () => {
-      
-      const users = await PlayerProfile.find();
 
-      const countries = users.map((user) => user.country);
+    // // get all countries
+    // countries: async () => {
+    //   //return await Country.find();
+    //   const users = await PlayerProfile.find();
 
-      const uniqueCountries = [...new Set(countries)];
 
-      const validCountries = uniqueCountries.filter((country) => !!country);
+    //   const countries = users.map((user) => user.country);
 
-  
-      return validCountries.map((country, index) => {
-        return {
-          _id: index,
-          country,
-        };
-      })
-    },
-    
-    playerByCountry: async (root, { country }) => {
+    //   const uniqueCountries = [...new Set(countries)];
+
+    //   const validCountries = uniqueCountries.filter((country) => !!country);
+
+
+    //   return validCountries.map((country, index) => {
+    //     return {
+    //       _id: index,
+    //       country,
+    //     };
+    //   });
+    // },
+    // get a single country
+    // country: async (root, { countryId }) => {
+    //   return await PlayerProfile.findOne({ _id: countryId });
+    // },
+
+    playerByCountry: async (_root, { country }) => {
+
       try {
         const players = await PlayerProfile.find({ country: country });
         return players;
@@ -65,56 +71,140 @@ const resolvers = {
     },
 
     // By adding context to our query, we can retrieve the logged in user without specifically searching for them
-    me: async (parent, args, context) => {
+    me: async (_parent, _args, context) => {
       if (context.user) {
-        return Profile.findOne({ _id: context.user._id });
+        return Profile.findById(context.user._id)
+          .populate("createdPlayers")
+          .poulate({
+            path: "favoritePlayers",
+            select: " _id firstName lastName",
+          });
       }
-      throw new AuthenticationError('You need to be logged in!');
+      throw new AuthenticationError("You need to be logged in!");
     },
-
   },
 
   Mutation: {
-    addPlayerProfile: async (root, { firstName, lastName, age, position, skills, dominantFoot, team, country, anyOtherComments  }) => {
-      return await PlayerProfile.create({ firstName, lastName, age, position, skills, dominantFoot, team, country,  anyOtherComments });
-    },
-
-    updatePlayerProfile: async (root, { profileId, firstName, lastName, age, position, skills, dominantFoot, team, country, anyOtherComments  }, context) => {
-      if (context.user) {
-      return await PlayerProfile.findOneAndUpdate(
-        { _id: profileId},
-        { 
-        firstName: firstName,
-        lastName: lastName,
-        age: age,
-        position: position,
+    addPlayerProfile: async (
+      _root,
+      {
+        firstName,
+        lastName,
+        age,
+        position,
         skills,
         dominantFoot,
         team,
         country,
-        anyOtherComments
-        },
-     
-        { new: true }
-      );
-    }
-    throw new AuthenticationError('You need to be logged in!');
-  },
-    removePlayerProfile: async (root, { profileId }, context) => {
+        anyOtherComments,
+      }
+    ) =>
+      // context
+      {
+        // if (context.user) {
+        const player = await PlayerProfile.create({
+          firstName,
+          lastName,
+          age,
+          position,
+          skills,
+          dominantFoot,
+          team,
+          country,
+          anyOtherComments,
+        });
+
+        // await User.findByIdAndUpdate(
+        //   { _id: context.user._id },
+        //   { $addToSet: { createdPlayers: player._id } }
+        // );
+        return player;
+        // }
+        // throw new AuthenticationError("You need to be logged in!");
+      },
+
+    updatePlayerProfile: async (
+      _root,
+      {
+        profileId,
+        firstName,
+        lastName,
+        age,
+        position,
+        skills,
+        dominantFoot,
+        team,
+        country,
+        anyOtherComments,
+      },
+      context
+    ) => {
       if (context.user) {
-      return await PlayerProfile.findOneAndDelete({ _id: profileId });
-    }
-    throw new AuthenticationError('You need to be logged in!');
-  },
+
+        return await PlayerProfile.findByIdAndUpdate(
+          { _id: profileId },
+          {
+            firstName,
+            lastName,
+            age,
+            position,
+            skills,
+            dominantFoot,
+            team,
+            country,
+            anyOtherComments,
+          },
+          { new: true }
+        );
+      }
+      throw new AuthenticationError("You need to be logged in!");
+    },
+    removePlayerProfile: async (_root, { profileId }, context) => {
+      if (context.user) {
+        const player = await PlayerProfile.findByIdAndDelete({
+          _id: profileId,
+        });
+        await User.findByIdAndUpdate(
+          { _id: context.user._id },
+          { $pull: { createdPlayers: player._id } }
+        );
+        return player;
+      }
+      throw new AuthenticationError("You need to be logged in!");
+    },
+    followPlayer: async (_root, { profileId }, context) => {
+      if (context.user) {
+        const player = await PlayerProfile.findById(profileId);
+        await User.findByIdAndUpdate(
+          { _id: context.user._id },
+          { $addToSet: { favoritePlayers: player._id } }
+        );
+        return player;
+      }
+      throw new AuthenticationError("You need to be logged in!");
+    },
+
+    unfollowPlayer: async (_root, { profileId }, context) => {
+      if (context.user) {
+        const player = await PlayerProfile.findById(profileId);
+        await User.findByIdAndUpdate(
+          { _id: context.user._id },
+          { $pull: { favoritePlayers: player._id } }
+        );
+        return player;
+      }
+      throw new AuthenticationError("You need to be logged in!");
+    },
+
 
     // add a user mutation
-    addUser: async (root, { username, email, password }) => {
+    addUser: async (_root, { username, email, password }) => {
       const user = await User.create({ username, email, password });
       const token = signToken(user);
       return { token, user };
     },
     // login mutation
-    login: async (root, { email, password }) => {
+    login: async (_root, { email, password }) => {
       const user = await User.findOne({ email });
       if (!user) {
         throw new AuthenticationError("Incorrect credentials");
@@ -123,11 +213,21 @@ const resolvers = {
       const correctPw = await user.isCorrectPassword(password);
 
       if (!correctPw) {
-        throw new AuthenticationError("Incorrect password");
+        throw new AuthenticationError("Incorrect credentials");
       }
 
       const token = signToken(user);
       return { token, user };
+    },
+    updateUser: async (_root, { username, email }, context) => {
+      if (context.user) {
+        return await User.findByIdAndUpdate(
+          { _id: context.user._id },
+          { username, email },
+          { new: true }
+        );
+      }
+      throw new AuthenticationError("You need to be logged in!");
     },
   },
 };

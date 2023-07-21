@@ -1,61 +1,83 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
-export const GET_PLAYER_PROFILES = gql`
-query GetPlayerProfiles {
-  playerProfiles {
-    _id
-    age
-    anyOtherComments
-    country
-    dominantFoot
-    firstName
-    lastName
-    position
-    skills
-    team
-  }
-}
-`;
 
-export const GET_PLAYER_PROFILE = gql`
-query PlayerProfile($profileId: ID!) {
-  playerProfile(profileId: $profileId) {
-    _id
-    age
-    anyOtherComments
-    country
-    dominantFoot
-    firstName
-    lastName
-    position
-    skills
-    team
-  }
-}
-`;
-
-export const GET_COUNTRIES = gql`
-    query Countries {
-      countries {
-         _id
-         country
-        }
+export const QUERY_PLAYERS = gql`
+  query getPlayerProfiles {
+    playerProfiles {
+      _id
+      firstName
+      lastName
+      age
+      position
+      skills
+      dominantFoot
+      team
+      country
+      anyOtherComments
     }
-`;
-
-export const GET_PLAYER_BY_COUNTRY = gql`
-query PlayerByCountry($country: String!) {
-  playerByCountry(country: $country) {
-    _id
-    age
-    anyOtherComments
-    country
-    dominantFoot
-    firstName
-    lastName
-    position
-    skills
-    team
   }
 }
 `;
+
+
+export const QUERY_PLAYER = gql`
+  query getSinglePlayer($profileId: ID!) {
+    playerProfile(profileId: $profileId) {
+      _id
+      firstName
+      lastName
+      age
+      position
+      skills
+      dominantFoot
+      team
+      country
+      anyOtherComments
+    }
+  }
+`;
+
+export const QUERY_ME = gql`
+  query me {
+    me {
+      _id
+      username
+      email
+      createdPlayers {
+        _id
+        firstName
+        lastName
+        age
+        position
+        skills
+        dominantFoot
+        team
+        country
+      }
+      favoritePlayers {
+        _id
+        firstName
+        lastName
+      }
+
+    }
+  }
+`;
+
+
+export const QUERY_PLAYERS_BY_COUNTRY = gql`
+  query getPlayersByCountry($country: String!) {
+    playerByCountry(country: $country) {
+      _id
+      firstName
+      lastName
+      age
+      position
+      skills
+      dominantFoot
+      team
+      country
+    }
+  }
+`;
+
