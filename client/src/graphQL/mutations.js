@@ -115,3 +115,13 @@ export const UPDATE_PLAYER = gql`
     }
   }
 `;
+
+export const DELETE_PLAYER = gql`
+  mutation removePlayerProfile($profileId: ID!) {
+    removePlayerProfile(profileId: $profileId) {
+      _id
+      firstName
+      lastName
+    }
+  }
+`;
