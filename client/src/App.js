@@ -48,6 +48,10 @@ const App = () => {
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/profile" element={<Profile />} />
+              <Route
+                path="/playerProfile/:playerId"
+                element={<PlayerProfile />}
+              />
             </Routes>
           </div>
           {/* Footer Here */}

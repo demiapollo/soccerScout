@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
+import { Typography, TextField, Button } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { ADD_USER } from "../graphQL/mutations";
@@ -69,7 +68,9 @@ const Register = () => {
 
   return (
     <div>
-      <h2>Register</h2>
+      <Typography variant="h4" style={{ margin: "20px" }} align="center">
+        Register
+      </Typography>
       <form className={classes.root} onSubmit={handleSubmit}>
         <TextField
           label="Username"

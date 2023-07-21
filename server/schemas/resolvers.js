@@ -32,24 +32,24 @@ const resolvers = {
       return await User.findById(userId);
     },
 
-    // get all countries
-    countries: async () => {
-      //return await Country.find();
-      const users = await PlayerProfile.find();
+    // // get all countries
+    // countries: async () => {
+    //   //return await Country.find();
+    //   const users = await PlayerProfile.find();
 
-      const countries = users.map((user) => user.country);
+    //   const countries = users.map((user) => user.country);
 
-      const uniqueCountries = [...new Set(countries)];
+    //   const uniqueCountries = [...new Set(countries)];
 
-      const validCountries = uniqueCountries.filter((country) => !!country);
+    //   const validCountries = uniqueCountries.filter((country) => !!country);
 
-      return validCountries.map((country, index) => {
-        return {
-          _id: index,
-          country,
-        };
-      });
-    },
+    //   return validCountries.map((country, index) => {
+    //     return {
+    //       _id: index,
+    //       country,
+    //     };
+    //   });
+    // },
     // get a single country
     // country: async (root, { countryId }) => {
     //   return await PlayerProfile.findOne({ _id: countryId });
@@ -92,10 +92,11 @@ const resolvers = {
         team,
         country,
         anyOtherComments,
-      },
-      context
-    ) => {
-      if (context.user) {
+      }
+    ) =>
+      // context
+      {
+        // if (context.user) {
         const player = await PlayerProfile.create({
           firstName,
           lastName,
@@ -108,14 +109,14 @@ const resolvers = {
           anyOtherComments,
         });
 
-        await User.findByIdAndUpdate(
-          { _id: context.user._id },
-          { $addToSet: { createdPlayers: player._id } }
-        );
+        // await User.findByIdAndUpdate(
+        //   { _id: context.user._id },
+        //   { $addToSet: { createdPlayers: player._id } }
+        // );
         return player;
-      }
-      throw new AuthenticationError("You need to be logged in!");
-    },
+        // }
+        // throw new AuthenticationError("You need to be logged in!");
+      },
 
     updatePlayerProfile: async (
       _root,

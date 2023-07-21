@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../graphQL/mutations";
 import Auth from "../utils/auth";
+import { Typography } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -65,7 +66,9 @@ const Login = () => {
 
   return (
     <div>
-      <h2>Login</h2>
+      <Typography variant="h4" style={{ margin: "20px" }} align="center">
+        Login
+      </Typography>
       <form className={classes.root} onSubmit={handleSubmit}>
         <TextField
           label="Email"
