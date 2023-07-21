@@ -5,6 +5,7 @@ import { Tabs, Tab, Popover, Box } from '@material-ui/core';
 
 const SearchTabs = ({ filterOpen, handleFilterClose, filterAnchorEl, handleTabChange, value }) => {
     const id = filterOpen ? 'simple-popover' : undefined;
+    const countryTabs = ["Argentina", "Brazil", "England", "France", "Germany", "Italy", "Spain", "United States"];
   
     return (
         <Popover
@@ -21,16 +22,16 @@ const SearchTabs = ({ filterOpen, handleFilterClose, filterAnchorEl, handleTabCh
               horizontal: 'center',
             }}
         >
-            <Box style={{ minWidth: 150 }}>  {/* You may need to adjust minWidth based on your needs */}
+            <Box style={{ minWidth: 150 }}>  
               <Tabs 
                 value={value} 
                 onChange={handleTabChange} 
-                aria-label="simple tabs example"
+                aria-label="Country tabs" 
                 orientation="vertical"
               >
-                  <Tab label="Players" />
-                  <Tab label="Teams" />
-                  <Tab label="Leagues" />
+                  {countryTabs.map((country, index) => (
+                      <Tab key={index} label={country} />
+                  ))}
               </Tabs>
             </Box>
         </Popover>
