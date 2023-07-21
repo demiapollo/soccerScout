@@ -5,7 +5,8 @@ import { Grid, Typography } from "@material-ui/core";
 import { stringAvatar } from "../utils/helpers";
 import Avatar from "@material-ui/core/Avatar";
 import UserTab from "../components/UserTab";
-import { QUERY_ME } from "../utils/queries";
+import { Navigate } from "react-router-dom";
+import { QUERY_ME } from "../graphQL/queries";
 
 const Profile = () => {
   const useStyles = makeStyles((theme) => ({
@@ -29,7 +30,7 @@ const Profile = () => {
     return <Navigate to="/login" />;
   }
 
-  const { username, favoritePlayers, createdPlayers } = data?.me || {};
+  const { username, ...info } = data?.me || {};
 
   return (
     <div>
@@ -43,7 +44,7 @@ const Profile = () => {
           }}
         >
           <Grid container direction="column" alignContent="center" xs={3}>
-            <Avatar className={classes.icon} {...stringAvatar({ username })} />
+            <Avatar className={classes.icon} {...stringAvatar(username)} />
             <Typography variant="h4" align="center">
               {username}
             </Typography>
@@ -55,7 +56,7 @@ const Profile = () => {
             className={classes.root}
             style={{ height: "100vh" }}
           >
-            <UserTab />
+            <UserTab data={data.me} />
           </Grid>
         </Grid>
       </Grid>
