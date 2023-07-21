@@ -63,6 +63,7 @@ const typeDefs = gql`
     ): PlayerProfile
     removePlayerProfile(profileId: ID!): PlayerProfile
     followPlayer(profileId: ID!): PlayerProfile
+    unfollowPlayer(profileId: ID!): PlayerProfile
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
     updateUser(username: String!, email: String!): Auth

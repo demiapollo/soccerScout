@@ -81,7 +81,7 @@ const resolvers = {
 
   Mutation: {
     addPlayerProfile: async (
-      root,
+      _root,
       {
         firstName,
         lastName,
@@ -92,19 +92,29 @@ const resolvers = {
         team,
         country,
         anyOtherComments,
-      }
+      },
+      context
     ) => {
-      return await PlayerProfile.create({
-        firstName,
-        lastName,
-        age,
-        position,
-        skills,
-        dominantFoot,
-        team,
-        country,
-        anyOtherComments,
-      });
+      if (context.user) {
+        const player = await PlayerProfile.create({
+          firstName,
+          lastName,
+          age,
+          position,
+          skills,
+          dominantFoot,
+          team,
+          country,
+          anyOtherComments,
+        });
+
+        await User.findByIdAndUpdate(
+          { _id: context.user._id },
+          { $addToSet: { createdPlayers: player._id } }
+        );
+        return player;
+      }
+      throw new AuthenticationError("You need to be logged in!");
     },
 
     updatePlayerProfile: async (
