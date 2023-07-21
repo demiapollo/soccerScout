@@ -190,13 +190,13 @@ const resolvers = {
     },
 
     // add a user mutation
-    addUser: async (root, { username, email, password }) => {
+    addUser: async (_root, { username, email, password }) => {
       const user = await User.create({ username, email, password });
       const token = signToken(user);
       return { token, user };
     },
     // login mutation
-    login: async (root, { email, password }) => {
+    login: async (_root, { email, password }) => {
       const user = await User.findOne({ email });
       if (!user) {
         throw new AuthenticationError("Incorrect credentials");
@@ -205,11 +205,21 @@ const resolvers = {
       const correctPw = await user.isCorrectPassword(password);
 
       if (!correctPw) {
-        throw new AuthenticationError("Incorrect password");
+        throw new AuthenticationError("Incorrect credentials");
       }
 
       const token = signToken(user);
       return { token, user };
+    },
+    updateUser: async (_root, { username, email }, context) => {
+      if (context.user) {
+        return await User.findByIdAndUpdate(
+          { _id: context.user._id },
+          { username, email },
+          { new: true }
+        );
+      }
+      throw new AuthenticationError("You need to be logged in!");
     },
   },
 };

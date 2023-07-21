@@ -29,12 +29,9 @@ export const LOGIN_USER = gql`
 export const UPDATE_USER = gql`
   mutation updateUser($username: String!, $email: String!) {
     updateUser(username: $username, email: $email) {
-      token
-      user {
-        _id
-        username
-        email
-      }
+      _id
+      username
+      email
     }
   }
 `;
