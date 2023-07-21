@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import { Link, useHistory } from "react-router-dom";
-import { useMutation, gql } from "@apollo/client";
+import { Link } from "react-router-dom";
+import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../graphQL/mutations";
 import Auth from "../utils/auth";
 
@@ -70,6 +70,7 @@ const Login = () => {
         <TextField
           label="Email"
           type="email"
+          name="email"
           value={formState.email}
           onChange={handleChange}
           required
@@ -77,6 +78,7 @@ const Login = () => {
         <TextField
           label="Password"
           type="password"
+          name="password"
           value={formState.password}
           onChange={handleChange}
           required
@@ -95,9 +97,7 @@ const Login = () => {
           </Button>
         </Link>
       </form>
-      {error && (
-        <div className="my-3 p-3 bg-danger text-white">{error.message}</div>
-      )}
+      {error && <div>{error.message}</div>}
     </div>
   );
 };

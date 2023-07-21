@@ -3,17 +3,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
-import { useMutation, gql } from "@apollo/client";
-
-const REGISTER_USER = gql`
-  mutation RegisterUser($name: String!, $email: String!, $password: String!) {
-    registerUser(name: $name, email: $email, password: $password) {
-      id
-      name
-      email
-    }
-  }
-`;
+import { useMutation } from "@apollo/client";
+import { ADD_USER } from "../graphQL/mutations";
+import Auth from "../utils/auth";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,45 +30,41 @@ const useStyles = makeStyles((theme) => ({
 
 const Register = () => {
   const classes = useStyles();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [registerUser] = useMutation(REGISTER_USER);
+  const [formState, setFormState] = useState({
+    email: "",
+    username: "",
+    password: "",
+  });
+  const [addUser, { error, data }] = useMutation(ADD_USER);
 
-  const handleNameChange = (e) => {
-    setName(e.target.value);
-  };
+  const handleChange = (e) => {
+    const { name, value } = e.target;
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
+    setFormState({
+      ...formState,
+      [name]: value,
+    });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const { data } = await registerUser({
+      const { data } = await addUser({
         variables: {
-          name: name,
-          email: email,
-          password: password,
+          ...formState,
         },
       });
 
-      // Handle the response from the server if necessary
-      console.log("User registered:", data.registerUser);
-
-      // Clear the form after successful registration
-      setName("");
-      setEmail("");
-      setPassword("");
+      Auth.login(data.addUser.token);
     } catch (error) {
-      console.log("Registration error:", error);
+      console.error({ error });
     }
+    setFormState({
+      email: "",
+      username: "",
+      password: "",
+    });
   };
 
   return (
@@ -84,24 +72,27 @@ const Register = () => {
       <h2>Register</h2>
       <form className={classes.root} onSubmit={handleSubmit}>
         <TextField
-          label="Name"
+          label="Username"
+          name="username"
           type="text"
-          value={name}
-          onChange={handleNameChange}
+          value={formState.username}
+          onChange={handleChange}
           required
         />
         <TextField
           label="Email"
+          name="email"
           type="email"
-          value={email}
-          onChange={handleEmailChange}
+          value={formState.email}
+          onChange={handleChange}
           required
         />
         <TextField
           label="Password"
+          name="password"
           type="password"
-          value={password}
-          onChange={handlePasswordChange}
+          value={formState.password}
+          onChange={handleChange}
           required
         />
         <Button
@@ -124,6 +115,7 @@ const Register = () => {
           </Button>
         </Link>
       </form>
+      {error && <div>{error.message}</div>}
     </div>
   );
 };
