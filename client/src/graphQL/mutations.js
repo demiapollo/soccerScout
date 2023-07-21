@@ -26,6 +26,19 @@ export const LOGIN_USER = gql`
   }
 `;
 
+export const UPDATE_USER = gql`
+  mutation updateUser($username: String!, $email: String!) {
+    updateUser(username: $username, email: $email) {
+      token
+      user {
+        _id
+        username
+        email
+      }
+    }
+  }
+`;
+
 export const ADD_PLAYER = gql`
   mutation addPlayerProfile(
     $firstName: String!
