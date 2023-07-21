@@ -64,6 +64,7 @@ const typeDefs = gql`
     removePlayerProfile(profileId: ID!): PlayerProfile
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
+    updateUser(username: String!, email: String!): Auth
   }
 `;
 
