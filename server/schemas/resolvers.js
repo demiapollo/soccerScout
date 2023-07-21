@@ -97,11 +97,10 @@ const resolvers = {
         team,
         country,
         anyOtherComments,
-      }
-    ) =>
-      // context
-      {
-        // if (context.user) {
+      },
+      context
+    ) => {
+      if (context.user) {
         const player = await PlayerProfile.create({
           firstName,
           lastName,
@@ -114,14 +113,14 @@ const resolvers = {
           anyOtherComments,
         });
 
-        // await User.findByIdAndUpdate(
-        //   { _id: context.user._id },
-        //   { $addToSet: { createdPlayers: player._id } }
-        // );
+        await User.findByIdAndUpdate(
+          { _id: context.user._id },
+          { $addToSet: { createdPlayers: player._id } }
+        );
         return player;
-        // }
-        // throw new AuthenticationError("You need to be logged in!");
-      },
+      }
+      throw new AuthenticationError("You need to be logged in!");
+    },
 
     updatePlayerProfile: async (
       _root,

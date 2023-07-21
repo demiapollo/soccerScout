@@ -11,6 +11,9 @@ import {
 
 import { useState } from "react";
 
+import { useMutation } from "@apollo/client";
+import { ADD_PLAYER } from "../graphQL/mutations";
+
 const PlayerForm = () => {
   const [formState, setFormState] = useState({
     firstName: "",
@@ -23,7 +26,7 @@ const PlayerForm = () => {
     skills: "",
   });
 
-  //   const [addPlayer, { error, data }] = useMutation(ADD_PLAYER);
+  const [addPlayerProfile, { error, data }] = useMutation(ADD_PLAYER);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -36,24 +39,24 @@ const PlayerForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(formState);
-    // try {
-    //   const { data } = await addPlayer({
-    // variables: { ...formState },
-    //   });
-    //   console.log(data);
+    try {
+      const { data } = await addPlayerProfile({
+        variables: { ...formState, age: parseInt(formState.age) },
+      });
+      console.log(data);
+    } catch (err) {
+      console.error(err);
+    }
     setFormState({
       firstName: "",
       lastName: "",
+      age: "",
       position: "",
       dominantFoot: "",
       team: "",
       country: "",
       skills: "",
     });
-    // } catch (err) {
-    //   console.error(err);
-    // }
   };
 
   const useStyles = makeStyles((_theme) => ({
