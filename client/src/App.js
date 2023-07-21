@@ -15,6 +15,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Profile from "./pages/Profile";
 import PlayerProfile from "./pages/PlayerProfile";
+import Countries from "./pages/Countries";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -52,6 +53,7 @@ const App = () => {
                 path="/playerProfile/:playerId"
                 element={<PlayerProfile />}
               />
+              <Route path="/countries" element={<Countries />} />
             </Routes>
           </div>
           {/* Footer Here */}

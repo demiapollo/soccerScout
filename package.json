@@ -14,7 +14,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "concurrently": "^5.1.0"
+    "concurrently": "^5.1.0",
+    "webpack": "^5.88.2"
   },
   "dependencies": {
     "dotenv": "^16.3.1",
