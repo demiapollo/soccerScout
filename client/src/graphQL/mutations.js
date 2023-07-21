@@ -73,13 +73,18 @@ export const FOLLOW_PLAYER = gql`
   mutation followPlayer($profileId: ID!) {
     followPlayer(profileId: $profileId) {
       _id
-      username
-      email
-      favoritePlayers {
-        _id
-        firstName
-        lastName
-      }
+      firstName
+      lastName
+    }
+  }
+`;
+
+export const UNFOLLOW_PLAYER = gql`
+  mutation unfollowPlayer($profileId: ID!) {
+    unfollowPlayer(profileId: $profileId) {
+      _id
+      firstName
+      lastName
     }
   }
 `;

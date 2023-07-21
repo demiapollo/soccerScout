@@ -61,8 +61,8 @@ const typeDefs = gql`
       country: String
       anyOtherComments: String
     ): PlayerProfile
-    followPlayer(profileId: ID!): User
     removePlayerProfile(profileId: ID!): PlayerProfile
+    followPlayer(profileId: ID!): PlayerProfile
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
     updateUser(username: String!, email: String!): Auth
