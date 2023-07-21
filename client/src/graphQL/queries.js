@@ -16,7 +16,6 @@ export const QUERY_PLAYERS = gql`
       anyOtherComments
     }
   }
-}
 `;
 
 
