@@ -4,14 +4,8 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { Link, useHistory } from "react-router-dom";
 import { useMutation, gql } from "@apollo/client";
-
-const LOGIN_USER = gql`
-  mutation LoginUser($email: String!, $password: String!) {
-    loginUser(email: $email, password: $password) {
-      token
-    }
-  }
-`;
+import { LOGIN_USER } from "../graphQL/mutations";
+import Auth from "../utils/auth";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,40 +30,37 @@ const useStyles = makeStyles((theme) => ({
 
 const Login = () => {
   const classes = useStyles();
-  // const history = useHistory();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loginUser] = useMutation(LOGIN_USER);
+  const [formState, setFormState] = useState({ email: "", password: "" });
+  const [login, { error, _data }] = useMutation(LOGIN_USER);
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
+  const handleChange = (e) => {
+    const { name, value } = e.target;
 
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
+    setFormState({
+      ...formState,
+      [name]: value,
+    });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const { data } = await loginUser({
+      const { data } = await login({
         variables: {
-          email: email,
-          password: password,
+          ...formState,
         },
       });
 
-      if (data && data.loginUser && data.loginUser.token) {
-        // history.push("/dashboard");
-      } else {
-        console.log("Authentication failed");
-      }
-      setEmail("");
-      setPassword("");
+      Auth.login(data.login.token);
     } catch (error) {
-      console.log("Login error:", error);
+      console.error(error);
     }
+
+    setFormState({
+      email: "",
+      password: "",
+    });
   };
 
   return (
@@ -79,15 +70,15 @@ const Login = () => {
         <TextField
           label="Email"
           type="email"
-          value={email}
-          onChange={handleEmailChange}
+          value={formState.email}
+          onChange={handleChange}
           required
         />
         <TextField
           label="Password"
           type="password"
-          value={password}
-          onChange={handlePasswordChange}
+          value={formState.password}
+          onChange={handleChange}
           required
         />
         <Button
@@ -104,6 +95,9 @@ const Login = () => {
           </Button>
         </Link>
       </form>
+      {error && (
+        <div className="my-3 p-3 bg-danger text-white">{error.message}</div>
+      )}
     </div>
   );
 };
