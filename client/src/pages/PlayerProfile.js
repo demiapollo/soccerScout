@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/client";
-import { GET_PLAYER, ADD_COMMENT } from "../graphql/queries";
+import { GET_PLAYER_PROFILE, ADD_COMMENT } from "../graphQL/queries"; // there is no add_Comment query
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -43,12 +43,12 @@ const PlayerProfile = () => {
   const classes = useStyles();
   const { playerId } = useParams();
   const [comment, setComment] = useState("");
-  const { loading, error, data } = useQuery(GET_PLAYER, {
+  const { loading, error, data } = useQuery(GET_PLAYER_PROFILE, {
     variables: { id: playerId },
   });
 
   const [addComment] = useMutation(ADD_COMMENT, {
-    refetchQueries: [{ query: GET_PLAYER, variables: { id: playerId } }],
+    refetchQueries: [{ query: GET_PLAYER_PROFILE, variables: { id: playerId } }],
   });
 
   const handleCommentChange = (e) => {
