@@ -15,7 +15,7 @@ import StarIcon from "@material-ui/icons/Star";
 
 import { stringAvatar } from "../utils/helpers";
 
-import { useQuery } from "@apollo/client";
+// import { useQuery } from "@apollo/client";
 
 export const PlayerList = (props) => {
   const { dashboard, players, following } = props;
@@ -47,14 +47,18 @@ export const PlayerList = (props) => {
               </Typography>
             </div>
           ) : (
-            players.map((player, index) => {
+            players.map((player) => {
               return (
-                <div key={index}>
+                <div key={player._id}>
                   <ListItem>
                     <ListItemAvatar>
-                      <Avatar {...stringAvatar(player)} />
+                      <Avatar {...stringAvatar(player.firstName)} />
                     </ListItemAvatar>
-                    <ListItemText primary={player} align="center" />
+                    <ListItemText
+                      primary={player.firstName}
+                      secondary={player.lastName}
+                      align="center"
+                    />
                     <ListItemSecondaryAction>
                       <IconButton edge="end" aria-label="delete">
                         <DeleteIcon />
@@ -76,14 +80,18 @@ export const PlayerList = (props) => {
               </Typography>
             </div>
           ) : (
-            following.map((player, index) => {
+            following.map((player) => {
               return (
-                <div key={index}>
+                <div key={player._id}>
                   <ListItem>
                     <ListItemAvatar>
-                      <Avatar {...stringAvatar(player)} />
+                      <Avatar {...stringAvatar(player.firstName)} />
                     </ListItemAvatar>
-                    <ListItemText primary={player} align="center" />
+                    <ListItemText
+                      primary={player.firstName}
+                      secondary={player.lastName}
+                      align="center"
+                    />
                     <ListItemSecondaryAction>
                       <IconButton edge="end" aria-label="follow">
                         <StarIcon />
