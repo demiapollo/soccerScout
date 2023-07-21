@@ -25,3 +25,33 @@ export const LOGIN_USER = gql`
     }
   }
 `;
+
+export const ADD_PLAYER = gql`
+  mutation addPlayerProfile(
+    $firstName: String!
+    $lastName: String!
+    $age: Int!
+    $position: String
+    $skills: String
+    $dominantFoot: String
+    $team: String
+    $country: String
+    $anyOtherComments: String
+  ) {
+    addPlayerProfile(
+      firstName: $firstName
+      lastName: $lastName
+      age: $age
+      position: $position
+      skills: $skills
+      dominantFoot: $dominantFoot
+      team: $team
+      country: $country
+      anyOtherComments: $anyOtherComments
+    ) {
+      _id
+      firstName
+      lastName
+    }
+  }
+`;
