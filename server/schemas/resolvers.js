@@ -118,7 +118,7 @@ const resolvers = {
     },
 
     updatePlayerProfile: async (
-      root,
+      _root,
       {
         profileId,
         firstName,
@@ -134,30 +134,36 @@ const resolvers = {
       context
     ) => {
       if (context.user) {
-        return await PlayerProfile.findOneAndUpdate(
+        return await PlayerProfile.findByIdAndUpdate(
           { _id: profileId },
           {
-            firstName: firstName,
-            lastName: lastName,
-            age: age,
-            position: position,
+            firstName,
+            lastName,
+            age,
+            position,
             skills,
             dominantFoot,
             team,
             country,
             anyOtherComments,
           },
-
           { new: true }
         );
       }
       throw new AuthenticationError("You need to be logged in!");
     },
-    removePlayerProfile: async (root, { profileId }, context) => {
+    removePlayerProfile: async (_root, { profileId }, context) => {
       if (context.user) {
-        return await PlayerProfile.findOneAndDelete({ _id: profileId });
+        const player = await PlayerProfile.findByIdAndDelete({
+          _id: profileId,
+        });
+        await User.findByIdAndUpdate(
+          { _id: context.user._id },
+          { $pull: { createdPlayers: player._id } }
+        );
+        return player;
       }
-      // throw new AuthenticationError('You need to be logged in!');
+      throw new AuthenticationError("You need to be logged in!");
     },
 
     // add a user mutation
