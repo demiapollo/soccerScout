@@ -30,7 +30,7 @@ const Profile = () => {
     return <Navigate to="/login" />;
   }
 
-  const { username, ...info } = data?.me || {};
+  const { username } = data?.me || {};
 
   return (
     <div>
