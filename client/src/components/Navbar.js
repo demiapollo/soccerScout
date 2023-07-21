@@ -5,7 +5,7 @@ import { AppBar, Toolbar, Typography, IconButton, Menu } from '@material-ui/core
 
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchTabs from './SearchTabs';
-import SearchBar from './SearchBar';
+// import SearchBar from './SearchBar';
 import NavButtons from './NavButtons';
 
 
@@ -56,7 +56,7 @@ const Navbar = () => {
               value={value}
             />
           )}
-          <SearchBar />
+          {/* <SearchBar /> */}
           <NavButtons handleClick={handleClick} anchorEl={anchorEl} handleClose={handleClose} />
         </Toolbar>
       </AppBar>
