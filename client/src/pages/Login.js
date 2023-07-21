@@ -4,14 +4,17 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { Link, useHistory } from "react-router-dom";
 import { useMutation, gql } from "@apollo/client";
+import { LOGIN_USER } from "../graphQL/mutations";
 
-const LOGIN_USER = gql`
-  mutation LoginUser($email: String!, $password: String!) {
-    loginUser(email: $email, password: $password) {
-      token
-    }
-  }
-`;
+
+
+// const LOGIN_USER = gql`
+//   mutation LoginUser($email: String!, $password: String!) {
+//     loginUser(email: $email, password: $password) {
+//       token
+//     }
+//   }
+// `;
 
 const useStyles = makeStyles((theme) => ({
   root: {
