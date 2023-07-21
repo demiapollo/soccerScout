@@ -69,6 +69,21 @@ export const ADD_PLAYER = gql`
   }
 `;
 
+export const FOLLOW_PLAYER = gql`
+  mutation followPlayer($profileId: ID!) {
+    followPlayer(profileId: $profileId) {
+      _id
+      username
+      email
+      favoritePlayers {
+        _id
+        firstName
+        lastName
+      }
+    }
+  }
+`;
+
 export const UPDATE_PLAYER = gql`
   mutation updatePlayerProfile(
     $profileId: ID!
