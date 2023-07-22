@@ -48,7 +48,7 @@ const UserTab = ({ data }) => {
           <PlayerForm />
         </TabPanel>
         <TabPanel value={value} index={2}>
-          <PlayerList following={favoritePlayers} />
+          <PlayerList players={favoritePlayers} />
         </TabPanel>
         <TabPanel value={value} index={3}>
           <Settings user={user} />

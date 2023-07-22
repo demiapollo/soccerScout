@@ -11,7 +11,9 @@ import {
   makeStyles,
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from "@material-ui/icons/Edit";
 import StarIcon from "@material-ui/icons/Star";
+import { Link } from "react-router-dom";
 
 import { stringAvatar } from "../utils/helpers";
 
@@ -38,71 +40,54 @@ export const PlayerList = (props) => {
 
   return (
     <div className={classes.root}>
-      {dashboard ? (
-        <List className={classes.list}>
-          {players.length === 0 ? (
+      {players.length === 0 ? (
+        <div>
+          {dashboard ? (
             <div>
               <Typography variant="h4" align="center">
                 You haven't created any players yet!
               </Typography>
             </div>
           ) : (
-            players.map((player) => {
-              return (
-                <div key={player._id}>
-                  <ListItem>
-                    <ListItemAvatar>
-                      <Avatar {...stringAvatar(player.firstName)} />
-                    </ListItemAvatar>
-                    <ListItemText
-                      primary={player.firstName}
-                      secondary={player.lastName}
-                      align="center"
-                    />
-                    <ListItemSecondaryAction>
-                      <IconButton edge="end" aria-label="delete">
-                        <DeleteIcon />
-                      </IconButton>
-                    </ListItemSecondaryAction>
-                  </ListItem>
-                  <Divider />
-                </div>
-              );
-            })
-          )}
-        </List>
-      ) : (
-        <List className={classes.list}>
-          {following.length === 0 ? (
             <div>
               <Typography variant="h4" align="center">
                 You aren't following any players yet!
               </Typography>
             </div>
-          ) : (
-            following.map((player) => {
-              return (
-                <div key={player._id}>
-                  <ListItem>
-                    <ListItemAvatar>
-                      <Avatar {...stringAvatar(player.firstName)} />
-                    </ListItemAvatar>
-                    <ListItemText
-                      primary={player.firstName}
-                      secondary={player.lastName}
-                      align="center"
-                    />
+          )}
+        </div>
+      ) : (
+        <List className={classes.list}>
+          {players.map((player) => {
+            return (
+              <div key={player._id}>
+                <ListItem>
+                  <ListItemAvatar>
+                    <Avatar {...stringAvatar(player.firstName)} />
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={player.firstName}
+                    secondary={player.lastName}
+                    align="center"
+                  />
+                  {dashboard ? (
+                    <ListItemSecondaryAction>
+                      <IconButton edge="end" aria-label="delete">
+                        <EditIcon />
+                      </IconButton>
+                    </ListItemSecondaryAction>
+                  ) : (
                     <ListItemSecondaryAction>
                       <IconButton edge="end" aria-label="follow">
                         <StarIcon />
                       </IconButton>
                     </ListItemSecondaryAction>
-                  </ListItem>
-                  <Divider />
-                </div>
-              );
-            })
-          )}
+                  )}
+                </ListItem>
+                <Divider />
+              </div>
+            );
+          })}
         </List>
       )}
     </div>
