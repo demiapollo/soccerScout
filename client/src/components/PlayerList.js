@@ -168,6 +168,7 @@ export const PlayerList = ({ dashboard, players, setPlayers }) => {
             player={editPlayer}
             players={players}
             setPlayers={setPlayers}
+            modal={{ open, setOpen, handleClose }}
           />
         </div>
       </Modal>

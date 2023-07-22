@@ -96,6 +96,24 @@ const PlayerForm = ({ edit, player, players, setPlayers, modal }) => {
     modal.handleClose(); // This is the modal from PlayerList.js
   };
 
+  const handleDelete = async (event) => {
+    event.preventDefault();
+    try {
+      const { data } = await removePlayerProfile({
+        variables: { profileId: player._id },
+      });
+      if (data) {
+        const newPlayerList = players.filter(
+          (player) => player._id !== data.removePlayerProfile._id
+        );
+        setPlayers(newPlayerList);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+    modal.handleClose(); // This is the modal from PlayerList.js
+  };
+
   const useStyles = makeStyles((_theme) => ({
     root: {
       display: "flex",
