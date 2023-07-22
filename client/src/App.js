@@ -15,6 +15,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Profile from "./pages/Profile";
 import PlayerProfile from "./pages/PlayerProfile";
+import Countries from "./pages/Countries";
 
 import { StoreProvider } from "./context";
 
@@ -43,6 +44,7 @@ const App = () => {
       <Router>
         <div>
           {/* Header Here */}
+
           <StoreProvider>
             <Navbar />
             <div>
@@ -58,6 +60,7 @@ const App = () => {
               </Routes>
             </div>
           </StoreProvider>
+
           {/* Footer Here */}
         </div>
       </Router>
