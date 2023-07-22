@@ -95,6 +95,9 @@ export const PlayerList = ({ dashboard }) => {
       height: "70%",
       backgroundColor: "white",
     },
+    text: {
+      marginTop: "200px",
+    },
   }));
 
   const classes = useStyles();
@@ -105,13 +108,13 @@ export const PlayerList = ({ dashboard }) => {
         <div>
           {dashboard ? (
             <div>
-              <Typography variant="h4" align="center">
+              <Typography variant="h4" align="center" className={classes.text}>
                 You haven't created any players yet!
               </Typography>
             </div>
           ) : (
             <div>
-              <Typography variant="h4" align="center">
+              <Typography variant="h4" align="center" className={classes.text}>
                 You aren't following any players yet!
               </Typography>
             </div>

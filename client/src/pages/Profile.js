@@ -37,17 +37,19 @@ const Profile = () => {
 
   useEffect(() => {
     if (data) {
+      const { createdPlayers, favoritePlayers, ...me } = data.me;
+
       dispatch({
         type: CREATE_PLAYER_LIST,
-        payload: data.me.createdPlayers,
+        payload: createdPlayers,
       });
       dispatch({
         type: CREATE_FAVORITES_LIST,
-        payload: data.me.favoritePlayers,
+        payload: favoritePlayers,
       });
       dispatch({
         type: CREATE_USER_PROFILE,
-        payload: data.me,
+        payload: me,
       });
       setLoadingData(false);
     }
