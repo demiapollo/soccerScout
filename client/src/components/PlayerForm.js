@@ -12,9 +12,9 @@ import {
 import { useState } from "react";
 
 import { useMutation } from "@apollo/client";
-import { ADD_PLAYER } from "../graphQL/mutations";
+import { ADD_PLAYER, UPDATE_PLAYER, DELETE_PLAYER } from "../graphQL/mutations";
 
-const PlayerForm = ({ edit, player, players, setPlayers }) => {
+const PlayerForm = ({ edit, player, players, setPlayers, modal }) => {
   const [formState, setFormState] = useState(
     edit
       ? { ...player }
@@ -31,6 +31,10 @@ const PlayerForm = ({ edit, player, players, setPlayers }) => {
   );
 
   const [addPlayerProfile, { error, data }] = useMutation(ADD_PLAYER);
+  const [updatePlayerProfile, { error: updateError, data: updateData }] =
+    useMutation(UPDATE_PLAYER);
+  const [removePlayerProfile, { error: deleteError, data: deleteData }] =
+    useMutation(DELETE_PLAYER);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -47,7 +51,6 @@ const PlayerForm = ({ edit, player, players, setPlayers }) => {
       const { data } = await addPlayerProfile({
         variables: { ...formState, age: parseInt(formState.age) },
       });
-      console.log(data);
       if (data) {
         const newPlayerList = [...players, data.addPlayerProfile];
         setPlayers(newPlayerList);
@@ -65,6 +68,32 @@ const PlayerForm = ({ edit, player, players, setPlayers }) => {
       country: "",
       skills: "",
     });
+  };
+
+  const handleEdit = async (event) => {
+    event.preventDefault();
+    try {
+      console.log(formState);
+      const { data } = await updatePlayerProfile({
+        variables: {
+          ...formState,
+          age: parseInt(formState.age),
+          profileId: player._id,
+        },
+      });
+      console.log(data);
+      if (data) {
+        const newPlayerList = [...players];
+        const index = newPlayerList.findIndex(
+          (player) => player._id === data.updatePlayerProfile._id
+        );
+        newPlayerList[index] = data.updatePlayerProfile;
+        setPlayers(newPlayerList);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+    modal.handleClose(); // This is the modal from PlayerList.js
   };
 
   const useStyles = makeStyles((_theme) => ({
@@ -207,6 +236,7 @@ const PlayerForm = ({ edit, player, players, setPlayers }) => {
             className={classes.button}
             variant="contained"
             color="primary"
+            onClick={(event) => handleEdit(event)}
           >
             Save
           </Button>
@@ -214,6 +244,7 @@ const PlayerForm = ({ edit, player, players, setPlayers }) => {
             className={classes.button}
             variant="contained"
             color="secondary"
+            onClick={(event) => handleDelete(event)}
           >
             Delete
           </Button>
