@@ -8,6 +8,12 @@ import UserTab from "../components/UserTab";
 import { Navigate } from "react-router-dom";
 import { QUERY_ME } from "../graphQL/queries";
 
+const { useStoreContext } = require("../context");
+const {
+  CREATE_PLAYER_LIST,
+  CREATE_FAVORITES_LIST,
+} = require("../context/actionTypes");
+
 const Profile = () => {
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -23,6 +29,23 @@ const Profile = () => {
   const classes = useStyles();
 
   const { loading, data, error } = useQuery(QUERY_ME);
+
+  const [state, dispatch] = useStoreContext();
+
+  if (data) {
+    dispatch({
+      type: CREATE_PLAYER_LIST,
+      payload: data.me.createdPlayers,
+    });
+    dispatch({
+      type: CREATE_FAVORITES_LIST,
+      payload: data.me.favoritePlayers,
+    });
+    dispatch({
+      type: CREATE_USER_PROFILE,
+      payload: data.me,
+    });
+  }
 
   if (loading) return <div>Loading...</div>;
 
