@@ -3,6 +3,8 @@ import { IconButton } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/styles'; // Import makeStyles from @material-ui/styles
 import SearchIcon from '@material-ui/icons/Search';
+import Button from '@material-ui/core/Button';
+import Countries from '../pages/Countries';
 
 const useStyles = makeStyles({
   iconButton: {
@@ -15,9 +17,10 @@ const DiscoverButton = () => {
 
   return (
     <Link to="/countries">
-      <IconButton className={classes.iconButton}> {/* Apply the custom class */}
-        <SearchIcon />
-      </IconButton>
+     
+      <Button className={classes.iconButton}>
+        Countries
+        </Button>
     </Link>
   );
 };
