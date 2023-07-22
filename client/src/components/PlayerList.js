@@ -10,16 +10,24 @@ import {
   Divider,
   makeStyles,
 } from "@material-ui/core";
+import { useState } from "react";
+import { useMutation } from "@apollo/client";
 import EditIcon from "@material-ui/icons/Edit";
 import StarIcon from "@material-ui/icons/Star";
 import { Link } from "react-router-dom";
+
+import { UNFOLLOW_PLAYER } from "../graphQL/mutations";
 
 import { stringAvatar } from "../utils/helpers";
 
 // import { useQuery } from "@apollo/client";
 
 export const PlayerList = (props) => {
-  const { dashboard, players, following } = props;
+  const { dashboard, players } = props;
+  const [isActive, setIsActive] = useState(true);
+  const [playerList, setPlayerList] = useState(players);
+
+  const [unfollowPlayer, { error, data }] = useMutation(UNFOLLOW_PLAYER);
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -42,9 +50,27 @@ export const PlayerList = (props) => {
 
   const classes = useStyles();
 
+  const handleUnfollow = async (event) => {
+    setIsActive(!isActive);
+    try {
+      const { data } = await unfollowPlayer({
+        variables: { profileId: event.currentTarget.id },
+      });
+      console.log(data);
+      if (data) {
+        const newPlayerList = playerList.filter(
+          (player) => player._id !== event.currentTarget.id
+        );
+        setPlayerList(newPlayerList);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <div className={classes.root}>
-      {players.length === 0 ? (
+      {playerList.length === 0 ? (
         <div>
           {dashboard ? (
             <div>
@@ -62,7 +88,7 @@ export const PlayerList = (props) => {
         </div>
       ) : (
         <List className={classes.list}>
-          {players.map((player) => {
+          {playerList.map((player) => {
             return (
               <div key={player._id}>
                 <ListItem>
@@ -76,14 +102,27 @@ export const PlayerList = (props) => {
                   </Link>
                   {dashboard ? (
                     <ListItemSecondaryAction>
-                      <IconButton edge="end" aria-label="delete">
+                      <IconButton
+                        edge="end"
+                        aria-label="delete"
+                        id={player._id}
+                        onClick={(event) => handleUnfollow(event)}
+                      >
                         <EditIcon />
                       </IconButton>
                     </ListItemSecondaryAction>
                   ) : (
                     <ListItemSecondaryAction>
-                      <IconButton edge="end" aria-label="follow">
-                        <StarIcon />
+                      <IconButton
+                        edge="end"
+                        aria-label="delete"
+                        id={player._id}
+                        onClick={(event) => handleUnfollow(event)}
+                      >
+                        <StarIcon
+                          id={player._id}
+                          style={{ color: isActive ? "	#FFBF00" : "" }}
+                        />
                       </IconButton>
                     </ListItemSecondaryAction>
                   )}

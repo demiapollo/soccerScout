@@ -1,5 +1,5 @@
 import React from "react";
-
+import { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { Tabs, Tab } from "@material-ui/core";
@@ -26,6 +26,10 @@ const UserTab = ({ data }) => {
 
   const { favoritePlayers, createdPlayers, ...user } = data;
 
+  const [createdPlayerList, setCreatedPlayerList] = useState(
+    createdPlayers || []
+  );
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -42,10 +46,13 @@ const UserTab = ({ data }) => {
       </div>
       <div>
         <TabPanel value={value} index={0}>
-          <PlayerList dashboard players={createdPlayers} />
+          <PlayerList dashboard players={createdPlayerList} />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <PlayerForm />
+          <PlayerForm
+            players={createdPlayerList}
+            setPlayers={setCreatedPlayerList}
+          />
         </TabPanel>
         <TabPanel value={value} index={2}>
           <PlayerList players={favoritePlayers} />
