@@ -53,6 +53,13 @@ const PlayerForm = ({ edit, player, modal }) => {
     });
   };
 
+  const deletePlayer = (id) => {
+    dispatch({
+      type: DELETE_PLAYER_FROM_LIST,
+      payload: id,
+    });
+  };
+
   const [addPlayerProfile, { error, data }] = useMutation(ADD_PLAYER);
   const [updatePlayerProfile, { error: updateError, data: updateData }] =
     useMutation(UPDATE_PLAYER);
