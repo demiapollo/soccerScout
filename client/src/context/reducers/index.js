@@ -1,4 +1,4 @@
-import { userReducer } from "react";
+import { useReducer } from "react";
 
 import {
   CREATE_PLAYER_LIST,
@@ -75,5 +75,5 @@ export const reducer = (state, action) => {
 };
 
 export const usePlayerReducer = (initialState) => {
-  return userReducer(reducer, initialState);
+  return useReducer(reducer, initialState);
 };

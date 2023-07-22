@@ -18,14 +18,8 @@ const a11yProps = (index) => {
   };
 };
 
-const UserTab = ({ data }) => {
+const UserTab = () => {
   const [value, setValue] = React.useState(0);
-
-  const { favoritePlayers, createdPlayers, ...user } = data;
-
-  const [createdPlayerList, setCreatedPlayerList] = useState(
-    createdPlayers || []
-  );
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -43,23 +37,16 @@ const UserTab = ({ data }) => {
       </div>
       <div>
         <TabPanel value={value} index={0}>
-          <PlayerList
-            dashboard
-            players={createdPlayerList}
-            setPlayers={setCreatedPlayerList}
-          />
+          <PlayerList dashboard />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <PlayerForm
-            players={createdPlayerList}
-            setPlayers={setCreatedPlayerList}
-          />
+          <PlayerForm />
         </TabPanel>
         <TabPanel value={value} index={2}>
-          <PlayerList players={favoritePlayers} />
+          <PlayerList />
         </TabPanel>
         <TabPanel value={value} index={3}>
-          <Settings user={user} />
+          <Settings />
         </TabPanel>
       </div>
     </div>

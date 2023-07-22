@@ -14,7 +14,7 @@ import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { ADD_PLAYER, UPDATE_PLAYER, DELETE_PLAYER } from "../graphQL/mutations";
 
-const PlayerForm = ({ edit, player, players, setPlayers, modal }) => {
+const PlayerForm = ({ edit, player, modal }) => {
   const [formState, setFormState] = useState(
     edit
       ? { ...player }

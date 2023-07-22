@@ -19,18 +19,29 @@ import { Link } from "react-router-dom";
 import PlayerForm from "./PlayerForm";
 
 import { UNFOLLOW_PLAYER } from "../graphQL/mutations";
+import { useStoreContext } from "../context";
+import { REMOVE_PLAYER_FROM_FAVORITES } from "../context/actionTypes";
 
 import { stringAvatar } from "../utils/helpers";
 
 // import { useQuery } from "@apollo/client";
 
-export const PlayerList = ({ dashboard, players, setPlayers }) => {
+export const PlayerList = ({ dashboard }) => {
+  const [state, dispatch] = useStoreContext();
   const [isActive, setIsActive] = useState(true);
-  const [followList, setFollowList] = useState(players);
   const [open, setOpen] = useState(false);
   const [editPlayer, setEditPlayer] = useState({});
 
+  const players = dashboard ? state.playerList : state.favoritesList;
+
   const [unfollowPlayer, { error, data }] = useMutation(UNFOLLOW_PLAYER);
+
+  const removeFavorite = (id) => {
+    dispatch({
+      type: REMOVE_PLAYER_FROM_FAVORITES,
+      payload: id,
+    });
+  };
 
   const handleOpen = (event) => {
     const newEditPlayer = players.filter(
@@ -50,12 +61,8 @@ export const PlayerList = ({ dashboard, players, setPlayers }) => {
       const { data } = await unfollowPlayer({
         variables: { profileId: event.currentTarget.id },
       });
-      console.log(data);
       if (data) {
-        const newFollowList = followList.filter(
-          (player) => player._id !== event.currentTarget.id
-        );
-        setFollowList(newFollowList);
+        removeFavorite(event.currentTarget.id);
       }
     } catch (err) {
       console.error(err);
@@ -166,8 +173,6 @@ export const PlayerList = ({ dashboard, players, setPlayers }) => {
           <PlayerForm
             edit
             player={editPlayer}
-            players={players}
-            setPlayers={setPlayers}
             modal={{ open, setOpen, handleClose }}
           />
         </div>

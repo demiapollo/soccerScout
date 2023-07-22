@@ -12,6 +12,7 @@ const { useStoreContext } = require("../context");
 const {
   CREATE_PLAYER_LIST,
   CREATE_FAVORITES_LIST,
+  CREATE_USER_PROFILE,
 } = require("../context/actionTypes");
 
 const Profile = () => {
@@ -30,7 +31,7 @@ const Profile = () => {
 
   const { loading, data, error } = useQuery(QUERY_ME);
 
-  const [state, dispatch] = useStoreContext();
+  const [_state, dispatch] = useStoreContext();
 
   if (data) {
     dispatch({
@@ -79,7 +80,7 @@ const Profile = () => {
             className={classes.root}
             style={{ height: "100vh" }}
           >
-            <UserTab data={data.me} />
+            <UserTab />
           </Grid>
         </Grid>
       </Grid>
