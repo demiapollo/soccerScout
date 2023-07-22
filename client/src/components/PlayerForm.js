@@ -22,7 +22,7 @@ import {
 } from "../context/actionTypes";
 
 const PlayerForm = ({ edit, player, modal }) => {
-  const [state, dispatch] = useStoreContext();
+  const [_state, dispatch] = useStoreContext();
 
   const [formState, setFormState] = useState(
     edit
@@ -82,8 +82,8 @@ const PlayerForm = ({ edit, player, modal }) => {
         variables: { ...formState, age: parseInt(formState.age) },
       });
       if (data) {
-        const newPlayerList = [...players, data.addPlayerProfile];
-        setPlayers(newPlayerList);
+        console.log("here", data.addPlayerProfile);
+        addPlayer(data.addPlayerProfile);
       }
     } catch (err) {
       console.error(err);
@@ -103,7 +103,6 @@ const PlayerForm = ({ edit, player, modal }) => {
   const handleEdit = async (event) => {
     event.preventDefault();
     try {
-      console.log(formState);
       const { data } = await updatePlayerProfile({
         variables: {
           ...formState,
@@ -111,14 +110,8 @@ const PlayerForm = ({ edit, player, modal }) => {
           profileId: player._id,
         },
       });
-      console.log(data);
       if (data) {
-        const newPlayerList = [...players];
-        const index = newPlayerList.findIndex(
-          (player) => player._id === data.updatePlayerProfile._id
-        );
-        newPlayerList[index] = data.updatePlayerProfile;
-        setPlayers(newPlayerList);
+        updatePlayer(data.updatePlayerProfile);
       }
     } catch (err) {
       console.error(err);
@@ -133,10 +126,7 @@ const PlayerForm = ({ edit, player, modal }) => {
         variables: { profileId: player._id },
       });
       if (data) {
-        const newPlayerList = players.filter(
-          (player) => player._id !== data.removePlayerProfile._id
-        );
-        setPlayers(newPlayerList);
+        deletePlayer(player._id);
       }
     } catch (err) {
       console.error(err);

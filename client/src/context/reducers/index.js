@@ -36,6 +36,7 @@ export const reducer = (state, action) => {
         }),
       };
     case DELETE_PLAYER_FROM_LIST:
+      console.log(action.payload);
       return {
         ...state,
         playerList: state.playerList.filter(

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Typography } from "@material-ui/core";
@@ -29,32 +29,38 @@ const Profile = () => {
 
   const classes = useStyles();
 
+  const [loadingData, setLoadingData] = useState(true);
+
   const { loading, data, error } = useQuery(QUERY_ME);
 
-  const [_state, dispatch] = useStoreContext();
+  const [state, dispatch] = useStoreContext();
 
-  if (data) {
-    dispatch({
-      type: CREATE_PLAYER_LIST,
-      payload: data.me.createdPlayers,
-    });
-    dispatch({
-      type: CREATE_FAVORITES_LIST,
-      payload: data.me.favoritePlayers,
-    });
-    dispatch({
-      type: CREATE_USER_PROFILE,
-      payload: data.me,
-    });
+  useEffect(() => {
+    if (data) {
+      dispatch({
+        type: CREATE_PLAYER_LIST,
+        payload: data.me.createdPlayers,
+      });
+      dispatch({
+        type: CREATE_FAVORITES_LIST,
+        payload: data.me.favoritePlayers,
+      });
+      dispatch({
+        type: CREATE_USER_PROFILE,
+        payload: data.me,
+      });
+      setLoadingData(false);
+    }
+  }, [data, dispatch]);
+
+  if (loadingData || loading) {
+    return <div>Loading...</div>;
   }
-
-  if (loading) return <div>Loading...</div>;
 
   if (error) {
     return <Navigate to="/login" />;
   }
-
-  const { username } = data?.me || {};
+  const { userProfile } = state;
 
   return (
     <div>
@@ -68,9 +74,12 @@ const Profile = () => {
           }}
         >
           <Grid container direction="column" alignContent="center" xs={3}>
-            <Avatar className={classes.icon} {...stringAvatar(username)} />
+            <Avatar
+              className={classes.icon}
+              {...stringAvatar(userProfile.username)}
+            />
             <Typography variant="h4" align="center">
-              {username}
+              {userProfile.username}
             </Typography>
           </Grid>
           <Grid
