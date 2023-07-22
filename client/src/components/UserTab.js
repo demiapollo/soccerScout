@@ -46,7 +46,11 @@ const UserTab = ({ data }) => {
       </div>
       <div>
         <TabPanel value={value} index={0}>
-          <PlayerList dashboard players={createdPlayerList} />
+          <PlayerList
+            dashboard
+            players={createdPlayerList}
+            setPlayers={setCreatedPlayerList}
+          />
         </TabPanel>
         <TabPanel value={value} index={1}>
           <PlayerForm

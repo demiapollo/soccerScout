@@ -14,7 +14,7 @@ import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { ADD_PLAYER } from "../graphQL/mutations";
 
-const PlayerForm = () => {
+const PlayerForm = ({ players, setPlayers }) => {
   const [formState, setFormState] = useState({
     firstName: "",
     lastName: "",
@@ -44,6 +44,10 @@ const PlayerForm = () => {
         variables: { ...formState, age: parseInt(formState.age) },
       });
       console.log(data);
+      if (data) {
+        const newPlayerList = [...players, data.addPlayerProfile];
+        setPlayers(newPlayerList);
+      }
     } catch (err) {
       console.error(err);
     }

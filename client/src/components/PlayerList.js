@@ -22,8 +22,7 @@ import { stringAvatar } from "../utils/helpers";
 
 // import { useQuery } from "@apollo/client";
 
-export const PlayerList = (props) => {
-  const { dashboard, players } = props;
+export const PlayerList = ({ dashboard, players, setPlayers }) => {
   const [isActive, setIsActive] = useState(true);
   const [playerList, setPlayerList] = useState(players);
 
