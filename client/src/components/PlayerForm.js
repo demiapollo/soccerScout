@@ -14,7 +14,16 @@ import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { ADD_PLAYER, UPDATE_PLAYER, DELETE_PLAYER } from "../graphQL/mutations";
 
+import { useStoreContext } from "../context";
+import {
+  ADD_PLAYER_TO_LIST,
+  UPDATE_PLAYER_LIST,
+  DELETE_PLAYER_FROM_LIST,
+} from "../context/actionTypes";
+
 const PlayerForm = ({ edit, player, modal }) => {
+  const [state, dispatch] = useStoreContext();
+
   const [formState, setFormState] = useState(
     edit
       ? { ...player }
@@ -29,6 +38,13 @@ const PlayerForm = ({ edit, player, modal }) => {
           skills: "",
         }
   );
+
+  const addPlayer = (player) => {
+    dispatch({
+      type: ADD_PLAYER_TO_LIST,
+      payload: player,
+    });
+  };
 
   const [addPlayerProfile, { error, data }] = useMutation(ADD_PLAYER);
   const [updatePlayerProfile, { error: updateError, data: updateData }] =
