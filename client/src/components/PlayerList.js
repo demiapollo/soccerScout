@@ -10,7 +10,6 @@ import {
   Divider,
   makeStyles,
 } from "@material-ui/core";
-import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import StarIcon from "@material-ui/icons/Star";
 import { Link } from "react-router-dom";
@@ -33,6 +32,11 @@ export const PlayerList = (props) => {
       width: "50%",
       marginTop: "50px",
       overflowY: "auto",
+    },
+    link: {
+      textDecoration: "none",
+      color: "black",
+      marginLeft: "189px",
     },
   }));
 
@@ -65,11 +69,11 @@ export const PlayerList = (props) => {
                   <ListItemAvatar>
                     <Avatar {...stringAvatar(player.firstName)} />
                   </ListItemAvatar>
-                  <ListItemText
-                    primary={player.firstName}
-                    secondary={player.lastName}
-                    align="center"
-                  />
+                  <Link to={`/players/${player._id}`} className={classes.link}>
+                    <ListItemText
+                      primary={`${player.firstName} ${player.lastName}`}
+                    ></ListItemText>
+                  </Link>
                   {dashboard ? (
                     <ListItemSecondaryAction>
                       <IconButton edge="end" aria-label="delete">
