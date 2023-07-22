@@ -36,6 +36,7 @@ const countries = [
 
 function Country({ country }) {
   const classes = useStyles();
+  const [showPlayers, setShowPlayers] = useState(false);
 
   const { loading, error, data } = useQuery(QUERY_PLAYERS_BY_COUNTRY, {
     variables: { country: country.code },
@@ -54,6 +55,7 @@ function Country({ country }) {
             src={country.flag} 
             alt={country.name} 
             style={{ width: '80%' }} 
+            onClick={() => setShowPlayers(!showPlayers)}
           />
           <div className={classes.root}>
             <p>{country.name}</p>
