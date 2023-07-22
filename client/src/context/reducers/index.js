@@ -74,6 +74,6 @@ export const reducer = (state, action) => {
   }
 };
 
-export const useProductReducer = (initialState) => {
+export const usePlayerReducer = (initialState) => {
   return userReducer(reducer, initialState);
 };
