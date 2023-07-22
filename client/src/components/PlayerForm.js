@@ -46,6 +46,13 @@ const PlayerForm = ({ edit, player, modal }) => {
     });
   };
 
+  const updatePlayer = (player) => {
+    dispatch({
+      type: UPDATE_PLAYER_LIST,
+      payload: player,
+    });
+  };
+
   const [addPlayerProfile, { error, data }] = useMutation(ADD_PLAYER);
   const [updatePlayerProfile, { error: updateError, data: updateData }] =
     useMutation(UPDATE_PLAYER);
