@@ -24,7 +24,7 @@ import { stringAvatar } from "../utils/helpers";
 
 export const PlayerList = ({ dashboard, players, setPlayers }) => {
   const [isActive, setIsActive] = useState(true);
-  const [playerList, setPlayerList] = useState(players);
+  const [followList, setFollowList] = useState(players);
 
   const [unfollowPlayer, { error, data }] = useMutation(UNFOLLOW_PLAYER);
 
@@ -57,10 +57,10 @@ export const PlayerList = ({ dashboard, players, setPlayers }) => {
       });
       console.log(data);
       if (data) {
-        const newPlayerList = playerList.filter(
+        const newFollowList = followList.filter(
           (player) => player._id !== event.currentTarget.id
         );
-        setPlayerList(newPlayerList);
+        setFollowList(newFollowList);
       }
     } catch (err) {
       console.error(err);
@@ -69,7 +69,7 @@ export const PlayerList = ({ dashboard, players, setPlayers }) => {
 
   return (
     <div className={classes.root}>
-      {playerList.length === 0 ? (
+      {players.length === 0 ? (
         <div>
           {dashboard ? (
             <div>
@@ -87,7 +87,7 @@ export const PlayerList = ({ dashboard, players, setPlayers }) => {
         </div>
       ) : (
         <List className={classes.list}>
-          {playerList.map((player) => {
+          {players.map((player) => {
             return (
               <div key={player._id}>
                 <ListItem>

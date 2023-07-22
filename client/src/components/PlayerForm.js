@@ -14,17 +14,21 @@ import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { ADD_PLAYER } from "../graphQL/mutations";
 
-const PlayerForm = ({ players, setPlayers }) => {
-  const [formState, setFormState] = useState({
-    firstName: "",
-    lastName: "",
-    position: "",
-    dominantFoot: "",
-    team: "",
-    country: "",
-    age: "",
-    skills: "",
-  });
+const PlayerForm = ({ edit, players, setPlayers }) => {
+  const [formState, setFormState] = useState(
+    edit
+      ? { ...players }
+      : {
+          firstName: "",
+          lastName: "",
+          position: "",
+          dominantFoot: "",
+          team: "",
+          country: "",
+          age: "",
+          skills: "",
+        }
+  );
 
   const [addPlayerProfile, { error, data }] = useMutation(ADD_PLAYER);
 
@@ -197,14 +201,33 @@ const PlayerForm = ({ players, setPlayers }) => {
           />
         </FormControl>
       </div>
-      <Button
-        variant="contained"
-        color="primary"
-        className={classes.button}
-        onClick={(event) => handleSubmit(event)}
-      >
-        Create
-      </Button>
+      {edit ? (
+        <div>
+          <Button
+            className={classes.button}
+            variant="contained"
+            color="primary"
+          >
+            Edit
+          </Button>
+          <Button
+            className={classes.button}
+            variant="contained"
+            color="secondary"
+          >
+            Delete
+          </Button>
+        </div>
+      ) : (
+        <Button
+          className={classes.button}
+          variant="contained"
+          color="primary"
+          onClick={(event) => handleSubmit(event)}
+        >
+          Create
+        </Button>
+      )}
     </div>
   );
 };
