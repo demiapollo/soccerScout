@@ -9,12 +9,14 @@ import {
   Avatar,
   Divider,
   makeStyles,
+  Modal,
 } from "@material-ui/core";
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import EditIcon from "@material-ui/icons/Edit";
 import StarIcon from "@material-ui/icons/Star";
 import { Link } from "react-router-dom";
+import PlayerForm from "./PlayerForm";
 
 import { UNFOLLOW_PLAYER } from "../graphQL/mutations";
 
@@ -25,29 +27,22 @@ import { stringAvatar } from "../utils/helpers";
 export const PlayerList = ({ dashboard, players, setPlayers }) => {
   const [isActive, setIsActive] = useState(true);
   const [followList, setFollowList] = useState(players);
+  const [open, setOpen] = useState(false);
+  const [editPlayer, setEditPlayer] = useState({});
 
   const [unfollowPlayer, { error, data }] = useMutation(UNFOLLOW_PLAYER);
 
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      display: "flex",
-      justifyContent: "center",
-    },
+  const handleOpen = (event) => {
+    const newEditPlayer = players.filter(
+      (player) => player._id === event.currentTarget.id
+    );
+    setEditPlayer(newEditPlayer[0]);
+    setOpen(true);
+  };
 
-    list: {
-      maxHeight: "725px",
-      width: "50%",
-      marginTop: "50px",
-      overflowY: "auto",
-    },
-    link: {
-      textDecoration: "none",
-      color: "black",
-      marginLeft: "189px",
-    },
-  }));
-
-  const classes = useStyles();
+  const handleClose = (event) => {
+    setOpen(false);
+  };
 
   const handleUnfollow = async (event) => {
     setIsActive(!isActive);
@@ -66,6 +61,36 @@ export const PlayerList = ({ dashboard, players, setPlayers }) => {
       console.error(err);
     }
   };
+
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      display: "flex",
+      justifyContent: "center",
+    },
+
+    list: {
+      maxHeight: "725px",
+      width: "50%",
+      marginTop: "50px",
+      overflowY: "auto",
+    },
+    link: {
+      textDecoration: "none",
+      color: "black",
+      marginLeft: "189px",
+    },
+    modal: {
+      position: "absolute",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
+      width: "50%",
+      height: "70%",
+      backgroundColor: "white",
+    },
+  }));
+
+  const classes = useStyles();
 
   return (
     <div className={classes.root}>
@@ -103,9 +128,9 @@ export const PlayerList = ({ dashboard, players, setPlayers }) => {
                     <ListItemSecondaryAction>
                       <IconButton
                         edge="end"
-                        aria-label="delete"
+                        aria-label="edit"
                         id={player._id}
-                        onClick={(event) => handleUnfollow(event)}
+                        onClick={(event) => handleOpen(event)}
                       >
                         <EditIcon />
                       </IconButton>
@@ -114,12 +139,11 @@ export const PlayerList = ({ dashboard, players, setPlayers }) => {
                     <ListItemSecondaryAction>
                       <IconButton
                         edge="end"
-                        aria-label="delete"
+                        aria-label="follow"
                         id={player._id}
                         onClick={(event) => handleUnfollow(event)}
                       >
                         <StarIcon
-                          id={player._id}
                           style={{ color: isActive ? "	#FFBF00" : "" }}
                         />
                       </IconButton>
@@ -132,6 +156,21 @@ export const PlayerList = ({ dashboard, players, setPlayers }) => {
           })}
         </List>
       )}
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+      >
+        <div className={classes.modal}>
+          <PlayerForm
+            edit
+            player={editPlayer}
+            players={players}
+            setPlayers={setPlayers}
+          />
+        </div>
+      </Modal>
     </div>
   );
 };

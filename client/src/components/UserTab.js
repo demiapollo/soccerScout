@@ -34,17 +34,6 @@ const UserTab = ({ data }) => {
     setValue(newValue);
   };
 
-  const player = {
-    firstName: "Lionel",
-    lastName: "Messi",
-    age: 36,
-    position: "Striker",
-    skills: "the GOAT",
-    dominantFoot: "left",
-    team: "Barcelona",
-    country: "Argentina",
-  };
-
   return (
     <div>
       <div>

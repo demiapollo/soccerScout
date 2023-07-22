@@ -14,10 +14,10 @@ import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { ADD_PLAYER } from "../graphQL/mutations";
 
-const PlayerForm = ({ edit, players, setPlayers }) => {
+const PlayerForm = ({ edit, player, players, setPlayers }) => {
   const [formState, setFormState] = useState(
     edit
-      ? { ...players }
+      ? { ...player }
       : {
           firstName: "",
           lastName: "",
@@ -89,7 +89,7 @@ const PlayerForm = ({ edit, players, setPlayers }) => {
     button: {
       width: "10%",
       height: "45px",
-      marginTop: "50px",
+      margin: "50px 25px 0px 25px",
     },
   }));
 
@@ -208,7 +208,7 @@ const PlayerForm = ({ edit, players, setPlayers }) => {
             variant="contained"
             color="primary"
           >
-            Edit
+            Save
           </Button>
           <Button
             className={classes.button}
