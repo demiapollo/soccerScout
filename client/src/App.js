@@ -16,6 +16,8 @@ import Register from "./pages/Register";
 import Profile from "./pages/Profile";
 import PlayerProfile from "./pages/PlayerProfile";
 
+import { StoreProvider } from "./context";
+
 const httpLink = createHttpLink({
   uri: "/graphql",
 });
@@ -41,19 +43,21 @@ const App = () => {
       <Router>
         <div>
           {/* Header Here */}
-          <Navbar />
-          <div>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route
-                path="/playerProfile/:playerId"
-                element={<PlayerProfile />}
-              />
-            </Routes>
-          </div>
+          <StoreProvider>
+            <Navbar />
+            <div>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route
+                  path="/playerProfile/:playerId"
+                  element={<PlayerProfile />}
+                />
+              </Routes>
+            </div>
+          </StoreProvider>
           {/* Footer Here */}
         </div>
       </Router>
