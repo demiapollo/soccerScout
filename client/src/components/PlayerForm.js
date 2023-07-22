@@ -14,7 +14,16 @@ import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { ADD_PLAYER, UPDATE_PLAYER, DELETE_PLAYER } from "../graphQL/mutations";
 
-const PlayerForm = ({ edit, player, players, setPlayers, modal }) => {
+import { useStoreContext } from "../context";
+import {
+  ADD_PLAYER_TO_LIST,
+  UPDATE_PLAYER_LIST,
+  DELETE_PLAYER_FROM_LIST,
+} from "../context/actionTypes";
+
+const PlayerForm = ({ edit, player, modal }) => {
+  const [_state, dispatch] = useStoreContext();
+
   const [formState, setFormState] = useState(
     edit
       ? { ...player }
@@ -29,6 +38,27 @@ const PlayerForm = ({ edit, player, players, setPlayers, modal }) => {
           skills: "",
         }
   );
+
+  const addPlayer = (player) => {
+    dispatch({
+      type: ADD_PLAYER_TO_LIST,
+      payload: player,
+    });
+  };
+
+  const updatePlayer = (player) => {
+    dispatch({
+      type: UPDATE_PLAYER_LIST,
+      payload: player,
+    });
+  };
+
+  const deletePlayer = (id) => {
+    dispatch({
+      type: DELETE_PLAYER_FROM_LIST,
+      payload: id,
+    });
+  };
 
   const [addPlayerProfile, { error, data }] = useMutation(ADD_PLAYER);
   const [updatePlayerProfile, { error: updateError, data: updateData }] =
@@ -52,8 +82,8 @@ const PlayerForm = ({ edit, player, players, setPlayers, modal }) => {
         variables: { ...formState, age: parseInt(formState.age) },
       });
       if (data) {
-        const newPlayerList = [...players, data.addPlayerProfile];
-        setPlayers(newPlayerList);
+        console.log("here", data.addPlayerProfile);
+        addPlayer(data.addPlayerProfile);
       }
     } catch (err) {
       console.error(err);
@@ -73,7 +103,6 @@ const PlayerForm = ({ edit, player, players, setPlayers, modal }) => {
   const handleEdit = async (event) => {
     event.preventDefault();
     try {
-      console.log(formState);
       const { data } = await updatePlayerProfile({
         variables: {
           ...formState,
@@ -81,14 +110,8 @@ const PlayerForm = ({ edit, player, players, setPlayers, modal }) => {
           profileId: player._id,
         },
       });
-      console.log(data);
       if (data) {
-        const newPlayerList = [...players];
-        const index = newPlayerList.findIndex(
-          (player) => player._id === data.updatePlayerProfile._id
-        );
-        newPlayerList[index] = data.updatePlayerProfile;
-        setPlayers(newPlayerList);
+        updatePlayer(data.updatePlayerProfile);
       }
     } catch (err) {
       console.error(err);
@@ -103,10 +126,7 @@ const PlayerForm = ({ edit, player, players, setPlayers, modal }) => {
         variables: { profileId: player._id },
       });
       if (data) {
-        const newPlayerList = players.filter(
-          (player) => player._id !== data.removePlayerProfile._id
-        );
-        setPlayers(newPlayerList);
+        deletePlayer(player._id);
       }
     } catch (err) {
       console.error(err);

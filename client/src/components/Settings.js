@@ -11,24 +11,60 @@ import {
   Typography,
 } from "@material-ui/core";
 
+import { useMutation } from "@apollo/client";
+import { UPDATE_USER } from "../graphQL/mutations";
+
+import { useStoreContext } from "../context";
+import { UPDATE_USER_PROFILE } from "../context/actionTypes";
+
 import EditIcon from "@material-ui/icons/Edit";
 
 const Settings = () => {
-  const [initialUsername, setInitialUsername] = useState("ThisIsAnExample");
-  const [initialEmail, setInitialEmail] = useState(
-    "ThisIsAnExampleEmail@email.com"
-  );
-  const [usernameInput, setUsernameInput] = useState(initialUsername);
-  const [emailInput, setEmailInput] = useState(initialEmail);
+  const [state, dispatch] = useStoreContext();
+  const { username, email } = state.userProfile;
+
+  const [formState, setFormState] = useState({
+    username,
+    email,
+  });
+
   const [enableUsername, setEnableUsername] = useState(true);
   const [enableEmail, setEnableEmail] = useState(true);
+
+  const [updateUser, { error, data }] = useMutation(UPDATE_USER);
+
+  const handleSave = async (e) => {
+    e.preventDefault();
+    try {
+      const { data } = await updateUser({
+        variables: { ...formState },
+      });
+      if (data) {
+        dispatch({
+          type: UPDATE_USER_PROFILE,
+          payload: data.updateUser,
+        });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setFormState({
+      ...formState,
+      [name]: value,
+    });
+  };
 
   const useStyles = makeStyles((theme) => ({
     root: {
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
-      justifyContent: "center",
+      marginTop: "180px",
       height: "100vh",
     },
     form: {
@@ -49,10 +85,10 @@ const Settings = () => {
       <FormControl className={classes.form}>
         <InputLabel htmlFor="username">Username</InputLabel>
         <Input
-          id="username"
-          value={usernameInput}
+          name="username"
+          value={formState.username}
           onChange={(e) => {
-            setUsernameInput(e.target.value);
+            handleChange(e);
           }}
           disabled={enableUsername}
           endAdornment={
@@ -72,8 +108,11 @@ const Settings = () => {
       <FormControl className={classes.form}>
         <InputLabel htmlFor="email">Email</InputLabel>
         <Input
-          id="email"
-          value={emailInput}
+          name="email"
+          value={formState.email}
+          onChange={(e) => {
+            handleChange(e);
+          }}
           disabled={enableEmail}
           endAdornment={
             <InputAdornment position="end">
@@ -89,7 +128,14 @@ const Settings = () => {
           }
         />
       </FormControl>
-      <Button variant="contained" color="primary" className={classes.button}>
+      <Button
+        variant="contained"
+        color="primary"
+        className={classes.button}
+        onClick={(e) => {
+          handleSave(e);
+        }}
+      >
         Save
       </Button>
     </div>

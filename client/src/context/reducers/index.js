@@ -1,4 +1,4 @@
-import { userReducer } from "react";
+import { useReducer } from "react";
 
 import {
   CREATE_PLAYER_LIST,
@@ -36,6 +36,7 @@ export const reducer = (state, action) => {
         }),
       };
     case DELETE_PLAYER_FROM_LIST:
+      console.log(action.payload);
       return {
         ...state,
         playerList: state.playerList.filter(
@@ -75,5 +76,5 @@ export const reducer = (state, action) => {
 };
 
 export const usePlayerReducer = (initialState) => {
-  return userReducer(reducer, initialState);
+  return useReducer(reducer, initialState);
 };

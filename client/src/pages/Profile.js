@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Typography } from "@material-ui/core";
@@ -7,6 +7,13 @@ import Avatar from "@material-ui/core/Avatar";
 import UserTab from "../components/UserTab";
 import { Navigate } from "react-router-dom";
 import { QUERY_ME } from "../graphQL/queries";
+
+const { useStoreContext } = require("../context");
+const {
+  CREATE_PLAYER_LIST,
+  CREATE_FAVORITES_LIST,
+  CREATE_USER_PROFILE,
+} = require("../context/actionTypes");
 
 const Profile = () => {
   const useStyles = makeStyles((theme) => ({
@@ -22,15 +29,40 @@ const Profile = () => {
 
   const classes = useStyles();
 
+  const [loadingData, setLoadingData] = useState(true);
+
   const { loading, data, error } = useQuery(QUERY_ME);
 
-  if (loading) return <div>Loading...</div>;
+  const [state, dispatch] = useStoreContext();
+
+  useEffect(() => {
+    if (data) {
+      const { createdPlayers, favoritePlayers, ...me } = data.me;
+
+      dispatch({
+        type: CREATE_PLAYER_LIST,
+        payload: createdPlayers,
+      });
+      dispatch({
+        type: CREATE_FAVORITES_LIST,
+        payload: favoritePlayers,
+      });
+      dispatch({
+        type: CREATE_USER_PROFILE,
+        payload: me,
+      });
+      setLoadingData(false);
+    }
+  }, [data, dispatch]);
+
+  if (loadingData || loading) {
+    return <div>Loading...</div>;
+  }
 
   if (error) {
     return <Navigate to="/login" />;
   }
-
-  const { username } = data?.me || {};
+  const { userProfile } = state;
 
   return (
     <div>
@@ -44,9 +76,12 @@ const Profile = () => {
           }}
         >
           <Grid container direction="column" alignContent="center" xs={3}>
-            <Avatar className={classes.icon} {...stringAvatar(username)} />
+            <Avatar
+              className={classes.icon}
+              {...stringAvatar(userProfile.username)}
+            />
             <Typography variant="h4" align="center">
-              {username}
+              {userProfile.username}
             </Typography>
           </Grid>
           <Grid
@@ -56,7 +91,7 @@ const Profile = () => {
             className={classes.root}
             style={{ height: "100vh" }}
           >
-            <UserTab data={data.me} />
+            <UserTab />
           </Grid>
         </Grid>
       </Grid>
