@@ -2,13 +2,11 @@ import React from "react";
 import { useQuery } from "@apollo/client";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Typography } from "@material-ui/core";
-
 import { stringAvatar } from "../utils/helpers";
-
 import Avatar from "@material-ui/core/Avatar";
-import { Navigate, Link, useParams } from "react-router-dom";
-
 import UserTab from "../components/UserTab";
+import { Navigate } from "react-router-dom";
+import { QUERY_ME } from "../graphQL/queries";
 
 const Profile = () => {
   const useStyles = makeStyles((theme) => ({
@@ -24,15 +22,15 @@ const Profile = () => {
 
   const classes = useStyles();
 
-  // const { loading, data, error } = useQuery(QUERY_ME);
+  const { loading, data, error } = useQuery(QUERY_ME);
 
-  // if (loading) return <div>Loading...</div>;
+  if (loading) return <div>Loading...</div>;
 
-  // if (error) {
-  //     return <Navigate to="/login" />;
-  // }
+  if (error) {
+    return <Navigate to="/login" />;
+  }
 
-  // const { username, following, createdPlayers} = data?.user || {};
+  const { username } = data?.me || {};
 
   return (
     <div>
@@ -46,13 +44,9 @@ const Profile = () => {
           }}
         >
           <Grid container direction="column" alignContent="center" xs={3}>
-            <Avatar
-              className={classes.icon}
-              {...stringAvatar("Chawnkieasdfasf")}
-            />
-
+            <Avatar className={classes.icon} {...stringAvatar(username)} />
             <Typography variant="h4" align="center">
-              User
+              {username}
             </Typography>
           </Grid>
           <Grid
@@ -62,7 +56,7 @@ const Profile = () => {
             className={classes.root}
             style={{ height: "100vh" }}
           >
-            <UserTab />
+            <UserTab data={data.me} />
           </Grid>
         </Grid>
       </Grid>

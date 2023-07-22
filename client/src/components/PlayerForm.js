@@ -11,19 +11,30 @@ import {
 
 import { useState } from "react";
 
-const PlayerForm = () => {
-  const [formState, setFormState] = useState({
-    firstName: "",
-    lastName: "",
-    position: "",
-    dominantFoot: "",
-    team: "",
-    country: "",
-    age: "",
-    skills: "",
-  });
+import { useMutation } from "@apollo/client";
+import { ADD_PLAYER, UPDATE_PLAYER, DELETE_PLAYER } from "../graphQL/mutations";
 
-  //   const [addPlayer, { error, data }] = useMutation(ADD_PLAYER);
+const PlayerForm = ({ edit, player, players, setPlayers, modal }) => {
+  const [formState, setFormState] = useState(
+    edit
+      ? { ...player }
+      : {
+          firstName: "",
+          lastName: "",
+          position: "",
+          dominantFoot: "",
+          team: "",
+          country: "",
+          age: "",
+          skills: "",
+        }
+  );
+
+  const [addPlayerProfile, { error, data }] = useMutation(ADD_PLAYER);
+  const [updatePlayerProfile, { error: updateError, data: updateData }] =
+    useMutation(UPDATE_PLAYER);
+  const [removePlayerProfile, { error: deleteError, data: deleteData }] =
+    useMutation(DELETE_PLAYER);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -36,24 +47,71 @@ const PlayerForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(formState);
-    // try {
-    //   const { data } = await addPlayer({
-    // variables: { ...formState },
-    //   });
-    //   console.log(data);
+    try {
+      const { data } = await addPlayerProfile({
+        variables: { ...formState, age: parseInt(formState.age) },
+      });
+      if (data) {
+        const newPlayerList = [...players, data.addPlayerProfile];
+        setPlayers(newPlayerList);
+      }
+    } catch (err) {
+      console.error(err);
+    }
     setFormState({
       firstName: "",
       lastName: "",
+      age: "",
       position: "",
       dominantFoot: "",
       team: "",
       country: "",
       skills: "",
     });
-    // } catch (err) {
-    //   console.error(err);
-    // }
+  };
+
+  const handleEdit = async (event) => {
+    event.preventDefault();
+    try {
+      console.log(formState);
+      const { data } = await updatePlayerProfile({
+        variables: {
+          ...formState,
+          age: parseInt(formState.age),
+          profileId: player._id,
+        },
+      });
+      console.log(data);
+      if (data) {
+        const newPlayerList = [...players];
+        const index = newPlayerList.findIndex(
+          (player) => player._id === data.updatePlayerProfile._id
+        );
+        newPlayerList[index] = data.updatePlayerProfile;
+        setPlayers(newPlayerList);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+    modal.handleClose(); // This is the modal from PlayerList.js
+  };
+
+  const handleDelete = async (event) => {
+    event.preventDefault();
+    try {
+      const { data } = await removePlayerProfile({
+        variables: { profileId: player._id },
+      });
+      if (data) {
+        const newPlayerList = players.filter(
+          (player) => player._id !== data.removePlayerProfile._id
+        );
+        setPlayers(newPlayerList);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+    modal.handleClose(); // This is the modal from PlayerList.js
   };
 
   const useStyles = makeStyles((_theme) => ({
@@ -78,7 +136,7 @@ const PlayerForm = () => {
     button: {
       width: "10%",
       height: "45px",
-      marginTop: "50px",
+      margin: "50px 25px 0px 25px",
     },
   }));
 
@@ -190,14 +248,35 @@ const PlayerForm = () => {
           />
         </FormControl>
       </div>
-      <Button
-        variant="contained"
-        color="primary"
-        className={classes.button}
-        onClick={(event) => handleSubmit(event)}
-      >
-        Create
-      </Button>
+      {edit ? (
+        <div>
+          <Button
+            className={classes.button}
+            variant="contained"
+            color="primary"
+            onClick={(event) => handleEdit(event)}
+          >
+            Save
+          </Button>
+          <Button
+            className={classes.button}
+            variant="contained"
+            color="secondary"
+            onClick={(event) => handleDelete(event)}
+          >
+            Delete
+          </Button>
+        </div>
+      ) : (
+        <Button
+          className={classes.button}
+          variant="contained"
+          color="primary"
+          onClick={(event) => handleSubmit(event)}
+        >
+          Create
+        </Button>
+      )}
     </div>
   );
 };

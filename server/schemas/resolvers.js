@@ -33,19 +33,16 @@ const resolvers = {
       return await User.findById(userId);
     },
 
-
     // // get all countries
     // countries: async () => {
     //   //return await Country.find();
     //   const users = await PlayerProfile.find();
-
 
     //   const countries = users.map((user) => user.country);
 
     //   const uniqueCountries = [...new Set(countries)];
 
     //   const validCountries = uniqueCountries.filter((country) => !!country);
-
 
     //   return validCountries.map((country, index) => {
     //     return {
@@ -60,7 +57,6 @@ const resolvers = {
     // },
 
     playerByCountry: async (_root, { country }) => {
-
       try {
         const players = await PlayerProfile.find({ country: country });
         return players;
@@ -73,12 +69,16 @@ const resolvers = {
     // By adding context to our query, we can retrieve the logged in user without specifically searching for them
     me: async (_parent, _args, context) => {
       if (context.user) {
-        return Profile.findById(context.user._id)
-          .populate("createdPlayers")
-          .poulate({
+        const user = await User.findById(context.user._id)
+          .populate({
+            path: "createdPlayers",
+            select: "-__v",
+          })
+          .populate({
             path: "favoritePlayers",
-            select: " _id firstName lastName",
+            select: "firstName lastName",
           });
+        return user;
       }
       throw new AuthenticationError("You need to be logged in!");
     },
@@ -97,11 +97,10 @@ const resolvers = {
         team,
         country,
         anyOtherComments,
-      }
-    ) =>
-      // context
-      {
-        // if (context.user) {
+      },
+      context
+    ) => {
+      if (context.user) {
         const player = await PlayerProfile.create({
           firstName,
           lastName,
@@ -114,14 +113,14 @@ const resolvers = {
           anyOtherComments,
         });
 
-        // await User.findByIdAndUpdate(
-        //   { _id: context.user._id },
-        //   { $addToSet: { createdPlayers: player._id } }
-        // );
+        await User.findByIdAndUpdate(
+          { _id: context.user._id },
+          { $addToSet: { createdPlayers: player._id } }
+        );
         return player;
-        // }
-        // throw new AuthenticationError("You need to be logged in!");
-      },
+      }
+      throw new AuthenticationError("You need to be logged in!");
+    },
 
     updatePlayerProfile: async (
       _root,
@@ -140,7 +139,6 @@ const resolvers = {
       context
     ) => {
       if (context.user) {
-
         return await PlayerProfile.findByIdAndUpdate(
           { _id: profileId },
           {
@@ -195,7 +193,6 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in!");
     },
-
 
     // add a user mutation
     addUser: async (_root, { username, email, password }) => {
