@@ -9,7 +9,8 @@ import Account from './Account';
 const NavButtons = ({ handleClick, anchorEl, handleClose }) => {
   return (
     <div>
-      <Button color="inherit" component={Link} to="/Home">Home</Button>
+      <Button color="inherit" component={Link} to="/">Home</Button>
+      
       {/* <Button color="inherit">Dashboard</Button> */}
       <IconButton color="inherit" onClick={handleClick}>
         <AccountCircle />

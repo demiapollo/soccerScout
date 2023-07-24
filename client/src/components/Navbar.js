@@ -23,7 +23,7 @@ const Navbar = () => {
           <Typography variant="h3" style={{ flexGrow: 1 }}>
             Soccer Scout
           </Typography>
-          {isLoggedIn && <DiscoverButton /> }
+          {isLoggedIn && <DiscoverButton />}
           <NavButtons handleClick={handleClick} anchorEl={anchorEl} handleClose={handleClose} />
         </Toolbar>
       </AppBar>
