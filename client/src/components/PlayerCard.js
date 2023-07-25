@@ -28,12 +28,17 @@ const useStyles = makeStyles((theme) => ({
   playerCard: {
     padding: theme.spacing(2),
     margin: theme.spacing(1),
-    borderRadius: theme.spacing(1),
-    border: `1px solid ${theme.palette.primary.main}`,
     width: "300px",
     color: "inherit",
     textDecoration: "none",
     flex: "0 0 300px",
+  },
+  content: {
+    minHeight: "400px",
+  },
+  link: {
+    color: "inherit",
+    textDecoration: "none",
   },
 }));
 
@@ -42,11 +47,11 @@ const PlayerCard = ({ player }) => {
 
   return (
     <Card className={classes.playerCard}>
-      <CardContent>
+      <CardContent className={classes.content}>
         <Link
           to={`/PlayerProfile/${player._id}`}
           key={player._id}
-          className={classes.playerCard}
+          className={classes.link}
         >
           <List>
             <ListItem>
@@ -96,7 +101,14 @@ const PlayerCard = ({ player }) => {
           </List>
         </Link>
       </CardContent>
-      <CardActions>
+      <CardActions
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "20px",
+        }}
+      >
         <FollowButton player={player} />
       </CardActions>
     </Card>

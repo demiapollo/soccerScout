@@ -83,7 +83,12 @@ export const FollowButton = ({ player }) => {
             color: "",
           }}
         >
-          <StarIcon />
+          <StarIcon
+            style={{
+              width: "1.5em",
+              height: "1.5em",
+            }}
+          />
         </IconButton>
       )}
     </>
