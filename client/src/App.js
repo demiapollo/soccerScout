@@ -16,6 +16,7 @@ import Register from "./pages/Register";
 import Profile from "./pages/Profile";
 import PlayerProfile from "./pages/PlayerProfile";
 import Countries from "./pages/Countries";
+import Players from "./pages/Players";
 
 import { StoreProvider } from "./context";
 
@@ -54,6 +55,7 @@ const App = () => {
                 <Route path="/register" element={<Register />} />
                 <Route path="/countries" element={<Countries />} />
                 <Route path="/profile" element={<Profile />} />
+                <Route path="/players/:country" element={<Players />} />
                 <Route
                   path="/playerProfile/:playerId"
                   element={<PlayerProfile />}

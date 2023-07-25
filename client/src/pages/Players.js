@@ -1,4 +1,5 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { useQuery, gql } from "@apollo/client";
@@ -24,17 +25,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Players = (country) => {
+const Players = () => {
   const classes = useStyles();
+  const { country } = useParams();
   const { loading, error, data } = useQuery(QUERY_PLAYERS_BY_COUNTRY, {
-    variables: { country: country.name },
+    variables: { country: country },
   });
-  const playerProfiles = data?.playerProfiles || [];
+  const playerProfiles = data?.playerByCountry || [];
 
   return (
     <div className={classes.root}>
       <Typography variant="h2" className={classes.title}>
-        {country.name} Players
+        Players from {country}
       </Typography>
       <div className={classes.resultsContainer}>
         {loading ? (
