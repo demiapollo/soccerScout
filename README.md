@@ -51,8 +51,11 @@ Technologies used in this application:
 
 ## Screenshots 
 ![Login](./client/src/assets/Screenshot1.png)
-![Scout](./client/src/assets/screenshot2.png)
+
+![](./client/src/assets/screenshot2.png)
+
 ![Completed Player Profile](./client/src/assets/Screenshot3.png)
+
 ![Countries](./client/src/assets/Screenshot4.png)
 
 ## Links
