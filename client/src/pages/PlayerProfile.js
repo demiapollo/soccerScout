@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
-import { useQuery, useMutation } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { QUERY_PLAYER } from "../graphQL/queries";
 import {
   Typography,
@@ -10,6 +10,7 @@ import {
   TableContainer,
   TableRow,
   Paper,
+  CircularProgress,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
@@ -18,6 +19,7 @@ import PublicIcon from "@material-ui/icons/Public";
 import DirectionsRunIcon from "@material-ui/icons/DirectionsRun";
 import PersonIcon from "@material-ui/icons/Person";
 import SportsKabaddiIcon from "@material-ui/icons/SportsKabaddi";
+import Alert from '@mui/material/Alert';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -50,50 +52,7 @@ const PlayerProfile = () => {
     console.log(error);
   }
 
-  //   const [addComment] = useMutation(ADD_COMMENT, {
-  //     refetchQueries: [{ query: GET_PLAYER, variables: { id: playerId } }],
-  //   });
-
-  //   const handleCommentChange = (e) => {
-  //     setComment(e.target.value);
-  //   };
-
-  //   const handleSubmitComment = (e) => {
-  //     e.preventDefault();
-  //     addComment({
-  //       variables: {
-  //         playerId: playerId,
-  //         comment: comment,
-  //       },
-  //     })
-  //       .then(() => {
-  //         setComment("");
-  //       })
-  //       .catch((error) => {
-  //         console.log(error);
-  //       });
-  //   };
-
-  //   useEffect(() => {
-  //     if (data && data.player) {
-  //       console.log(data.player);
-  //     }
-  //   }, [data]);
-
-  //   if (loading) {
-  //     return <p>Loading...</p>;
-  //   }
-
-  //   if (error) {
-  //     return <p>Error: {error.message}</p>;
-  //   }
-
-  //   if (!data || !data.player) {
-  //     return <p>Player not found.</p>;
-  //   }
-
   const {
-    _id,
     firstName,
     lastName,
     age,
@@ -107,11 +66,15 @@ const PlayerProfile = () => {
   return (
     <div>
       {loading ? (
-        <Typography variant="h4" className={classes.title}>
-          Loading...
-        </Typography>
+        <div className={classes.loadingContainer}>
+        <CircularProgress />
+      </div>
       ) : error ? (
-        <Typography variant="body1">Error fetching player profiles.</Typography>
+        <Alert severity="error">
+        <Typography variant="body1">
+          Error fetching player profiles.
+        </Typography>
+      </Alert>
       ) : (
         <div className={classes.root}>
           <Typography variant="h2">
@@ -171,39 +134,5 @@ const PlayerProfile = () => {
     </div>
   );
 };
-
-/* <div className={classes.infoContainer}>
-              <HeightIcon className={classes.icon} />
-              <Typography variant="body1">Height: {height}</Typography>
-            </div>
-      
-            <div className={classes.infoContainer}>
-              <FitnessCenterIcon className={classes.icon} />
-              <Typography variant="body1">Weight: {weight}</Typography>
-            </div> */
-
-/* <div className={classes.commentsContainer}>
-              <Typography variant="h3">Comments</Typography>
-              {comments.map((comment) => (
-                <div key={comment.id} className={classes.comment}>
-                  <Typography variant="body1">{comment.text}</Typography>
-                </div>
-              ))}
-            </div> */
-
-/* <form onSubmit={handleSubmitComment}>
-              <TextField
-                value={comment}
-                onChange={handleCommentChange}
-                label="Add a comment"
-                variant="outlined"
-                multiline
-                rows={4}
-                required
-              />
-              <Button type="submit" variant="contained" color="primary">
-                Add Comment
-              </Button>
-          </form> */
 
 export default PlayerProfile;

@@ -14,17 +14,17 @@ const useStyles = makeStyles((theme) => ({
   playerCardList: {
     display: "flex",
     flexWrap: "wrap",
-    justifyContent: "center", 
+    justifyContent: "center",
   },
   playerCard: {
     padding: theme.spacing(2),
-    margin: theme.spacing(1), 
+    margin: theme.spacing(1),
     borderRadius: theme.spacing(1),
     border: `1px solid ${theme.palette.primary.main}`,
-    width: "300px", 
+    width: "300px",
     color: "inherit",
     textDecoration: "none",
-    flex: "0 0 300px", 
+    flex: "0 0 300px",
   },
 }));
 

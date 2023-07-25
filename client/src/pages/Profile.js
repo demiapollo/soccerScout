@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { makeStyles } from "@material-ui/core/styles";
-import { Grid, Typography } from "@material-ui/core";
+import { Grid, Typography, CircularProgress } from "@material-ui/core";
 import { stringAvatar } from "../utils/helpers";
 import Avatar from "@material-ui/core/Avatar";
 import UserTab from "../components/UserTab";
@@ -36,7 +36,7 @@ const Profile = () => {
     errorPolicy: "all",
   });
 
-  const [state, dispatch] = useStoreContext();
+  const [dispatch] = useStoreContext();
 
   useEffect(() => {
     if (data && data.me) {
@@ -61,7 +61,11 @@ const Profile = () => {
   }, [data, dispatch]);
 
   if (loadingData || loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className={classes.loadingContainer}>
+        <CircularProgress />
+      </div>
+    );
   }
 
   if (!Auth.loggedIn()) {

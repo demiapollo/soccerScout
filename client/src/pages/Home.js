@@ -1,14 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import { useQuery, gql } from "@apollo/client";
-import {
-  QUERY_PLAYERS,
-  QUERY_PLAYER,
-  GET_COUNTRIES,
-  GET_PLAYER_BY_COUNTRY,
-} from "../graphQL/queries";
+import { Typography, CircularProgress } from "@material-ui/core";
+import { useQuery } from "@apollo/client";
+import { QUERY_PLAYERS } from "../graphQL/queries";
 import PlayerCard from "../components/PlayerCard";
+import Alert from "@mui/material/Alert";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,9 +19,9 @@ const useStyles = makeStyles((theme) => ({
   resultsContainer: {
     marginTop: theme.spacing(4),
     display: "flex",
-    flexDirection: "row", 
-    flexWrap: "wrap", 
-    justifyContent: "center", 
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
   },
 }));
 
@@ -41,11 +37,15 @@ const Home = () => {
       </Typography>
       <div className={classes.resultsContainer}>
         {loading ? (
-          <Typography variant="body1">Loading...</Typography>
+          <div className={classes.loadingContainer}>
+            <CircularProgress />
+          </div>
         ) : error ? (
-          <Typography variant="body1">
-            Error fetching player profiles.
-          </Typography>
+          <Alert severity="error">
+            <Typography variant="body1">
+              Error fetching player profiles.
+            </Typography>
+          </Alert>
         ) : (
           playerProfiles.map((player) => (
             <PlayerCard key={player._id} player={player} />
