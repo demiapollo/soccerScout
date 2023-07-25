@@ -61,8 +61,9 @@ export const PlayerList = ({ dashboard }) => {
       const { data } = await unfollowPlayer({
         variables: { profileId: event.currentTarget.id },
       });
-      if (data) {
-        removeFavorite(event.currentTarget.id);
+
+      if (data.unfollowPlayer) {
+        removeFavorite(data.unfollowPlayer._id);
       }
     } catch (err) {
       console.error(err);
@@ -155,10 +156,9 @@ export const PlayerList = ({ dashboard }) => {
                         aria-label="follow"
                         id={player._id}
                         onClick={(event) => handleUnfollow(event)}
+                        style={{ color: isActive ? "	#FFBF00" : "" }}
                       >
-                        <StarIcon
-                          style={{ color: isActive ? "	#FFBF00" : "" }}
-                        />
+                        <StarIcon />
                       </IconButton>
                     </ListItemSecondaryAction>
                   )}

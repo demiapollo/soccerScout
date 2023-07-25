@@ -57,7 +57,7 @@ export const reducer = (state, action) => {
       return {
         ...state,
         favoritesList: state.favoritesList.filter(
-          (player) => player.id !== action.payload
+          (player) => player._id !== action.payload
         ),
       };
     case CREATE_USER_PROFILE:
