@@ -11,7 +11,7 @@ const Navbar = () => {
   const useStyles = makeStyles({
     linkButton: {
       textDecoration: "none",
-      marginRight: "10px",
+      marginRight: "15px",
     },
   });
 
@@ -33,6 +33,14 @@ const Navbar = () => {
           <Typography variant="h3" style={{ flexGrow: 1 }}>
             Soccer Scout
           </Typography>
+          <Button
+            className={classes.linkButton}
+            color="inherit"
+            component={Link}
+            to="/"
+          >
+            Home
+          </Button>
           {Auth.loggedIn() ? (
             <div
               style={{
@@ -47,16 +55,25 @@ const Navbar = () => {
             </div>
           ) : (
             <div>
-              <Link to="/login" className={classes.linkButton}>
-                <Button variant="contained" color="secondary">
-                  Login
-                </Button>
-              </Link>
-              <Link to="/register" className={classes.linkButton}>
-                <Button variant="contained" color="secondary">
-                  Signup
-                </Button>
-              </Link>
+              <Button
+                className={classes.linkButton}
+                variant="contained"
+                color="secondary"
+                component={Link}
+                to="/login"
+              >
+                Login
+              </Button>
+
+              <Button
+                className={classes.linkButton}
+                variant="contained"
+                color="secondary"
+                component={Link}
+                to="/register"
+              >
+                Signup
+              </Button>
             </div>
           )}
         </Toolbar>

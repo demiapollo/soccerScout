@@ -10,9 +10,6 @@ import DiscoverButton from "./DiscoverButton";
 const NavButtons = ({ handleClick, anchorEl, handleClose }) => {
   return (
     <div>
-      <Button color="inherit" component={Link} to="/">
-        Home
-      </Button>
       <DiscoverButton />
       {/* <Button color="inherit">Dashboard</Button> */}
       <IconButton color="inherit" onClick={handleClick}>
