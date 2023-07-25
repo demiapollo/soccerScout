@@ -16,7 +16,7 @@ Scouts need to sign up with an account to create soccer player profiles that sto
 
 Scouts can also search players by country if they are interested in players from specific countries. This feature allows scouts to discover players from countries they are interested in and will enable them to find players not well-known.
 
-The application uses React, MongoDB, Material UI, GraphQL, and Apollo.
+This full-stack MERN application app was built using MongoDB, Mongoose, GraphQL, Express.js, Node.js, Apollo Server, React, and Material UI. This app provided user authentication via JWT and bcrypt and was deployed on Heroku and MongoDB Atlas.
 
 ## Installation
 
