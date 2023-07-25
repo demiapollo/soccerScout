@@ -5,7 +5,7 @@
 - [Description](#description)
 - [Installation](#installation)
 - [Contributions](#contributions)
-- [Technologies](#Technologies)
+- [Technologies](#technologies)
 - [Screenshots](#screenshots)
 - [Links](#links)
 
