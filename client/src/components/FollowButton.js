@@ -15,23 +15,26 @@ export const FollowButton = ({ player }) => {
     useMutation(UNFOLLOW_PLAYER);
 
   const handleFollow = async (event) => {
-    console.log("here");
+    console.log("here", event.currentTarget.id);
     setIsActive(!isActive);
     try {
       const { data } = await followPlayer({
         variables: { profileId: event.currentTarget.id },
       });
+      console.log(data);
     } catch (error) {
       console.error(error);
     }
   };
 
   const handleUnfollow = async (event) => {
+    console.log("here", event.currentTarget.id);
     setIsActive(!isActive);
     try {
       const { data } = await unfollowPlayer({
         variables: { profileId: event.currentTarget.id },
       });
+      console.log(data);
     } catch (error) {
       console.error(error);
     }
@@ -42,7 +45,7 @@ export const FollowButton = ({ player }) => {
       {isActive ? (
         <IconButton
           id={player._id}
-          onClick={(event) => handleFollow(event)}
+          onClick={(event) => handleUnfollow(event)}
           style={{
             color: "#FFBF00",
           }}
@@ -52,7 +55,7 @@ export const FollowButton = ({ player }) => {
       ) : (
         <IconButton
           id={player._id}
-          onClick={(event) => handleUnfollow(event)}
+          onClick={(event) => handleFollow(event)}
           style={{
             color: "",
           }}
