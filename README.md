@@ -6,6 +6,7 @@
 - [Installation](#installation)
 - [Contributions](#contributions)
 - [Technologies](#Technologies)
+- [Screenshots](#screenshots)
 - [Links](#links)
 
 ## Description
@@ -48,6 +49,11 @@ Technologies used in this application:
 - [Heroku](https://www.heroku.com/)
 - [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
 
+## Screenshots 
+![Login](./client/src/assets/Screenshot1.png)
+![Create a Player Profile](./client/src/assets/screenshot2.png)
+![Completed Player Profile](./client/src/assets/Screenshot3.png)
+![Countries](./client/src/assets/Screenshot4.png)
 
 ## Links
 
