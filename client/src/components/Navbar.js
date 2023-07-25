@@ -22,8 +22,12 @@ const Navbar = () => {
   };
 
   const handleClose = () => {
-    console.log("handleClose");
+    setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
     Auth.logout();
+    setAnchorEl(null);
   };
 
   return (
@@ -50,7 +54,9 @@ const Navbar = () => {
               <NavButtons
                 handleClick={handleClick}
                 anchorEl={anchorEl}
+                setAnchorEl={setAnchorEl}
                 handleClose={handleClose}
+                handleLogout={handleLogout}
               />
             </div>
           ) : (

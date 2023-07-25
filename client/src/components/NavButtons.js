@@ -7,7 +7,13 @@ import Account from "./Account";
 
 import DiscoverButton from "./DiscoverButton";
 
-const NavButtons = ({ handleClick, anchorEl, handleClose }) => {
+const NavButtons = ({
+  handleClick,
+  anchorEl,
+  setAnchorE1,
+  handleClose,
+  handleLogout,
+}) => {
   return (
     <div>
       <DiscoverButton />
@@ -21,7 +27,12 @@ const NavButtons = ({ handleClick, anchorEl, handleClose }) => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <Account handleClose={handleClose} />
+        <Account
+          handleClose={handleClose}
+          handleLogout={handleLogout}
+          anchorEl={anchorEl}
+          setAnchorE1={setAnchorE1}
+        />
       </Menu>
     </div>
   );
