@@ -10,8 +10,13 @@
 
 ## Description
 
-Soccer Scout is a web application that allows users to search for soccer players. Scouts or players can create an account to post a new up and coming player or look for existing players in our extensive database of players. You will be presented with many features about the player to find the right one.
-Users are able to add as many players as they want from the Create user section in profile, as well as view the players they have posted in the dashboard section of their Profile. Users are also able to search players by country to find one in their country to recruit. The application uses React, MongoDB, Material UI, GraphQL, and Apollo.
+Soccer Scout is a web application that allows scouts to take notes about soccer players they watch in an organized and structured way. Scouts can also view and follow soccer players that other scouts have posted. This app allows scouts to share and view information about players they are interested in and enable discussions about players. 
+
+Scouts need to sign up with an account to create soccer player profiles that store information about the players. Player profiles created by scouts include the player's name, age, position, skills, dominant foot, team, country of origin, and additional comments. 
+
+Scouts can also search players by country if they are interested in players from specific countries. This feature allows scouts to discover players from countries they are interested in and will enable them to find players not well-known.
+
+The application uses React, MongoDB, Material UI, GraphQL, and Apollo.
 
 ## Installation
 
@@ -21,7 +26,7 @@ Users are able to add as many players as they want from the Create user section 
 
 ## Contributions
 
-- [Demi Apollo](https://github.com/demiapollo)
+- [Apollo Demirel](https://github.com/demiapollo)
 - [Frank Colorado](https://github.com/Frank-Colorado)
 - [Bader Mahdawi](https://github.com/Badermah)
 - [Deshan Meemanage](https://github.com/deltamango777)
