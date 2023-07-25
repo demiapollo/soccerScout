@@ -129,7 +129,10 @@ export const PlayerList = ({ dashboard }) => {
                   <ListItemAvatar>
                     <Avatar {...stringAvatar(player.firstName)} />
                   </ListItemAvatar>
-                  <Link to={`/players/${player._id}`} className={classes.link}>
+                  <Link
+                    to={`/playerProfile/${player._id}`}
+                    className={classes.link}
+                  >
                     <ListItemText
                       primary={`${player.firstName} ${player.lastName}`}
                     ></ListItemText>
