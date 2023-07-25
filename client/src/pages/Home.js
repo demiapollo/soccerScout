@@ -23,8 +23,9 @@ const useStyles = makeStyles((theme) => ({
   resultsContainer: {
     marginTop: theme.spacing(4),
     display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
+    flexDirection: "row", 
+    flexWrap: "wrap", 
+    justifyContent: "center", 
   },
 }));
 
