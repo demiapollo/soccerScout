@@ -2,10 +2,17 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_PLAYER } from "../graphQL/queries";
-import { Typography, Chip } from "@material-ui/core";
+import {
+  Typography,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableRow,
+  Paper,
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
-import SportsSoccerIcon from "@material-ui/icons/SportsSoccer";
 import GroupIcon from "@material-ui/icons/Group";
 import PublicIcon from "@material-ui/icons/Public";
 import DirectionsRunIcon from "@material-ui/icons/DirectionsRun";
@@ -21,28 +28,20 @@ const useStyles = makeStyles((theme) => ({
   title: {
     marginBottom: theme.spacing(2),
   },
-  chipContainer: {
+  tableContainer: {
+    width: "50%",
     marginBottom: theme.spacing(2),
   },
-  icon: {
-    marginRight: theme.spacing(1),
-  },
-  commentsContainer: {
-    marginTop: theme.spacing(4),
-  },
-  comment: {
-    marginBottom: theme.spacing(2),
-    padding: theme.spacing(2),
-    borderRadius: theme.spacing(1),
-    border: `1px solid ${theme.palette.primary.main}`,
+  tableRow: {
+    "&:nth-of-type(even)": {
+      backgroundColor: theme.palette.action.hover,
+    },
   },
 }));
 
 const PlayerProfile = () => {
   const classes = useStyles();
   const { playerId } = useParams();
-
-  //   const [comment, setComment] = useState("");
   const { loading, error, data } = useQuery(QUERY_PLAYER, {
     variables: { profileId: playerId },
   });
@@ -119,55 +118,61 @@ const PlayerProfile = () => {
             {firstName} {lastName}
           </Typography>
 
-          <div className={classes.chipContainer}>
-            <Chip
-              icon={<PublicIcon />}
-              label={`Country: ${country}`}
-              variant="outlined"
-            />
-          </div>
+          <TableContainer component={Paper} className={classes.tableContainer}>
+            <Table aria-label="player-info-table">
+              <TableBody>
+                <TableRow className={classes.tableRow}>
+                  <TableCell>
+                    <PublicIcon />
+                  </TableCell>
+                  <TableCell>Country</TableCell>
+                  <TableCell>{country}</TableCell>
+                </TableRow>
+                <TableRow className={classes.tableRow}>
+                  <TableCell>
+                    <DirectionsRunIcon />
+                  </TableCell>
+                  <TableCell>Dominant Foot</TableCell>
+                  <TableCell>{dominantFoot}</TableCell>
+                </TableRow>
+                <TableRow className={classes.tableRow}>
+                  <TableCell>
+                    <SportsKabaddiIcon />
+                  </TableCell>
+                  <TableCell>Skills</TableCell>
+                  <TableCell>{skills}</TableCell>
+                </TableRow>
+                <TableRow className={classes.tableRow}>
+                  <TableCell>
+                    <PersonIcon />
+                  </TableCell>
+                  <TableCell>Position</TableCell>
+                  <TableCell>{position}</TableCell>
+                </TableRow>
+                <TableRow className={classes.tableRow}>
+                  <TableCell>
+                    <AccessTimeIcon />
+                  </TableCell>
+                  <TableCell>Age</TableCell>
+                  <TableCell>{age}</TableCell>
+                </TableRow>
+                <TableRow className={classes.tableRow}>
+                  <TableCell>
+                    <GroupIcon />
+                  </TableCell>
+                  <TableCell>Team</TableCell>
+                  <TableCell>{team}</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </div>
+      )}
+    </div>
+  );
+};
 
-          <div className={classes.chipContainer}>
-            <Chip
-              icon={<DirectionsRunIcon />}
-              label={`Dominant Foot: ${dominantFoot}`}
-              variant="outlined"
-            />
-          </div>
-
-          <div className={classes.chipContainer}>
-            <Chip
-              icon={<SportsKabaddiIcon />}
-              label={`Skills: ${skills}`}
-              variant="outlined"
-            />
-          </div>
-
-          <div className={classes.chipContainer}>
-            <Chip
-              icon={<PersonIcon />}
-              label={`Position: ${position}`}
-              variant="outlined"
-            />
-          </div>
-
-          <div className={classes.chipContainer}>
-            <Chip
-              icon={<AccessTimeIcon />}
-              label={`Age: ${age}`}
-              variant="outlined"
-            />
-          </div>
-
-          <div className={classes.chipContainer}>
-            <Chip
-              icon={<GroupIcon />}
-              label={`Team: ${team}`}
-              variant="outlined"
-            />
-          </div>
-
-          {/* <div className={classes.infoContainer}>
+/* <div className={classes.infoContainer}>
               <HeightIcon className={classes.icon} />
               <Typography variant="body1">Height: {height}</Typography>
             </div>
@@ -175,18 +180,18 @@ const PlayerProfile = () => {
             <div className={classes.infoContainer}>
               <FitnessCenterIcon className={classes.icon} />
               <Typography variant="body1">Weight: {weight}</Typography>
-            </div> */}
+            </div> */
 
-          {/* <div className={classes.commentsContainer}>
+/* <div className={classes.commentsContainer}>
               <Typography variant="h3">Comments</Typography>
               {comments.map((comment) => (
                 <div key={comment.id} className={classes.comment}>
                   <Typography variant="body1">{comment.text}</Typography>
                 </div>
               ))}
-            </div> */}
+            </div> */
 
-          {/* <form onSubmit={handleSubmitComment}>
+/* <form onSubmit={handleSubmitComment}>
               <TextField
                 value={comment}
                 onChange={handleCommentChange}
@@ -199,11 +204,6 @@ const PlayerProfile = () => {
               <Button type="submit" variant="contained" color="primary">
                 Add Comment
               </Button>
-            </form> */}
-        </div>
-      )}
-    </div>
-  );
-};
+          </form> */
 
 export default PlayerProfile;
