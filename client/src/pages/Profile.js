@@ -7,6 +7,7 @@ import Avatar from "@material-ui/core/Avatar";
 import UserTab from "../components/UserTab";
 import { Navigate } from "react-router-dom";
 import { QUERY_ME } from "../graphQL/queries";
+import Auth from "../utils/auth";
 
 const { useStoreContext } = require("../context");
 const {
@@ -31,12 +32,14 @@ const Profile = () => {
 
   const [loadingData, setLoadingData] = useState(true);
 
-  const { loading, data, error } = useQuery(QUERY_ME);
+  const { loading, data } = useQuery(QUERY_ME, {
+    errorPolicy: "all",
+  });
 
   const [state, dispatch] = useStoreContext();
 
   useEffect(() => {
-    if (data) {
+    if (data && data.me) {
       const { createdPlayers, favoritePlayers, ...me } = data.me;
 
       dispatch({
@@ -52,6 +55,8 @@ const Profile = () => {
         payload: me,
       });
       setLoadingData(false);
+    } else {
+      setLoadingData(false);
     }
   }, [data, dispatch]);
 
@@ -59,10 +64,11 @@ const Profile = () => {
     return <div>Loading...</div>;
   }
 
-  if (error) {
+  if (!Auth.loggedIn()) {
     return <Navigate to="/login" />;
   }
-  const { userProfile } = state;
+
+  const user = data?.me || {};
 
   return (
     <div>
@@ -76,12 +82,9 @@ const Profile = () => {
           }}
         >
           <Grid container direction="column" alignContent="center" xs={3}>
-            <Avatar
-              className={classes.icon}
-              {...stringAvatar(userProfile.username)}
-            />
+            <Avatar className={classes.icon} {...stringAvatar(user.username)} />
             <Typography variant="h4" align="center">
-              {userProfile.username}
+              {user.username}
             </Typography>
           </Grid>
           <Grid
