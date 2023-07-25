@@ -32,7 +32,7 @@ const Profile = () => {
 
   const [loadingData, setLoadingData] = useState(true);
 
-  const { loading, data } = useQuery(QUERY_ME, {
+  const { loading, data, refetch } = useQuery(QUERY_ME, {
     errorPolicy: "all",
   });
 
@@ -59,6 +59,10 @@ const Profile = () => {
       setLoadingData(false);
     }
   }, [data, dispatch]);
+
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
 
   if (loadingData || loading) {
     return (
