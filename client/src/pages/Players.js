@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { useQuery, gql } from "@apollo/client";
-import { QUERY_PLAYERS } from "../graphQL/queries";
+import { QUERY_PLAYERS_BY_COUNTRY } from "../graphQL/queries";
 import PlayerCard from "../components/PlayerCard";
 
 const useStyles = makeStyles((theme) => ({
@@ -24,15 +24,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Home = () => {
+const Players = (country) => {
   const classes = useStyles();
-  const { loading, error, data } = useQuery(QUERY_PLAYERS);
+  const { loading, error, data } = useQuery(QUERY_PLAYERS_BY_COUNTRY, {
+    variables: { country: country.name },
+  });
   const playerProfiles = data?.playerProfiles || [];
 
   return (
     <div className={classes.root}>
       <Typography variant="h2" className={classes.title}>
-        Welcome to The Soccer Scout
+        {country.name} Players
       </Typography>
       <div className={classes.resultsContainer}>
         {loading ? (
@@ -51,4 +53,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Players;
