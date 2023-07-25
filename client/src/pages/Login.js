@@ -101,7 +101,15 @@ const Login = () => {
           </Button>
         </Link>
       </form>
-      {error && <div>{error.message}</div>}
+      {error && (
+        <Typography
+          align="center"
+          variant="h6"
+          style={{ color: "red", margin: "20px" }}
+        >
+          {error.message}
+        </Typography>
+      )}
     </div>
   );
 };
