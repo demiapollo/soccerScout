@@ -92,6 +92,7 @@ const Register = () => {
           label="Password"
           name="password"
           type="password"
+          helperText="Must be at least 5 characters long."
           value={formState.password}
           onChange={handleChange}
           required
