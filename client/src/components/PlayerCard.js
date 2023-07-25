@@ -68,13 +68,13 @@ const PlayerCard = ({ player }) => {
           <ListItemIcon>
             <HeightIcon />
           </ListItemIcon>
-          <ListItemText>Height: {player.height}</ListItemText>
+          <ListItemText>Skills: {player.skills}</ListItemText>
         </ListItem>
         <ListItem>
           <ListItemIcon>
             <FitnessCenterIcon />
           </ListItemIcon>
-          <ListItemText>Weight: {player.weight}</ListItemText>
+          <ListItemText>Dominant Foot: {player.dominantFoot}</ListItemText>
         </ListItem>
         <ListItem>
           <ListItemIcon>
@@ -82,6 +82,7 @@ const PlayerCard = ({ player }) => {
           </ListItemIcon>
           <ListItemText>Team: {player.team}</ListItemText>
         </ListItem>
+        
       </List>
     </Link>
   );

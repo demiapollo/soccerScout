@@ -1,10 +1,11 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import { useQuery, gql } from "@apollo/client";
+import { Typography, LinearProgress } from "@material-ui/core";
+import { useQuery } from "@apollo/client";
 import { QUERY_PLAYERS_BY_COUNTRY } from "../graphQL/queries";
 import PlayerCard from "../components/PlayerCard";
+import Alert from "@mui/material/Alert";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,10 +41,12 @@ const Players = () => {
       </Typography>
       <div className={classes.resultsContainer}>
         {loading ? (
-          <Typography variant="body1">Loading...</Typography>
+          <Typography sx={{ width: "100%" }}>
+            <LinearProgress />
+          </Typography>
         ) : error ? (
-          <Typography variant="body1">
-            Error fetching player profiles.
+          <Typography sx={{ width: "100%" }} spacing={2}>
+            <Alert severity="error">Error fetching player profiles.</Alert>
           </Typography>
         ) : (
           playerProfiles.map((player) => (
