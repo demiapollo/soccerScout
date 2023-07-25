@@ -64,7 +64,11 @@ const Navbar = () => {
               <Button
                 className={classes.linkButton}
                 variant="contained"
-                color="secondary"
+                style={{
+                  color: "blue",
+                  backgroundColor: "white",
+                  marginRight: "30px",
+                }}
                 component={Link}
                 to="/login"
               >
@@ -74,8 +78,12 @@ const Navbar = () => {
               <Button
                 className={classes.linkButton}
                 variant="contained"
-                color="secondary"
                 component={Link}
+                style={{
+                  color: "blue",
+                  backgroundColor: "white",
+                  marginRight: "30px",
+                }}
                 to="/register"
               >
                 Signup
