@@ -44,8 +44,10 @@ UserSchema.pre("save", async function (next) {
 });
 
 UserSchema.post("save", function (error, doc, next) {
-  if (error.code === 11000) {
-    next(new Error("email must be unique"));
+  if (error.keyPattern.email) {
+    next(new Error("Your email must be unique!"));
+  } else if (error.keyPattern.username) {
+    next(new Error("Your username must be unique!"));
   } else {
     next(error);
   }
