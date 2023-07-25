@@ -156,7 +156,7 @@ export const PlayerList = ({ dashboard }) => {
                         aria-label="follow"
                         id={player._id}
                         onClick={(event) => handleUnfollow(event)}
-                        style={{ color: isActive ? "	#FFBF00" : "" }}
+                        style={{ color: "#FFBF00" }}
                       >
                         <StarIcon />
                       </IconButton>
