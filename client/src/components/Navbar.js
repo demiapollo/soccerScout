@@ -22,7 +22,8 @@ const Navbar = () => {
   };
 
   const handleClose = () => {
-    setAnchorEl(null);
+    console.log("handleClose");
+    Auth.logout();
   };
 
   return (
