@@ -5,7 +5,7 @@
 - [Description](#description)
 - [Installation](#installation)
 - [Contributions](#contributions)
-- [Credits](#credits)
+- [Technologies](#Technologies)
 - [Links](#links)
 
 ## Description
@@ -32,16 +32,24 @@ This full-stack MERN application app was built using MongoDB, Mongoose, GraphQL,
 - [Deshan Meemanage](https://github.com/deltamango777)
 - [Kaleo Dutta-Allen](https://github.com/kaleoallen)
 
-## Credits
+## Technologies
+Technologies used in this application:
 
-- UC Berkeley Full Stack Web Development Bootcamp
 - [React](https://reactjs.org/)
 - [MongoDB](https://www.mongodb.com/)
 - [Material UI](https://material-ui.com/)
 - [GraphQL](https://graphql.org/)
-- [Apollo](https://www.apollographql.com/)
+- [Apollo Server](https://www.apollographql.com/)
 - [npm](https://www.npmjs.com/)
+- [Node.js](https://nodejs.org/en/)
+- [Express.js](https://expressjs.com/)
+- [bcrypt](https://www.npmjs.com/package/bcrypt)
+- [JWT](https://jwt.io/)
+- [Heroku](https://www.heroku.com/)
+- [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
+
 
 ## Links
 
 - [GitHub Repository](https://github.com/demiapollo/soccerScout)
+- [Deployed Application]()
