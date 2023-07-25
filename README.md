@@ -52,7 +52,7 @@ Technologies used in this application:
 ## Screenshots 
 ![Login](./client/src/assets/Screenshot1.png)
 
-![dash](./client/src/assets/screenshot2.png)
+![dash](./client/src/assets/Screenshot2.png)
 
 ![Completed Player Profile](./client/src/assets/Screenshot3.png)
 
