@@ -11,9 +11,9 @@
 
 ## Description
 
-Soccer Scout is a web application that allows scouts to take notes about soccer players they watch in an organized and structured way. Scouts can also view and follow soccer players that other scouts have posted. This app allows scouts to share and view information about players they are interested in and enable discussions about players. 
+Soccer Scout is a web application that allows scouts to take notes about soccer players they watch in an organized and structured way. Scouts can also view and follow soccer players that other scouts have posted. This app allows scouts to share and view information about players they are interested in and enable discussions about players.
 
-Scouts need to sign up with an account to create soccer player profiles that store information about the players. Player profiles created by scouts include the player's name, age, position, skills, dominant foot, team, country of origin, and additional comments. 
+Scouts need to sign up with an account to create soccer player profiles that store information about the players. Player profiles created by scouts include the player's name, age, position, skills, dominant foot, team, country of origin, and additional comments.
 
 Scouts can also search players by country if they are interested in players from specific countries. This feature allows scouts to discover players from countries they are interested in and will enable them to find players not well-known.
 
@@ -34,6 +34,7 @@ This full-stack MERN application app was built using MongoDB, Mongoose, GraphQL,
 - [Kaleo Dutta-Allen](https://github.com/kaleoallen)
 
 ## Technologies
+
 Technologies used in this application:
 
 - [React](https://reactjs.org/)
@@ -49,7 +50,8 @@ Technologies used in this application:
 - [Heroku](https://www.heroku.com/)
 - [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
 
-## Screenshots 
+## Screenshots
+
 ![Login](./client/src/assets/Screenshot1.png)
 
 ![dash](./client/src/assets/Screenshot2.png)
@@ -61,4 +63,4 @@ Technologies used in this application:
 ## Links
 
 - [GitHub Repository](https://github.com/demiapollo/soccerScout)
-- [Deployed Application]()
+- [Deployed Application](https://soccerscout-c2b068cbb836.herokuapp.com/)
