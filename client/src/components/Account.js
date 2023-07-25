@@ -5,7 +5,13 @@ import { Link } from "react-router-dom";
 const Account = ({ handleClose, handleLogout, anchorE1, setAnchorE1 }) => {
   return (
     <>
-      <Link to="/profile">
+      <Link
+        style={{
+          textDecoration: "none",
+          color: "inherit",
+        }}
+        to="/profile"
+      >
         <MenuItem onClick={handleClose}>Profile</MenuItem>
       </Link>
       <MenuItem onClick={handleLogout}>Sign Out</MenuItem>
