@@ -19,7 +19,6 @@ import PublicIcon from "@material-ui/icons/Public";
 import DirectionsRunIcon from "@material-ui/icons/DirectionsRun";
 import PersonIcon from "@material-ui/icons/Person";
 import SportsKabaddiIcon from "@material-ui/icons/SportsKabaddi";
-import Alert from "@mui/material/Alert";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -72,7 +71,7 @@ const PlayerProfile = () => {
         </Typography>
       ) : error ? (
         <Typography sx={{ width: "100%" }} spacing={2}>
-          <Alert severity="error">Error fetching player profiles.</Alert>
+          Error fetching player profiles.
         </Typography>
       ) : (
         <div className={classes.root}>

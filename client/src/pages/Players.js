@@ -5,7 +5,6 @@ import { Typography, LinearProgress } from "@material-ui/core";
 import { useQuery } from "@apollo/client";
 import { QUERY_PLAYERS_BY_COUNTRY } from "../graphQL/queries";
 import PlayerCard from "../components/PlayerCard";
-import Alert from "@mui/material/Alert";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,7 +45,7 @@ const Players = () => {
           </Typography>
         ) : error ? (
           <Typography sx={{ width: "100%" }} spacing={2}>
-            <Alert severity="error">Error fetching player profiles.</Alert>
+            Error fetching player profiles. Please try again later.
           </Typography>
         ) : (
           playerProfiles.map((player) => (
