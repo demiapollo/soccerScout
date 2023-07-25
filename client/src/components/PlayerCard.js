@@ -82,11 +82,7 @@ const PlayerCard = ({ player }) => {
           </ListItemIcon>
           <ListItemText>Team: {player.team}</ListItemText>
         </ListItem>
-        <ListItem>
-        <ListItemIcon>
-          <ListItemText>Country: {player.country}</ListItemText>
-        </ListItemIcon>
-        </ListItem>
+        
       </List>
     </Link>
   );
