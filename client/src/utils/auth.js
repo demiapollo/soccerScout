@@ -29,7 +29,7 @@ class AuthService {
 
   login(idToken) {
     localStorage.setItem("jwtToken", idToken);
-    window.location.assign("/profile");
+    window.location.assign("/");
   }
 
   logout() {
